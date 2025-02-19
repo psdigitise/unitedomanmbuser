@@ -1,0 +1,277 @@
+/* Montserrat font family link */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* AvantGarde Normal, Book font family TTF file is in fonts folder */
+@font-face {
+  font-family: "Avant Garde";
+  src: url("./assets/fonts/AvantGardeBook.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AvantGarde Normal";
+  src: url("./assets/fonts/AvantGardeITCbyBT-Book.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* henri-didot, Regular font family TTF file is in fonts folder */
+@font-face {
+  font-family: "Henri Didot";
+  src: url("./assets/fonts/HenriDidot.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active-nav {
+  @apply font-semibold text-mindfulBlack hover:text-main hover:cursor-pointer duration-300;
+}
+
+.active-nav.active {
+  @apply text-main cursor-pointer transition-all;
+}
+
+.subpage-section-title {
+  @apply font-Montserrat lg:text-[40px] md:text-[35px] sm:text-[30px] text-[24px] font-bold sm:mb-[0] mb-[7px];
+}
+
+.subpage-banner-content {
+  @apply md:h-[450px] h-[300px] flex items-start flex-col md:justify-center justify-end;
+}
+
+.subpage-banner-title {
+  @apply lg:text-[40px] md:text-[35px] sm:text-[30] text-[30px] text-white font-bold sm:mb-2 mb-3;
+}
+
+.subpage-banner-description {
+  @apply lg:text-[22px] sm:text-[20px] text-[18px] text-white font-medium;
+}
+
+.subpage-banner {
+  @apply md:h-[400px] h-[350px] bg-center bg-cover bg-no-repeat;
+}
+
+.sub-heading {
+  @apply sm:text-[26px] text-[21px] font-semibold font-Montserrat;
+}
+
+.login-header-banner {
+  @apply bg-[#ff197d0d] h-[150px];
+}
+.login-header-content {
+  @apply h-[150px] flex items-center flex-col justify-center;
+}
+.login-header-banner-title {
+  @apply lg:text-[40px] md:text-[35px] sm:text-[30] text-[28px] text-mindfulBlack font-medium;
+}
+.login-header {
+  @apply flex items-center space-x-4;
+}
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+p {
+  font-size: 16px;
+}
+
+.header-logo {
+  width: 120px;
+}
+.footer-logo {
+  width: 100px;
+}
+
+.login-header-search-icon svg {
+  width: 50px;
+}
+.login-header-search-icon svg path {
+  fill: #cbcbcb;
+}
+.motto-section-heading {
+  background-color: #ffffff33;
+  text-shadow: 2px 2px 3px #fff;
+}
+
+.feedBackSlick .slick-slide .feedback-triangleicon {
+  display: none !important;
+}
+.feedBackSlick .slick-slide.slick-current .feedback-triangleicon {
+  display: block !important;
+}
+
+@media (max-width: 639px) {
+  .leading-custom-line-height {
+    line-height: 100%;
+  }
+  .margin-bottom-mobile-40 {
+    margin-bottom: 40px;
+  }
+  .logo-custom-width {
+    width: 140px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .margin-bottom-md-40 {
+    margin-bottom: 40px;
+  }
+  .feedBackSlick .slick-dots {
+    margin-bottom: 40px;
+  }
+  .bg-bookingFlowBgImg {
+    background-image: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-d-block-mobile {
+    display: block;
+  }
+  .home-recommended-tab h5 {
+    display: inline-block;
+    text-align: left;
+  }
+  .home-recommended-tab .tab-title h5:first-child {
+    margin-bottom: 25px;
+  }
+  .service-list-location-distance-custom-class {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .mobile-margin-top {
+    margin-top: 10px;
+  }
+  .home-faq-custom-padding {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .service-list-location-distance-custom-class {
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .feedBackSlick .slick-dots {
+    margin-bottom: 30px;
+  }
+}
+.featured-services-card {
+  background: linear-gradient(transparent, black);
+  display: block;
+  bottom: 0px;
+  padding: 15px 25px;
+  width: 100%;
+}
+
+h1,
+h2 {
+  line-height: 110%;
+}
+
+.about-our-team p,
+.team-members p {
+  margin-bottom: 12px;
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .home-custom-flow-card-count-position {
+    right: 190px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 575px) {
+  .home-custom-flow-card-count-position {
+    right: 170px;
+  }
+}
+
+@media (min-width: 440px) and (max-width: 499px) {
+  .home-custom-flow-card-count-position {
+    right: 120px;
+  }
+}
+
+@media (max-width: 395px) {
+  .home-custom-flow-card-count-position {
+    right: 60px;
+  }
+}
+
+/* :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */

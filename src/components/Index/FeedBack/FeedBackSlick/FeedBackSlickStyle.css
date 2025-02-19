@@ -1,0 +1,35 @@
+/*** feedback slick style ***/
+.feedBackSlick .slick-center .feedback-card {
+  background-color: #ff197d;
+}
+
+.feedBackSlick .slick-center .feedback-card p {
+  color: #fff;
+}
+
+.feedBackSlick .slick-center .feedback-card .quoteColor {
+  color: #fff;
+}
+
+.feedBackSlick .slick-center .imageBorder {
+  border: 2px solid #ff197d !important;
+}
+
+.feedBackSlick .slick-center .name {
+  color: #ff197d;
+}
+
+.feedBackSlick .slick-dots li button:before {
+  font-size: 16px !important;
+  color: transparent;
+  border: 2px solid #888;
+  border-radius: 50%;
+  line-height: 19px !important;
+  /* padding: 5px; */
+  margin: 15px auto;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #888;
+  /* padding: 5px; */
+}
