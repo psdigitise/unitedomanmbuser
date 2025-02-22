@@ -229,6 +229,8 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 ))}
 
                                 {errors.otp && <p className="text-sm text-red-500">{errors.otp.message}</p>}
+
+                                {/* Error from the API Response */}
                                 {error && <p className="text-sm text-red-500">{error}</p>}
 
                             </div>

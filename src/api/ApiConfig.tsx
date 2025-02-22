@@ -485,12 +485,13 @@ export const fetchReviews = async () => {
 
 
 // Overview Page -> Review API
-export const postReview = async (rating: number, comment: string, providerID: number | null) => {
+export const postReview = async (rating: number, comment: string, providerID: number | null, userID: number | null) => {
     try {
         const response = await apiAxios.post('/api/reviews/', {
             rating: rating,
             comment: comment,
             provider: providerID,
+            user: userID,
         }
         );
         console.log("Review API response", response.data);

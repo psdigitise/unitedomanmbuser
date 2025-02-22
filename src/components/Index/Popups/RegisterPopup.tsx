@@ -93,7 +93,7 @@ export const RegisterPopup = () => {
         }
     };
 
-    if (error) return <div>{error}</div>;
+    // if (error) return <div>{error}</div>;
 
 
     return (
@@ -181,6 +181,9 @@ export const RegisterPopup = () => {
                                                     </label>
                                                 </div>
 
+
+                                                {/* Error from the API Response */}
+                                                {error && <p className="text-sm text-red-500">{error}</p>}
 
                                                 <div className="my-8">
                                                     {/* <button type="submit" className="w-8/12 rounded-[7px] text-lg px-4 py-2.5 bg-main text-mindfulWhite transition-colors duration-300">Register

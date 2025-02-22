@@ -82,7 +82,7 @@ export const Register: React.FC<RegisterProps> = ({ onLogin }) => {
     };
 
     // if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    // if (error) return <div>{error}</div>;
 
     return (
         <div>
@@ -176,6 +176,9 @@ export const Register: React.FC<RegisterProps> = ({ onLogin }) => {
                         )}
                     </div>
                 </form>
+
+                {/* Error from the API Response */}
+                {error && <p className="text-sm text-red-500">{error}</p>}
 
                 {/* Register Now */}
                 <div>

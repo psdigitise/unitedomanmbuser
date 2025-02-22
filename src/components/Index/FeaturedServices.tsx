@@ -5,6 +5,7 @@ import skin from "../../assets/images/skin.png";
 import nails from "../../assets/images/nails.png";
 import React, { useEffect, useState } from "react";
 import { featuredServices } from "../../api/ApiConfig";
+import { ShimmerTable } from "shimmer-effects-react";
 
 interface FeaturedServicesProps {
   category_id?: string;
@@ -50,8 +51,20 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
     loadFeaturedServicesData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="container mx-auto text-center">
+    <ShimmerTable
+      mode="light"
+      row={6}
+      col={4}
+      border={1}
+      borderColor={"#cbd5e1"}
+      rounded={0.25}
+      rowGap={16}
+      colPadding={[10, 5, 10, 5]}
+    />
+  </div>;
+
+  if (error) return <div className="text-sm text-red-500 text-center">{error}</div>;
 
   // Fallback images
   const defaultImages = [bridalMakeup, hairSkin, skin, nails];

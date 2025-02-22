@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { TiRefresh, TiStar } from "react-icons/ti";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface ReviewsProps {
   review_id: number;
@@ -90,6 +92,8 @@ export const Review = () => {
 
   const [captcha, setCaptcha] = useState(generateCaptcha());
 
+  const userID = useSelector((state: RootState) => state.cart.userID);
+  console.log("User ID taken from Redux Store: ", userID);
 
   // Handle form submission
   const onSubmit = async (data: ReviewFormData) => {
@@ -114,7 +118,7 @@ export const Review = () => {
       }
 
       // Call the API to submit the review
-      const response = await postReview(data.rating, data.comment, parseInt(providerId));
+      const response = await postReview(data.rating, data.comment, parseInt(providerId), userID || 0);
       console.log("Review submitted successfully:", response);
 
       // Update button text and color on success
@@ -160,9 +164,10 @@ export const Review = () => {
   //   return <div>Loading...</div>;
   // }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>
+  // }
+
   return (
     <div>
       {/* Write a review */}
@@ -234,7 +239,6 @@ export const Review = () => {
 
               {errors.captcha && errors.captcha.message && (<p className="text-sm text-red-500 mt-2">{errors.captcha.message}</p>)}
             </div>
-
 
           </div>
 

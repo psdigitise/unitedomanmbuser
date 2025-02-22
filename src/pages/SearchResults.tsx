@@ -486,6 +486,8 @@ export const SearchResults = () => {
                         {loading ? "Submitting..." : buttonState.buttonText}
                       </button>
                     </div>
+
+                    
                     {error && <p className="text-red-500 text-sm mt-1 bg-mindfulWhite px-2 py-0.5 rounded-md">{error}</p>}
 
                   </div>
