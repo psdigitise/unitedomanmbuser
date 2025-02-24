@@ -940,3 +940,30 @@ export const cancelAppointment = async (appointmentID: string) => {
     }
 };
 
+
+
+
+// My Booking Page
+// GET Method from the API
+export const salesTransactionsInvoice = async (appointmentID: number) => {
+
+    try {
+        const response = await apiAxios.get(`/provider-api/generate-invoice-pdf/`, {
+            params: { appointment_id: appointmentID }, // Ensure appointmentID is passed correctly
+            responseType: 'blob', // Important for file downloads (PDF, CSV, etc.)
+        });
+
+        console.log("My Booking Invoice GET Method response", response.data);
+
+        if (!response.data || response.status !== 200) {
+            throw new Error("Failed to download My Booking Invoice");
+        }
+
+        return response.data;
+
+    }
+    catch (error: any) {
+        console.error("Error fetching My Booking invoice:", error.response?.data?.message || error);
+        throw new Error(error.response?.data?.message || "Unable to fetch My Booking invoice. Please try again later.");
+    }
+}

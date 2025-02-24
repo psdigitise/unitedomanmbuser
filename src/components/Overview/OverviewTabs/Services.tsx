@@ -149,9 +149,6 @@ export const Services = () => {
 
   if (loading) {
     return <div>
-      {/* Loading... */}
-      {/* <ShimmerCategoryItems mode="light" imageRounded={10} /> */}
-      {/* <ShimmerContentBlock mode="light" rounded={1} items={1} itemsGap={20} thumbnailHeight={300} thumbnailWidth={300} thumbnailRounded={1} contentDetailsPosition="start" contentDetailTextLines={8} /> */}
       <div>
         <ShimmerContentBlock
           mode="light"
@@ -174,9 +171,9 @@ export const Services = () => {
   }
   console.log("log", servicesDetails);
 
-  if (servicesDetails.length <= 0) {
-    return <div><NotFoundContent /></div>;
-  }
+  // if (servicesDetails.length <= 0) {
+  //   return <div><NotFoundContent /></div>;
+  // }
 
   return (
     <div>
@@ -224,7 +221,7 @@ export const Services = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
+      {/* <div className="grid grid-cols-2 gap-8">
         {servicesDetails.map((service) => (
           <AppointmentCard
             key={service.service_id}
@@ -237,13 +234,25 @@ export const Services = () => {
             branchID={OverviewData || 0}
           />
         ))}
-        {/* <AppointmentCard /> 
-            <AppointmentCard /> 
-            <AppointmentCard /> 
-            <AppointmentCard /> 
-            <AppointmentCard /> 
-            <AppointmentCard />  */}
-      </div>
+      </div> */}
+      {servicesDetails.length > 0 ? (
+        <div className="grid grid-cols-2 gap-8">
+          {servicesDetails.map((service) => (
+            <AppointmentCard
+              key={service.service_id}
+              serviceID={service.service_id}
+              serviceName={service.service_name}
+              serviceDesc={service.description}
+              price={service.price}
+              image={service.image}
+              serviceTime={service.service_time}
+              branchID={OverviewData || 0}
+            />
+          ))}
+        </div>
+      ) : (
+        <NotFoundContent />
+      )}
     </div>
   )
 }
