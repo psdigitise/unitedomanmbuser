@@ -178,7 +178,7 @@ export const Services = () => {
   return (
     <div>
 
-      <div className="flex items-center space-x-5">
+      <div className="flex items-center space-x-5 max-sm:flex-wrap max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
         {/* Category */}
         <div>
           <select
@@ -236,7 +236,7 @@ export const Services = () => {
         ))}
       </div> */}
       {servicesDetails.length > 0 ? (
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
           {servicesDetails.map((service) => (
             <AppointmentCard
               key={service.service_id}

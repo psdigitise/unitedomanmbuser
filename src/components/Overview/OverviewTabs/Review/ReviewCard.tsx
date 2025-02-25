@@ -15,8 +15,8 @@ interface ReviewCardProps {
 export const ReviewCard: React.FC<ReviewCardProps> = ({ userID, userName, reviewID, rating, comment, createdAt }) => {
   return (
     <div className="border-b-[1px] border-mindfulLightGrey border-dashed pb-5 mb-5">
-      <div className="flex justify-between items-start">
-        <div className="flex items-start space-x-3 mb-2">
+      <div className="flex justify-between items-start max-sm:flex-wrap max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
+        <div className="flex items-start space-x-3 mb-2 max-sm:flex-wrap max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
           <div key={reviewID}>
             <img src={reviewCardImg} alt="reviewCardImg" />
           </div>

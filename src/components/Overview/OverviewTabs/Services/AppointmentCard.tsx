@@ -79,10 +79,10 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
 
   return (
     <>
-      <div className="flex items-center space-x-5">
-        <div className="relative">
-          <div>
-            <img src={image || manicure} alt="" className="w-44 h-40 rounded-lg" />
+      <div className="flex items-center space-x-5 max-sm:flex-col max-sm:items-start max-sm:gap-2 max-sm:space-x-0 max-sm:border-b-2 max-sm:pb-4">
+        <div className="relative flex-shrink-0">
+          <div className="w-full h-full">
+            <img src={image || manicure} alt="" className="w-44 h-40 rounded-lg flex-shrink-0" />
           </div>
 
           {/* Timer Icon */}
@@ -97,7 +97,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
         </div>
 
         <div>
-          <h5 className="text-lg text-mindfulBlack font-semibold mb-2">
+          <h5 className="text-lg text-mindfulBlack font-semibold mb-2 max-sm:text-base">
             {serviceName}
           </h5>
 
@@ -133,11 +133,11 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
           <div>
             <button
               onClick={handleAddToCart}
-              className={`flex items-center bg-main rounded-[4px] text-lg text-mindfulWhite px-4 py-1.5
+              className={`flex items-center bg-main rounded-[4px] text-lg text-mindfulWhite px-4 py-1.5 max-lg:text-base max-xl:px-2
                    ${isAdded ? "opacity-50 cursor-not-allowed" : ""}`}  // Disable button styles
               disabled={isAdded}  // Disable button if item is added to cart
             >
-              <BsCartPlusFill className="text-[20px] text-mindfulWhite mr-2" />
+              <BsCartPlusFill className="text-[20px] text-mindfulWhite mr-2 max-xl:text-base" />
               {isAdded ? "Added to Cart" : "Add to Cart"}
             </button>
           </div>

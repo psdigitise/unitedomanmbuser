@@ -66,13 +66,13 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
 
   return (
     <>
-      <div className="flex flex-wrap py-[40px]">
+      <div className="flex flex-wrap py-[40px] max-sm:flex-col max-sm:gap-3 max-sm:py-5">
 
         {/* Service Image */}
         <div className="2xl:w-[20%] xl:w-[22%] lg:w-[20%] md:w-[27%] sm:w-[33%] w-[24%]">
-          <div className="sm:w-[180px] sm:h-[180px] rounded-md border-[1px] border-mindfulLightGrey flex items-center p-5">
+          <div className="sm:w-[180px] sm:h-[180px] rounded-md border-[1px] border-mindfulLightGrey flex items-center p-5 max-sm:w-[200px] max-sm:h-[100px]">
             {/* <img src={overviewCardImg} alt="" className="w-fit" /> */}
-            <img src={serviceProviderImage} alt="" className="w-fit" />
+            <img src={serviceProviderImage} alt="" className="w-fit max-sm:h-[100px] max-sm:object-contain max-sm:flex-shrink-0" />
           </div>
         </div>
 
@@ -239,7 +239,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
               </div>
 
               {/* Rating, Share & Get Direction Tags */}
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 max-sm:flex-col max-sm:gap-3 max-sm:items-start max-sm:space-x-0">
                 {/* Share */}
                 <div className="w-fit bg-mindfulWhite border-[1px] border-mindfulBlack rounded-md px-3 py-1">
                   <div className="flex items-center text-[14px] text-mindfulBlack font-semibold space-x-2">

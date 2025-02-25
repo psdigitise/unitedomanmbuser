@@ -188,7 +188,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                     </button>
                 </div>
 
-                <div className="w-1/2 mx-auto">
+                <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-0 max-lg:w-full">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="w-fit mx-auto">
 
@@ -235,7 +235,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
 
                             </div>
 
-                            <div className="w-6/12 mx-auto">
+                            <div className="w-6/12 mx-auto max-md:w-full text-center">
 
                                 {/* <button className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Submit</button> */}
                                 <button
@@ -247,7 +247,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 </button>
 
                                 {isResendEnabled && (
-                                    <span className="text-red-500">Auto cancelled in {timer} seconds</span>
+                                    <span className="text-red-500 text-center mx-auto">Auto cancelled in {timer} seconds</span>
                                 )}
                                 {/* <button
                                     type="submit"

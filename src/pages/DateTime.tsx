@@ -275,18 +275,18 @@ export const DateTime: React.FC<DateTimeProps> = () => {
     );
 
     return (
-        <section className="mt-32">
+        <section className="mt-32 max-lg:mt-5">
             {/* Banner Content */}
             <div>
                 <BannerContent bannerTitle="Select Date and Time" />
             </div>
 
-            <div className="container mx-auto">
-                <div className="w-1/2 mx-auto mb-20">
+            <div className="container mx-auto px-4">
+                <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-10 max-lg:w-full">
 
                     {/* Icons Div */}
-                    <div className="my-16">
-                        <div className="relative flex justify-between items-center">
+                    <div className="my-16 max-md:my-8">
+                        <div className="relative flex justify-between items-center ">
 
                             {/* Back Line */}
                             <div className="w-full absolute top-8 left-0 z-[-2]">
@@ -352,7 +352,7 @@ export const DateTime: React.FC<DateTimeProps> = () => {
                     </div>
 
                     {/* Date & Time Grid */}
-                    <div className="grid grid-cols-2 space-x-5 mb-20">
+                    <div className="grid grid-cols-2 space-x-5 mb-20 max-md:grid-cols-1 max-md:space-x-0 max-lg:mb-16 max-md:mb-10 max-sm:mb-8">
                         {/* Date */}
                         <div>
                             <div>
@@ -431,7 +431,7 @@ export const DateTime: React.FC<DateTimeProps> = () => {
                                         // </div>
 
                                         <div key={time.provider_id} className="text-center">
-                                            <p className="grid grid-cols-3 gap-2 text-sm text-mindfulBlack rounded-[6px] px-2 py-1">
+                                            <p className="grid grid-cols-3 gap-2 text-sm text-mindfulBlack rounded-[6px] px-2 py-1 max-sm:px-0">
                                                 {Array.isArray(time.available_slots) && time.available_slots.length > 0
                                                     ? time.available_slots[0].split(",").map((slot: string) => {
                                                         const trimmedSlot = slot.trim();
@@ -493,7 +493,7 @@ export const DateTime: React.FC<DateTimeProps> = () => {
                     </div>
 
                     {/* Note */}
-                    <div className="bg-mindfulYellow rounded-[8px] px-2 py-2 text-center my-10">
+                    <div className="bg-mindfulYellow rounded-[8px] px-2 py-2 text-center my-10 max-sm:mb-3">
                         <p className="text-md text-mindfulBlack">Note: Post confirmation you will receive
                             <span className="font-bold"> OTP </span>
                             from the service provider for Booking.</p>

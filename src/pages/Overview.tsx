@@ -171,7 +171,7 @@ export const Overview = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="grid xl:grid-cols-[70%_30%] grid-cols-[100%] xl:space-x-5 py-5">
+        <div className="grid xl:grid-cols-[70%_30%] grid-cols-[100%] xl:space-x-5 py-5 max-xl:flex max-xl:flex-col-reverse ">
           {/* {/ Grid Column first grid /} */}
           <div>
             {/* {/ OverSlick  /} */}
@@ -239,7 +239,7 @@ export const Overview = () => {
           </div>
 
           {/* {/ Grid Column second grid /} */}
-          <div className="space-y-10 xl:block hidden">
+          <div className="space-y-10 max-xl:mb-5">
             <div>
               <AddtoCart />
             </div>

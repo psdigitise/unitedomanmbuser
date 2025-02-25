@@ -175,7 +175,7 @@ export const VerificationCode: React.FC<VerificationCodeProps> = ({ editNumber }
                 </div>
 
                 <div className="pb-5">
-                    <p className="text-lg text-gray-500 my-2">Didn't receive OTP? {" "}
+                    <p className="text-lg text-gray-500 my-2 max-sm:text-base">Didn't receive OTP? {" "}
                         {isResendEnabled ? (
                             <span className="underline cursor-pointer hover:no-underline" onClick={handleResendOtp}>Resend</span>
                         ) : (

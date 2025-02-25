@@ -110,7 +110,7 @@ export const Header = () => {
                   <img
                     src={mindfulBeauty}
                     alt="mindfulBeauty logo"
-                    className="w-fit header-logo"
+                    className="w-fit header-logo max-sm:w-24"
                   />
                 </div>
               </Link>

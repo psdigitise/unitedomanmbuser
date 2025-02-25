@@ -2,7 +2,7 @@ import notFoundImage from "../../assets/icons/notFound.svg"
 
 export const NotFoundContent = () => {
     return (
-        <div className="py-28">
+        <div className="py-28 max-md:py-12">
             <div className="container mx-auto">
                 <div className="text-center space-y-8">
                     <h5 className="text-[24px] font-bold text-black">Oops! Nothing Here</h5>

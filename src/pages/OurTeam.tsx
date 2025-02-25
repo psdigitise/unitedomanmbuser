@@ -14,9 +14,9 @@ export const OurTeam = () => {
         bannerDesc="A Joyful Journey of Mindful Beauty and Imagination"
       />
 
-      <div className="bg-cover w-full bg-white lg:py-[60px] py-[40px]">
+      <div className="bg-cover w-full bg-white lg:py-[60px] py-[40px]  max-md:py-6">
         <div className="container mx-auto px-4">
-          <h5 className="subpage-section-title text-center text-black">
+          <h5 className="subpage-section-title text-center text-black max-md:text-lg">
             Meet the Growing Team at Mindful Beauty
           </h5>
           <div className="">

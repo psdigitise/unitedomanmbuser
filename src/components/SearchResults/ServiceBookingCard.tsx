@@ -44,13 +44,13 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
     <>
       <div className="pb-5">
         <div className="border-b-2 pb-5">
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap max-sm:flex-col max-sm:gap-3">
             <div className="2xl:w-[20%] xl:w-[22%] lg:w-[20%] md:w-[27%] sm:w-[33%] w-[24%]">
               <div className="relative">
                 {/* {/ Service Image /} */}
-                <div className="sm:w-[180px] sm:h-[180px] rounded-md border-[1px] border-mindfulLightGrey flex items-center sm:p-5 p-[10px]">
+                <div className="sm:w-[180px] sm:h-[180px] rounded-md border-[1px] border-mindfulLightGrey flex items-center sm:p-5 p-[10px] max-sm:w-[200px] max-sm:h-[100px]">
                   {/* <img src={serviceImg} alt="" className="w-full" /> */}
-                  <img src={image_url} alt="" className="w-fit" />
+                  <img src={image_url} alt="" className="w-fit max-sm:w-[200px] max-sm:h-[100px] max-sm:object-contain max-sm:flex-shrink-0" />
                 </div>
 
                 {/* Timer Icon */}
@@ -64,7 +64,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
               </div> */}
               </div>
             </div>
-            <div className="2xl:w-[80%] xl:w-[78%] lg:w-[80%] md:w-[73%] sm:w-[67%] w-[74%] pl-[15px] sm:pl-[0]">
+            <div className="2xl:w-[80%] xl:w-[78%] lg:w-[80%] md:w-[73%] sm:w-[67%] w-[74%] pl-[15px] sm:pl-[0] max-sm:pl-0">
               {/* {/ Service Booking Card Content /} */}
               <div className="w-full space-y-3">
                 <div className="md:border-b-2 md:border-dotted space-y-3 pb-4">

@@ -24,7 +24,7 @@ export const StylistCard: React.FC<StylistCardProps> = ({
 
   return (
 
-    <div className="w-fit text-center rounded-[8px] border-[1px] border-mindfulGreyTypeTwo px-10 py-10">
+    <div className="w-fit text-center rounded-[8px] border-[1px] border-mindfulGreyTypeTwo px-10 py-10 mx-auto">
 
       <div>
         {/* Card Image */}

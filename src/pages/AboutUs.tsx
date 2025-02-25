@@ -51,7 +51,7 @@ export const AboutUs = () => {
         </div>
       </div>
 
-      <div className="mt-0 lg:mb-20">
+      <div className="mt-0 lg:mb-20 ">
         <div>
           <AboutContent
             title="Dr. Preeth"

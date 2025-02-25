@@ -110,7 +110,7 @@ export const Overview = () => {
     <div>
       {/* Business Summary Title & Desc */}
       <div>
-        <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2">
+        <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px]">
           Business Summary
         </h5>
         <p className="text-lg text-mindfulBlack mb-5">
@@ -121,7 +121,7 @@ export const Overview = () => {
       </div>
 
       {/* Business Summary List */}
-      <div className="pl-10 pb-10">
+      <div className="pl-10 pb-10 max-sm:pb-5 max-sm:pl-5">
         <ul className="list-disc marker:text-main space-y-3">
           <li>Morbi vitae nibh scelerisque, commodo felis ut, rhoncus elit.</li>
           <li>Vivamus tristique nulla quis sem finibus aliquet.</li>
@@ -133,10 +133,10 @@ export const Overview = () => {
       </div>
 
       {/* Gender & Timings */}
-      <div className="flex justify-between items-center pb-10">
+      <div className="flex justify-start gap-10 items-center pb-10 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:pb-5">
         {/* Gender */}
         <div>
-          <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2">
+          <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px] max-sm:mb-1">
             Gender
           </h5>
           <p>
@@ -147,7 +147,7 @@ export const Overview = () => {
 
         {/* Timings */}
         <div>
-          <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2">
+          <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px] max-sm:mb-1">
             Timings
           </h5>
           <p>
@@ -159,10 +159,10 @@ export const Overview = () => {
 
       {/* Lorem ipsum list */}
       <div className="" ref={locationMapRef}>
-        <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2">
+        <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px]">
           Lorem Ipsum
         </h5>
-        <ul className="list-disc marker:text-main pl-10 pb-10 space-y-3">
+        <ul className="list-disc marker:text-main pl-10 pb-10 space-y-3 max-sm:pb-5 max-sm:pl-5">
           <li>Vivamus tristique nulla quis sem finibus aliquet.</li>
           <li>
             Integer at nisl ultrices, scelerisque nulla in, placerat odio.
@@ -172,7 +172,7 @@ export const Overview = () => {
 
       {/* Location Map & Get Direction */}
       <div>
-        <div className="flex justify-between items-center mb-5">
+        <div className="flex justify-between items-center mb-5  max-sm:flex-col max-sm:items-start max-sm:gap-2 max-sm:mb-5">
           {/* Location */}
           <div>
             <h5 className="text-[22px] text-mindfulBlack font-semibold">

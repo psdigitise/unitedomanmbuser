@@ -444,7 +444,7 @@ export const LoginHeader = () => {
                     <img
                       src={mindfulBeauty}
                       alt="mindfulBeauty logo"
-                      className="w-fit header-logo"
+                      className="w-fit header-logo max-sm:w-24"
                     />
                   </div>
                 </Link>
@@ -452,7 +452,7 @@ export const LoginHeader = () => {
 
               {/* Search Bar */}
               <div className="flex items-center space-x-4 w-full justify-end">
-                <div className="w-fit mx-auto rounded-[40px] bg-mindfulWhite pl-8 pr-2 py-2 border-[1px] border-mindfulLightGrey lg:block hidden">
+                <div className="w-fit mx-auto rounded-[40px] bg-mindfulWhite pl-8 pr-2 py-2 border-[1px] border-mindfulLightGrey xl:block hidden">
                   <div className="flex items-center space-x-5">
                     <div>
                       <div className="relative">
@@ -653,7 +653,7 @@ export const LoginHeader = () => {
 
       <div className="mt-[5rem] xl:mt-[6rem]">
         <div className="container mx-auto px-4">
-          <div className="lg:hidden block">
+          <div className="xl:hidden block">
             <div className="w-full rounded-[12px] bg-mindfulWhite p-4 border-[1px] border-mindfulLightGrey">
               <div className="flex items-center space-x-4">
                 <div className="flex flex-col flex-1">

@@ -82,10 +82,10 @@ export const Photos = () => {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-10">
+    <div className="grid grid-cols-4 gap-4 max-xl:mb-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
       {photos.map((photo) => (
         <div key={photo.photo_id}>
-          <img src={photo.image} alt={photo.service_name} className="w-72 h-52" />
+          <img src={photo.image} alt={photo.service_name} className="w-72 h-52 mx-auto" />
         </div>
       ))}
       {/* <div>

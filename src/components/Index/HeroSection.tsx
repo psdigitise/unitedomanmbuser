@@ -361,12 +361,12 @@ export const HeroSection = () => {
         {/* <img src={bannerImg} alt="banner Image" className="w-full object-cover" /> */}
         <div className="pb-20">
           <div className="relative">
-            <div className="xl:h-[100px] lg:h-[100px] md:h-[75px] sm:h-[80px] h-[100px] text-center bg-mindfulBlack mix-blend-overlay">
+            <div className="xl:h-[100px] lg:h-[100px] md:h-[75px] sm:h-[80px] h-[80px] text-center bg-mindfulBlack mix-blend-overlay">
               {/* <p className="w-full text-[91px]">Transform with Mindful Beauty</p> */}
             </div>
 
-            <div className="absolute top-1 left-0 right-0 text-center">
-              <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[70px] lg:text-[65px] md:text-[40px] sm:text-[40px] text-[45px] text-mindfulWhite">
+            <div className="absolute top-1 left-0 right-0 text-center max-lg:top-4 max-md:top-5 max-sm:top-2">
+              <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[70px] lg:text-[65px] md:text-[40px] sm:text-[38px] text-[32px] text-mindfulWhite">
                 Transform with Mindful Beauty
               </h1>
             </div>
@@ -388,7 +388,7 @@ export const HeroSection = () => {
                   <input
                     type="text"
                     placeholder="What are looking for?"
-                    className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none md:border-b-0 border-b-2 md:mb-[0] mb-[10px]"
+                    className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none md:border-b-0 border-b-2 md:mb-[0] mb-[10px] max-lg:w-[220px] max-md:w-full"
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
@@ -429,7 +429,7 @@ export const HeroSection = () => {
                   <input
                     type="text"
                     placeholder="Location / Pincode"
-                    className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none md:border-b-0 border-b-2"
+                    className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none md:border-b-0 border-b-2 max-lg:w-[220px] max-md:w-full"
                     ref={locationInputRef}
                     onChange={handleLocationChange} // Add this line
                   />

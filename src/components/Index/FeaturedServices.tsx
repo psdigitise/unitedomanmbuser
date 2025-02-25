@@ -73,7 +73,7 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
     <section className="lg:pb-[100px] md:pb-[80px] pb-[60px]">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 text-center">
-          <h2 className="font-Montserrat md:text-[40px] text-mindfulBlack font-bold mb-[30px] sm:text-[35px] text-[24px]">
+          <h2 className="font-Montserrat text-[40px] text-mindfulBlack font-bold mb-[30px] max-lg:text-[35px] max-md:text-[30px] max-md:mb-[20px] max-sm:text-[24px]">
             Featured Services
           </h2>
         </div>

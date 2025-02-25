@@ -103,8 +103,8 @@ export const Register: React.FC<RegisterProps> = ({ onLogin }) => {
                                 type="text"
                                 id=""
                                 placeholder="Name"
-                                // className="w-96 border-[1px] border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
-                                className={`w-96 border-[1px] ${errors.name ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
+                                // className="w-96 border-[1px] max-sm:w-full border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
+                                className={`w-96 border-[1px] max-sm:w-full ${errors.name ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
                                 {...register("name")}
                             />
                             {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
@@ -116,8 +116,8 @@ export const Register: React.FC<RegisterProps> = ({ onLogin }) => {
                                 type="tel"
                                 id=""
                                 placeholder="Phone Number"
-                                // className="w-96 border-[1px] border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
-                                className={`w-96 border-[1px] ${errors.phone ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
+                                // className="w-96 border-[1px] max-sm:w-full border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
+                                className={`w-96 border-[1px] max-sm:w-full ${errors.phone ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
                                 {...register("phone")}
                             />
                             {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
@@ -129,8 +129,8 @@ export const Register: React.FC<RegisterProps> = ({ onLogin }) => {
                                 type="email"
                                 id=""
                                 placeholder="Email ID"
-                                // className="w-96 border-[1px] border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
-                                className={`w-96 border-[1px] ${errors.email ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
+                                // className="w-96 border-[1px] max-sm:w-full border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
+                                className={`w-96 border-[1px] max-sm:w-full ${errors.email ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
                                 {...register("email")}
                             />
                             {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
@@ -152,7 +152,7 @@ export const Register: React.FC<RegisterProps> = ({ onLogin }) => {
                         </label>
                     </div>
 
-                    <div className="my-8">
+                    <div className="my-8  max-md:my-4">
                         {/* <button
                             // onClick={onGetOTP}
                             type="button"

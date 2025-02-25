@@ -10,7 +10,7 @@ export const BookingFlow = () => {
     <section className="bg-mindfulLightPink py-[60px]">
       <div className="container mx-auto px-4">
         <div className="text-center">
-          <h2 className="xl:text-[40px] lg:text-[40px] md:text-[40px] sm:text-[35px] text-[24px] text-mindfulBlack sm:mb-[30px] mb-[10px] font-bold font-Montserrat">
+          <h2 className="font-Montserrat text-[40px] text-mindfulBlack font-bold mb-[30px] max-lg:text-[35px] max-md:text-[30px] max-md:mb-[20px] max-sm:text-[24px]">
             Bridal Beauty Service Booking Flow
           </h2>
         </div>

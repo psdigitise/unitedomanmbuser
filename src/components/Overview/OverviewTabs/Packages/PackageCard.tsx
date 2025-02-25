@@ -112,23 +112,23 @@ export const PackageCard: React.FC<PackageCardProps> = ({ packageID, packageName
             <div
                 ref={contentRef}
                 style={{ maxHeight: `${height}` }}
-                className="overflow-hidden transition-max-height duration-300 ease-in-out"
+                className="overflow-hidden transition-max-height duration-300 ease-in-out max-md:h-full"
             >
                 {/* <p className="text-lg text-mindfulBlack mb-5">
                     {faqAnswer}
                 </p> */}
 
                 {/* Packages Content */}
-                <div className="w-full flex items-center justify-between mb-5">
+                <div className="w-full flex items-center justify-between mb-5 max-md:flex-col max-md:items-start max-md:gap-4 max-md:space-x-0">
 
-                    <div>
+                    <div className="max-lg:w-[40%]">
                         {/* <img src={aiModel} alt="" className="w-60 rounded-lg" /> */}
                         <img src={packageImage || aiModel} alt={packageName} className="w-60 rounded-lg" />
                     </div>
 
-                    <div>
-                        <div className="flex items-center mb-5">
-                            <ul role="list" className="w-[36rem] list-disc grid grid-cols-2">
+                    <div className="max-lg:w-[60%] h-full max-md:w-full ">
+                        <div className="flex items-center mb-5 max-lg:w-full max-sm:flex-col">
+                            <ul role="list" className="w-[36rem] list-disc grid grid-cols-2 max-lg:w-[100%] max-md:w-full max-md:pl-5 max-sm:grid-cols-1">
                                 {/* {Array.isArray(packageServices) &&
                                     packageServices.map((service, index) => (
                                         <li key={index} className="marker:text-main text-md text-mindfulBlack mb-3">
@@ -156,7 +156,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({ packageID, packageName
                             </ul>
                         </div>
 
-                        <div className="flex items-center justify-between w-10/12">
+                        <div className="flex items-center justify-between w-10/12 max-sm:flex-wrap max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
                             {/* Rate & Appointment */}
                             <div className="">
                                 <div className="mb-2">

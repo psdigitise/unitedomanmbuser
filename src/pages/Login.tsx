@@ -41,10 +41,10 @@ export const Login: React.FC<LoginProps> = () => {
         <BannerContent bannerTitle="Login / Register" />
       </div>
 
-      <div className="container mx-auto">
-        <div className="w-1/2 mx-auto mb-20">
+      <div className="container mx-auto px-5">
+        <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-10 max-lg:w-full">
           {/* Icons Div */}
-          <div className="my-16">
+          <div className="my-16  max-md:my-8">
             <div className="relative flex justify-between items-center">
               {/* Back Line */}
               <div className="w-full absolute top-8 left-0 z-[-2]">
@@ -214,11 +214,11 @@ export const Login: React.FC<LoginProps> = () => {
           </div>
 
           {/* Sign Up Content */}
-          <div className="mb-8">
-            <div className="flex items-center space-x-10">
+          <div className="mb-8  max-md:my-4">
+            <div className="flex items-center space-x-10 max-md:space-x-0">
               {/* Login Image */}
-              <div>
-                <img src={loginImg} alt="Haircut-image" className="w-full" />
+              <div className="max-xl:flex-shrink-0 max-xl:w-[40%] max-md:hidden ">
+                <img src={loginImg} alt="Haircut-image" className="w-full " />
               </div>
               {/* Sign In Content */}
               <div>
@@ -238,10 +238,10 @@ export const Login: React.FC<LoginProps> = () => {
 
           {/* Cancellation & reschedule policy Content */}
           <div>
-            <p className="text-lg text-mindfulBlack font-bold">
+            <p className="text-lg text-mindfulBlack font-bold max-sm:text-base">
               Cancellation & reschedule policy
             </p>
-            <p className="text-md text-mindfulBlack">
+            <p className="text-md text-mindfulBlack max-sm:text-base">
               Free cancellations/reschedules if done more than 3 hrs before the
               service or if a professional isn’t assigned. A fee will be charged
               otherwise.
@@ -249,7 +249,7 @@ export const Login: React.FC<LoginProps> = () => {
           </div>
 
           {/* Learn More */}
-          <div className="mt-8">
+          <div className="mt-8  max-md:my-4">
             <p className="text-mindfulBlack underline cursor-pointer">
               Learn More
             </p>

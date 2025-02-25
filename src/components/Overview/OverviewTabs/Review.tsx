@@ -233,7 +233,7 @@ export const Review = () => {
                 //  name=""
                 id="captcha"
                 placeholder="Enter the captcha above"
-                className="w-72 border-[1px] border-mindfulGrey rounded-[5px] px-3 py-1 focus-within:outline-none"
+                className="w-72 border-[1px] border-mindfulGrey rounded-[5px] px-3 py-1 focus-within:outline-none max-sm:w-full"
                 {...register("captcha")}
               />
 

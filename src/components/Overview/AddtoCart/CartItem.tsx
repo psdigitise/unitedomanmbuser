@@ -52,7 +52,7 @@ export const CartItem: React.FC<CartItemProps> = ({ serviceID, serviceName, pric
 
     return (
         <div>
-            <div className="flex justify-between items-center border-b-2 border-mindfulLightGrey border-dashed pb-5 mb-5 space-x-5">
+            <div className="flex justify-between items-center border-b-2 border-mindfulLightGrey border-dashed pb-5 mb-5 space-x-5 max-sm:flex-wrap max-sm:items-start max-sm:gap-2  max-sm:space-x-0">
                 <div className="w-6/12">
                     {/* <p className="text-md text-mindfulBlack font-medium">Elysian British Rose Manicure</p> */}
                     <p className="text-md text-mindfulBlack font-medium">{serviceName}</p>

@@ -90,7 +90,7 @@ export const SignIn: React.FC<SignInProps> = ({ onGetOTP, onRegister }) => {
                         type="tel"
                         placeholder="Mobile Number"
                         {...register("phoneNumber")}  // Register phone number input
-                        className="w-96 border-[1px] border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none"
+                        className="w-96 border-[1px] border-mindfulGreyTypeThree rounded-[6px] px-3 py-3 focus-within:outline-none max-sm:w-full"
                     />
                     {/* Show error if the phone number is invalid */}
                     {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
@@ -117,10 +117,10 @@ export const SignIn: React.FC<SignInProps> = ({ onGetOTP, onRegister }) => {
                 </div>
 
                 {/* Button to trigger OTP request */}
-                <div className="my-8">
+                <div className="my-8  max-md:my-4">
                     <button
                         type="submit"  // Submit the form to trigger OTP
-                        className="w-8/12 bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">
+                        className="w-8/12 bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5 max-md:w-fit">
                         Get OTP
                     </button>
                 </div>
@@ -128,8 +128,8 @@ export const SignIn: React.FC<SignInProps> = ({ onGetOTP, onRegister }) => {
 
             {/* Register Now */}
             <div>
-                <p className="text-md text-mindfulGreyTertiary">New to Mindful Beauty ? {" "}
-                    <span onClick={onRegister} className="text-mindfulBlack font-bold underline cursor-pointer">Register Now</span>
+                <p className="text-md text-mindfulGreyTertiary  max-md:text-base">New to Mindful Beauty ? {" "}
+                    <span onClick={onRegister} className="text-mindfulBlack font-bold underline cursor-pointer max-sm:text-base">Register Now</span>
                 </p>
             </div>
         </div>

@@ -98,7 +98,7 @@ export const RegisterPopup = () => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="relative w-6/12 bg-mindfulWhite rounded-lg px-8 py-8">
+            <div className="relative w-6/12 bg-mindfulWhite rounded-lg px-8 py-8 max-xl:w-[800px] max-lg:w-[700px] max-md:w-[90%] max-md:p-5">
 
                 {/* Close Button */}
                 <div>
@@ -109,7 +109,7 @@ export const RegisterPopup = () => {
 
                 {/* Popup Title */}
                 <div className="text-center">
-                    <h2 className="text-4xl text-mindfulBlack pb-5 cursor-pointer">Register</h2>
+                    <h2 className="text-4xl text-mindfulBlack pb-5 cursor-pointer max-md:text-2xl">Register</h2>
                 </div>
 
                 <div className="flex items-center space-x-10">
@@ -118,10 +118,10 @@ export const RegisterPopup = () => {
                     <div className="">
 
                         <div className="mb-8">
-                            <div className="flex items-center space-x-10">
+                            <div className="flex items-center space-x-10 max-md:space-x-0">
                                 {/* Login Image */}
                                 <div>
-                                    <img src={loginImg} alt="Haircut-image" className="w-full" />
+                                    <img src={loginImg} alt="Haircut-image" className="w-full max-md:hidden" />
                                 </div>
 
                                 <div>
@@ -137,7 +137,7 @@ export const RegisterPopup = () => {
                                                             type="text"
                                                             id=""
                                                             placeholder="Name"
-                                                            className={`w-96 border-[1px] ${errors.name ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
+                                                            className={`w-96 border-[1px] max-md:w-full ${errors.name ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
                                                             {...register("name")}
                                                         />
                                                         {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
@@ -147,7 +147,7 @@ export const RegisterPopup = () => {
                                                             type="tel"
                                                             id=""
                                                             placeholder="Phone Number"
-                                                            className={`w-96 border-[1px] ${errors.phone ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
+                                                            className={`w-96 border-[1px] max-md:w-full ${errors.phone ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
                                                             {...register("phone")}
                                                             onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                                                                 e.target.value = e.target.value.replace(/[^0-9]/g, ''); // Allow only numbers
@@ -160,14 +160,14 @@ export const RegisterPopup = () => {
                                                             type="email"
                                                             id=""
                                                             placeholder="Email ID"
-                                                            className={`w-96 border-[1px] ${errors.email ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
+                                                            className={`w-96 border-[1px] max-md:w-full ${errors.email ? 'border-red-500' : 'border-mindfulGreyTypeThree'} rounded-[6px] px-3 py-3 focus-within:outline-none`}
                                                             {...register("email")}
                                                         />
                                                         {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
 
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center">
+                                                <div className="flex items-center  max-md:items-start max-md:gap-1">
                                                     <input
                                                         type="checkbox"
                                                         id="receiveUpdated"
@@ -185,12 +185,12 @@ export const RegisterPopup = () => {
                                                 {/* Error from the API Response */}
                                                 {error && <p className="text-sm text-red-500">{error}</p>}
 
-                                                <div className="my-8">
+                                                <div className="my-8  max-md:my-4">
                                                     {/* <button type="submit" className="w-8/12 rounded-[7px] text-lg px-4 py-2.5 bg-main text-mindfulWhite transition-colors duration-300">Register
                                                     </button> */}
                                                     <button
                                                         type="submit"
-                                                        className={`w-8/12 rounded-[7px] text-lg px-4 py-2.5 
+                                                        className={`w-8/12 rounded-[7px] text-lg px-4 py-2.5  max-md:py-2
                             ${registrationSuccess ? "bg-green-500" : "bg-main"} text-mindfulWhite transition-colors duration-300`}
                                                         disabled={loading || registrationSuccess} // Disable button after success
                                                     >
@@ -207,8 +207,8 @@ export const RegisterPopup = () => {
                                             </form>
 
                                             <div>
-                                                <p className="text-md text-mindfulGreyTertiary">Already a member? {" "}
-                                                    <span onClick={handleOpenLoginPopup} className="text-mindfulBlack font-bold underline cursor-pointer">Login Now</span>
+                                                <p className="text-md text-mindfulGreyTertiary  max-md:text-base">Already a member? {" "}
+                                                    <span onClick={handleOpenLoginPopup} className="text-mindfulBlack font-bold underline cursor-pointer  max-md:text-sm">Login Now</span>
                                                 </p>
                                             </div>
 
@@ -220,12 +220,12 @@ export const RegisterPopup = () => {
 
                         {/* Sign In or Register */}
                         <div>
-                            <p className="text-lg text-mindfulBlack font-bold">Cancellation &amp; reschedule policy</p>
-                            <p className="text-md text-mindfulBlack">Free cancellations/reschedules if done more than 3 hrs before the service or if a professional isn’t assigned. A fee will be charged otherwise.</p>
+                            <p className="text-lg text-mindfulBlack font-bold  max-md:text-sm">Cancellation &amp; reschedule policy</p>
+                            <p className="text-md text-mindfulBlack  max-md:text-sm">Free cancellations/reschedules if done more than 3 hrs before the service or if a professional isn’t assigned. A fee will be charged otherwise.</p>
                         </div>
 
                         {/* Learn More */}
-                        <div className="mt-8">
+                        <div className="mt-8  max-md:my-4">
                             <p className="text-mindfulBlack underline cursor-pointer">Learn More</p>
                         </div>
 

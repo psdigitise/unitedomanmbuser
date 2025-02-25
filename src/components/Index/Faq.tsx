@@ -10,13 +10,13 @@ export const Faq = () => {
     <section className="bg-faqBgImg w-full bg-cover bg-center lg:py-[60px] md:py-[40px] py-[40px] home-faq">
       <div className="container mx-auto px-4">
         <div className="text-center">
-          <h2 className="font-Montserrat md:text-[40px] text-mindfulBlack sm:text-[35px] text-[24px] mb-[30px] font-bold">
+          <h2 className="font-Montserrat text-[40px] text-mindfulBlack font-bold mb-[30px] max-lg:text-[35px] max-md:text-[30px] max-md:mb-[20px] max-sm:text-[24px]">
             Frequently Asked Questions
           </h2>
         </div>
 
         <div className="">
-          <div className="flex justify-center items-center space-x-10 mb-10">
+          <div className="flex justify-center items-center space-x-10 mb-10 max-sm:flex-col max-sm:gap-4 max-sm:space-x-0 max-md:mb-5">
             <h5
               className={`sm:text-[26px] text-[21px] font-semibold cursor-pointer 
                                 ${

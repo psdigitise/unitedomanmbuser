@@ -11,15 +11,15 @@ export const RecommendedBest = () => {
       <div className="container mx-auto px-4">
         <div className="text-center">
           <div className="">
-            <h4 className="font-Montserrat text-3xl text-mindfulBlack mb-[30px] sm:text-[40px] text-[24px] font-bold">
+            <h4 className="font-Montserrat text-[40px] text-mindfulBlack font-bold mb-[30px] max-lg:text-[35px] max-md:text-[30px] max-md:mb-[20px] max-sm:text-[24px]">
               Recommended Best
             </h4>
           </div>
 
           <div>
-            <div className="flex justify-evenly items-center custom-d-block-mobile tab-title mb-5">
+            <div className="flex justify-evenly items-center custom-d-block-mobile tab-title mb-5 max-sm:flex-col max-sm:gap-4">
               <h5
-                className={`md:text-[25px] text-[20px] font-semibold leading-tight cursor-pointer font-Montserrat 
+                className={`lg:text-[25px] sm:text-[20px] text-[18px] font-semibold leading-tight cursor-pointer font-Montserrat 
                                 ${
                                   activeSection === "salon"
                                     ? "text-main border-main border-b-2 pb-2 "
@@ -31,7 +31,7 @@ export const RecommendedBest = () => {
               </h5>
 
               <h5
-                className={`md:text-[25px] text-[20px] font-semibold font-Montserrat cursor-pointer tab-title leading-tight
+                className={`lg:text-[25px] sm:text-[20px] text-[18px] font-semibold font-Montserrat cursor-pointer tab-title leading-tight
                                  ${
                                    activeSection === "specialist"
                                      ? "text-main border-main border-b-2 pb-2"

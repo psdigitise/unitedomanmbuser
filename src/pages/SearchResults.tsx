@@ -263,7 +263,7 @@ export const SearchResults = () => {
       {/* {/ Select Options /} */}
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-8 border-b-2">
-          <div className="flex items-center space-x-5">
+          <div className="flex items-center space-x-5 max-sm:flex-col max-sm:gap-4 max-sm:space-x-0 max-sm:items-start">
             {/* {/ Sort By /} */}
             {/* <div>
               <select
@@ -443,7 +443,7 @@ export const SearchResults = () => {
                       id=""
                       placeholder="Full Name"
                       // className="w-72 bg-mindfulWhite rounded-[6px] px-3 py-3 focus-within:outline-none"
-                      className={`w-72 bg-mindfulWhite rounded-[6px] px-3 py-3 focus-within:outline-none 
+                      className={`w-72 bg-mindfulWhite rounded-[6px] px-3 py-3 focus-within:outline-none max-2xl:w-56 max-xl:w-[300px]
                         ${errors.fullName ? "border-red-500" : "border-mindfulLightGrey"}`}
                       {...register("fullName")}
 
@@ -459,7 +459,7 @@ export const SearchResults = () => {
                       id=""
                       placeholder="Phone Number"
                       // className="w-72 bg-mindfulWhite rounded-[6px] px-3 py-3 focus-within:outline-none"
-                      className={`w-72 bg-mindfulWhite rounded-[6px] px-3 py-3 focus-within:outline-none ${errors.phoneNumber ? "border-red-500" : "border-mindfulLightGrey"
+                      className={`w-72 bg-mindfulWhite rounded-[6px] px-3 py-3 focus-within:outline-none max-2xl:w-56 max-xl:w-[300px] ${errors.phoneNumber ? "border-red-500" : "border-mindfulLightGrey"
                         }`}
                       {...register("phoneNumber")}
 

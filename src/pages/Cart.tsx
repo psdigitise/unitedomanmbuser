@@ -59,6 +59,10 @@ export const Cart = () => {
     );
   }, 0);
 
+  //CGST and SGST amount
+  const CGST = (grandTotal * 0.09); // "9%" calculation
+  const SGST = (grandTotal * 0.09); // "9%" calculation
+
   // Apply coupon discount if available
   // const discountedTotal = couponDiscount
   //     ? Math.max(0, grandTotal - (grandTotal * (couponDiscount / 100))) // Ensure it doesn't go below zero
@@ -67,7 +71,11 @@ export const Cart = () => {
   // Apply coupon discount if available
   const discountedTotal: number = grandTotal - (couponDiscount || 0); // Use logical OR to default to 0 if couponDiscount is null
 
-  console.log(discountedTotal, "amount");
+  // console.log(discountedTotal, "amount");
+
+  const finalPayableAmount = discountedTotal + CGST + SGST;
+  // console.log(finalPayableAmount, "finalPayableAmount");
+
 
   // Load coupon code data when coupon code is submitted
   const loadCouponCodeData = async (coupon_code: string) => {
@@ -185,10 +193,10 @@ export const Cart = () => {
         <BannerContent bannerTitle="Your Cart" />
       </div>
 
-      <div className="container mx-auto">
-        <div className="w-1/2 mx-auto mb-20">
+      <div className="container mx-auto px-5">
+        <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-10 max-lg:w-full ">
           {/* Icons Div */}
-          <div className="my-16">
+          <div className="my-16 max-md:my-8">
             <div className="relative flex justify-between items-center">
               {/* Back Line */}
               <div className="w-full absolute top-8 left-0 z-[-2]">
@@ -358,7 +366,7 @@ export const Cart = () => {
           </div>
 
           {/* Cart Item Table */}
-          <div>
+          <div className="max-sm:overflow-x-scroll">
             <table className="w-full">
               <thead className="text-start">
                 <tr>
@@ -507,6 +515,39 @@ export const Cart = () => {
                     &#8377; {discountedTotal}
                   </td>
                 </tr>
+
+
+                <tr>
+                  <td colSpan={2} className="px-2 py-3"></td>
+                  <td className="text-mindfulBlack font-semibold px-2 py-3">
+                    CGST(9%):
+                  </td>
+                  <td className="text-end text-mindfulBlack font-bold px-2 py-3">
+                    &#8377; {CGST}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colSpan={2} className="px-2 py-3"></td>
+                  <td className="text-mindfulBlack font-semibold px-2 py-3">
+                    SGST(9%):
+                  </td>
+                  <td className="text-end text-mindfulBlack font-bold px-2 py-3">
+                    &#8377; {SGST}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colSpan={2} className="px-2 py-3"></td>
+                  <td className="text-mindfulBlack font-semibold px-2 py-3">
+                    Taxable Grand Total:
+                  </td>
+                  <td className="text-end text-mindfulBlack font-bold px-2 py-3">
+                    &#8377; {finalPayableAmount}
+                  </td>
+                </tr>
+
+
                 <tr>
                   <td colSpan={2} className="px-2 py-3"></td>
                   <td colSpan={2} className="text-end">

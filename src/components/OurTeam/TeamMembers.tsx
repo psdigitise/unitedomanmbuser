@@ -13,10 +13,10 @@ export const TeamMembers: React.FC<TeamMembersProps> = ({
   return (
     <div className="mb-8">
       <div className="container mx-auto px-4">
-        <div className="border-[1px] rounded-lg border-mindfulGreySecondary p-8">
+        <div className="border-[1px] rounded-lg border-mindfulGreySecondary p-8 max-md:p-4">
           <div className="flex flex-wrap">
             <div className="w-full mb-5">
-              <h5 className="text-[27px] text-black font-semibold">{title}</h5>
+              <h5 className="text-[27px] text-black font-semibold max-md:text-xl">{title}</h5>
               <div className="border-b-[3px] border-mindfulYellow w-36 mb-3"></div>
             </div>
             <div className="lg:w-8/12 w-full mb-6 team-members lg:order-1 order-2">

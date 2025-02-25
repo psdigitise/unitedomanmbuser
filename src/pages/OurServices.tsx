@@ -15,7 +15,7 @@ export const OurServices = () => {
 
       <OurServicesAbout />
 
-      <div className="lg:py-[60px] py-[40px]">
+      <div className="lg:py-[60px] py-[40px]  max-md:py-6">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
             <div className="lg:w-6/12 w-full mb-6">
