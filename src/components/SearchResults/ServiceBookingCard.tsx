@@ -15,10 +15,6 @@ interface ServiceBookingCardProps {
   serviceProviderRating: number;
   city: string;
   state: string;
-  branchID: number;
-  branchCity: string;
-  branchName: string;
-  branchState: string;
   distance?: number;
   verifiedCheckmark?: boolean;
   serviceName?: string;
@@ -31,14 +27,10 @@ interface ServiceBookingCardProps {
 
 export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
   serviceProviderID,
-  // serviceProviderName,
+  serviceProviderName,
   // serviceProviderRating,
   city,
   state,
-  branchID,
-  branchCity,
-  branchName,
-  branchState,
   distance,
   verifiedCheckmark,
   // serviceName,
@@ -110,8 +102,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
 
                       {/* {/ Service Provider Name /} */}
                       <h5 className="sm:text-[18px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px]">
-                        {/* {serviceProviderName} */}
-                        {branchName}
+                        {serviceProviderName}
                       </h5>
                     </div>
 
@@ -198,8 +189,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
 
                     <div className="">
                       <p className="text-[16px] text-mindfulBlack font-medium">
-                        {/* {city}, {state} */}
-                        {branchCity}, {branchState}
+                        {city}, {state}
                       </p>
                     </div>
                   </div>
@@ -221,7 +211,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                 {/* {/ Book a Service Button /} */}
                 <div className="md:block hidden">
                   {/* {/ Dynamically set provider_id in the URL /} */}
-                  <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
+                  <Link to={`/Overview?provider_id=${serviceProviderID}`}>
                     <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[16px]">
                       Book a Service
                     </button>
@@ -261,9 +251,9 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
               </div>
               <div className="md:hidden block mt-[20px]">
                 {/* {/ Dynamically set provider_id in the URL /} */}
-                <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
+                <Link to={`/Overview?provider_id=${serviceProviderID}`}>
                   <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[14px]">
-                    Book a Servicel;
+                    Book a Service
                   </button>
                 </Link>
               </div>

@@ -37,9 +37,7 @@ export const Review = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const providerId = query.get("provider_id");
-  const branchID = query.get("branch_id");
-  console.log("Just logging the branch ID", providerId, branchID);
-  
+
   // State Declaration for API
   // Local state to track loading and error states
 

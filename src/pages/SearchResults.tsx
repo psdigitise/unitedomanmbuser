@@ -362,16 +362,12 @@ export const SearchResults = () => {
               <div>
                 {serviceProvider.map((provider) => (
                   <ServiceBookingCard
-                    key={provider.provider_id}
+                    key={provider.provider_id} // Use the provider's unique ID
                     serviceProviderID={provider.provider_id}
                     serviceProviderName={provider.provider_name}
                     serviceProviderRating={parseFloat(provider.rating)}
                     city={provider.provider_city}
                     state={provider.provider_state}
-                    branchID={provider.branch_id ?? 0}
-                    branchCity={provider.branch_city}
-                    branchName={provider.branch_name}
-                    branchState={provider.branch_state}
                     distance={parseFloat(provider.distance_km)}
                     verifiedCheckmark={provider.verified}
                     serviceName={provider.service_name}

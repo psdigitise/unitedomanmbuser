@@ -228,41 +228,12 @@ export const fetchServiceProviderType = async () => {
 
 
 // Overview page ->  Service Provider Details API
-export const fetchServiceProviderDetailsBrachID = async (provider_id: number, service_id: number, branchID: number, category_id?: string, subcategory_id?: string) => {
-    try {
-        const response = await apiAxios.get("/api/bookservice/", {
-            params: {
-                provider_id: provider_id, // dynamically set service_id
-                service_id: service_id,
-                branch_id: branchID,
-                category_id,             // Passing if the category ID has value
-                subcategory_id           // Passing if the sub category ID has value
-            },
-        });
-        console.log("service provider details response", response.data);
-
-        // Assuming the API returns an object with a `status` field and a `data` field
-        if (!response.data || response.status !== 200) {
-            throw new Error("Failed to fetch service provider details");
-        }
-
-        // If you want to do something with the response
-        return response.data;
-
-    } catch (error: any) {
-        console.error("Error fetching service provider details :", error.message || error);
-        throw new Error("Unable to fetch service provider details. Please try again later.");
-    }
-};
-
-// Overview page ->  Service Provider Details API
 export const fetchServiceProviderDetails = async (provider_id: number, service_id: number, category_id?: string, subcategory_id?: string) => {
     try {
         const response = await apiAxios.get("/api/bookservice/", {
             params: {
                 provider_id: provider_id, // dynamically set service_id
                 service_id: service_id,
-                // branch_id: branchID,
                 category_id,             // Passing if the category ID has value
                 subcategory_id           // Passing if the sub category ID has value
             },

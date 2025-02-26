@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { PackageCard } from "./Packages/PackageCard";
-import { fetchServiceProviderDetailsBrachID } from "../../../api/ApiConfig";
+import { fetchServiceProviderDetails } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerText, ShimmerTitle } from "shimmer-effects-react";
 
@@ -21,8 +21,7 @@ export const Packages = () => {
     const query = new URLSearchParams(location.search);
     const providerId = query.get('provider_id'); // Retrieve the provider_id from query parameters
     console.log("Getting provider ID from URL : ", providerId);
-    const branchID = query.get("branch_id");
-    console.log("Getting branchID ID from URl : ", branchID);
+
     const storedServiceId = sessionStorage.getItem('selectedServiceId');
     console.log("Stored Service ID for services:", storedServiceId);
 
@@ -33,10 +32,10 @@ export const Packages = () => {
 
     useEffect(() => {
         // API call to fetch data
-        const loadFaqData = async (provider_id: number, service_id: number, branchID: number) => {
+        const loadFaqData = async (provider_id: number, service_id: number) => {
             try {
                 // const data = await fetchFAQs();
-                const data = await fetchServiceProviderDetailsBrachID(provider_id, service_id, branchID);
+                const data = await fetchServiceProviderDetails(provider_id, service_id);
                 setPackagesData(data.packages); // Directly set the fetched data
                 console.log("Packages data log", data.packages);
 
@@ -52,7 +51,7 @@ export const Packages = () => {
         if (providerId) {
             const numericProviderId = parseInt(providerId, 10); // Convert providerId to number
             if (!isNaN(numericProviderId)) {
-                loadFaqData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
+                loadFaqData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
             } else {
                 setError('Invalid provider ID.');
             }

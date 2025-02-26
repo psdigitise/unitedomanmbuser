@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FrequentlyAddedCard } from './FrequentlyAdded/FrequentlyAddedCard';
-import { fetchServiceProviderDetailsBrachID } from '../../api/ApiConfig';
+import { fetchServiceProviderDetails } from '../../api/ApiConfig';
 
 interface FrequentlyAddedProps {
     service_id: number;
@@ -21,7 +21,7 @@ export const FrequentlyAdded: React.FC = () => {
     const query = new URLSearchParams(location.search);
     const providerId = query.get('provider_id'); // Retrieve the provider_id from query parameters
     console.log("Getting provider ID from URL : ", providerId);
-    const branchID = query.get("branch_id");
+
     const storedServiceId = sessionStorage.getItem('selectedServiceId');
     console.log("Stored Service ID for services:", storedServiceId);
 
@@ -29,43 +29,12 @@ export const FrequentlyAdded: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    // useEffect(() => {
-    //     const fetchFrequentlyAdded = async (provider_id: number, service_id: number) => {
-    //         setLoading(true);
-    //         try {
-    //             // const loadFrequentlyAddedData = await fetchFrequentlyAddedServices();
-    //             const loadFrequentlyAddedData = await fetchServiceProviderDetails(provider_id, service_id);
-
-    //             setFrequentlyAdded(loadFrequentlyAddedData.frequently_used_services);
-    //             console.log("Frequently used services data log:", loadFrequentlyAddedData.frequently_used_services);
-
-    //         }
-    //         catch (error: any) {
-    //             setError(error.message || "Failed to fetch Frequently used services")
-    //         }
-    //         finally {
-    //             setLoading(false);
-    //         }
-    //     }
-
-    //     // fetchFrequentlyAdded();
-    //     // Ensure providerId is available and valid
-    //     if (providerId) {
-    //         const numericProviderId = parseInt(providerId, 10); // Convert providerId to number
-    //         if (!isNaN(numericProviderId)) {
-    //             fetchFrequentlyAdded(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
-    //         } else {
-    //             setError('Invalid provider ID.');
-    //         }
-    //     }
-    // }, [providerId, storedServiceId]);
-
     useEffect(() => {
-        const fetchFrequentlyAdded = async (provider_id: number, service_id: number, branchID: number) => {
+        const fetchFrequentlyAdded = async (provider_id: number, service_id: number) => {
             setLoading(true);
             try {
                 // const loadFrequentlyAddedData = await fetchFrequentlyAddedServices();
-                const loadFrequentlyAddedData = await fetchServiceProviderDetailsBrachID(provider_id, service_id, branchID);
+                const loadFrequentlyAddedData = await fetchServiceProviderDetails(provider_id, service_id);
 
                 setFrequentlyAdded(loadFrequentlyAddedData.frequently_used_services);
                 console.log("Frequently used services data log:", loadFrequentlyAddedData.frequently_used_services);
@@ -84,7 +53,7 @@ export const FrequentlyAdded: React.FC = () => {
         if (providerId) {
             const numericProviderId = parseInt(providerId, 10); // Convert providerId to number
             if (!isNaN(numericProviderId)) {
-                fetchFrequentlyAdded(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
+                fetchFrequentlyAdded(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
             } else {
                 setError('Invalid provider ID.');
             }

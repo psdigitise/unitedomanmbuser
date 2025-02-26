@@ -21,10 +21,6 @@ interface ServiceBookingCardProps {
   serviceProviderCity: string;
   serviceProviderState: string;
   serviceProviderImage: string;
-  branchID: number;
-  branchCity: string;
-  branchName: string;
-  branchState: string;
   branch_latitude: number;
   branch_longitude: number;
   reviewCount: string;
@@ -39,9 +35,6 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
   serviceProviderCity,
   serviceProviderState,
   serviceProviderImage,
-  branchCity,
-  branchName,
-  branchState,
   branch_latitude,
   branch_longitude,
   reviewCount,
@@ -97,8 +90,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
 
                   {/* Service Provider Name */}
                   <h5 className="sm:text-[20px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px]">
-                    {/* {serviceProviderName} */}
-                    {branchName}
+                    {serviceProviderName}
                   </h5>
                 </div>
 
@@ -165,8 +157,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
 
                   <div className="">
                     <p className="text-[16px] text-mindfulBlack font-medium">
-                      {/* {serviceProviderCity}, {serviceProviderState} */}
-                      {branchCity}, {branchState}
+                      {serviceProviderCity}, {serviceProviderState}
                     </p>
                   </div>
                 </div>

@@ -76,8 +76,7 @@ export const LoginHeader = () => {
 
   // Getting the stored provider_id from sessionStorage
   const sessionProviderID = sessionStorage.getItem('selectedProviderId');
-  const sessionBranchID = sessionStorage.getItem("selectedBranchId");
-  console.log("Selected Provider ID and sessionBranch ID from session storage", sessionProviderID, sessionBranchID);
+  console.log("Selected Provider ID from session storage", sessionProviderID);
 
   // Handle cart icon navigation on button click
   const handleCartIcon = () => {
@@ -85,7 +84,7 @@ export const LoginHeader = () => {
       navigate("/Login"); // Navigate to Login if no token
     } else {
       // navigate("/DateTime"); // Proceed to DateTime if token exists
-      navigate(`/Overview?provider_id=${sessionProviderID}&branch_id=${sessionBranchID}`);
+      navigate(`/Overview?provider_id=${sessionProviderID}`);
 
     }
   };

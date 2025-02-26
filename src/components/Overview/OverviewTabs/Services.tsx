@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AppointmentCard } from './Services/AppointmentCard'
-import { featuredServices, fetchServiceProviderDetailsBrachID, fetchSubcategories } from "../../../api/ApiConfig";
+import { featuredServices, fetchServiceProviderDetails, fetchSubcategories } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 
@@ -42,8 +42,7 @@ export const Services = () => {
   const query = new URLSearchParams(location.search);
   const providerId = query.get('provider_id'); // Retrieve the provider_id from query parameters
   console.log("Getting provider ID from URL : ", providerId);
-  const branchID = query.get("branch_id");
-  console.log("Getting branchID ID from URl : ", branchID);
+
   const storedServiceId = sessionStorage.getItem('selectedServiceId');
   console.log("Stored Service ID for services:", storedServiceId);
 
@@ -61,10 +60,10 @@ export const Services = () => {
   useEffect(() => {
 
     // API call to fetch data
-    const loadServicesDetailsData = async (providerId: number, storedServiceId: number, branchID: number) => {
+    const loadServicesDetailsData = async (providerId: number, storedServiceId: number) => {
       console.log("providerId, storedServiceId ===>", providerId, storedServiceId);
       try {
-        const data = await fetchServiceProviderDetailsBrachID(providerId, storedServiceId, branchID);
+        const data = await fetchServiceProviderDetails(providerId, storedServiceId);
         setOverviewData(data.data[0].branch_id);
         setServicesDetails(data.services); // Directly set the fetched data
         // setFilteredServices(data.data); // Initially set filteredServices to all services
@@ -87,7 +86,7 @@ export const Services = () => {
     if (providerId) {
       const numericProviderId = parseInt(providerId, 10); // Convert providerId to number
       if (!isNaN(numericProviderId)) {
-        loadServicesDetailsData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
+        loadServicesDetailsData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
       } else {
         setError('Invalid provider ID.');
       }
@@ -133,10 +132,9 @@ export const Services = () => {
       console.log("providerId, selectedCategory, subcategoryId ===>", providerId, selectedCategory, subcategoryId);
       try {
         setLoading(true);
-        const data = await fetchServiceProviderDetailsBrachID(
+        const data = await fetchServiceProviderDetails(
           parseInt(providerId),
           storedServiceId ? parseInt(storedServiceId) : 0,
-          branchID ? parseInt(branchID, 10) : 0,
           selectedCategory,
           subcategoryId
         );
