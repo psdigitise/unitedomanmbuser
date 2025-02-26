@@ -7,7 +7,7 @@ import { OverviewDetailsCard } from "../components/Overview/OverviewDetailsCard"
 import { OverviewSlick } from "../components/Overview/OverviewSlick";
 import { OverviewTabs } from "../components/Overview/OverviewTabs";
 import serviceProviderAd from "../assets/images/serviceProviderAd.png";
-import { fetchServiceProviderDetails } from "../api/ApiConfig";
+import { fetchServiceProviderDetailsBrachID } from "../api/ApiConfig";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 import { RootState } from "../redux/store"; // Adjust this path as needed
 import { resetCartItemArea } from "../redux/scrollSlice"; // Adjust import path
@@ -60,6 +60,8 @@ export const Overview = () => {
   const query = new URLSearchParams(location.search);
   const providerId = query.get("provider_id"); // Retrieve the provider_id from query parameters
   console.log("Getting provider ID from URl : ", providerId);
+  const branchID = query.get("branch_id");
+  console.log("Getting branchID ID from URl : ", branchID);
 
   const cartItems = useSelector((state: RootState) => state.cart.items); // Get cart items from Redux
 
@@ -76,29 +78,27 @@ export const Overview = () => {
   console.log("Stored Service ID for services:", storedServiceId);
 
   useEffect(() => {
-    if (providerId) {
+    if (providerId && branchID) {
       // Store the provider_id in sessionStorage
-      sessionStorage.setItem("selectedProviderId", providerId);
-      console.log("Getting provider ID from URL:", providerId);
-      console.log(
-        "Stored Provider ID in sessionStorage:",
-        sessionStorage.getItem("selectedProviderId")
-      );
+      sessionStorage.setItem("selectedProviderId", providerId || '');
+      sessionStorage.setItem("selectedBranchId", branchID || '');
     }
-  }, [providerId]); // Effect runs when providerId changes
+  }, [providerId, branchID]);
 
   // API Call to get provider details
   useEffect(() => {
+    console.log("Getting branchID ID from URl useEffect ===> ", branchID);
     const loadProviderDetailsData = async (
       providerId: number,
-      service_id: number
+      service_id: number,
+      branchID: number
     ) => {
       try {
         setLoading(true); // Start loading before fetching data
         // API call to fetch service providers
-        const data = await fetchServiceProviderDetails(providerId, service_id);
+        const data = await fetchServiceProviderDetailsBrachID(providerId, service_id, branchID);
         setProviderDetails(data.data);
-        console.log("Provider Details:", data.data);
+        console.log("Provider Details and branch id ====>", data.data);
       } catch (error: any) {
         setError(error.message || "Failed to fetch service provider details.");
       } finally {
@@ -112,7 +112,8 @@ export const Overview = () => {
       if (!isNaN(numericProviderId)) {
         loadProviderDetailsData(
           numericProviderId,
-          storedServiceId ? parseInt(storedServiceId, 10) : 0
+          storedServiceId ? parseInt(storedServiceId, 10) : 0,
+          branchID ? parseInt(branchID, 10) : 0
         );
       } else {
         setError("Invalid provider ID.");
@@ -129,16 +130,18 @@ export const Overview = () => {
   };
 
   useEffect(() => {
-    if (providerId) {
-      const lastProviderId = sessionStorage.getItem('lastProviderId');
-      if (cartItems.length > 0 && lastProviderId && lastProviderId !== providerId) {
+    if (providerId && branchID) {
+      const lastProviderId = sessionStorage.getItem('lastProviderId') || '';
+      const lastBranchId = sessionStorage.getItem('lastBranchId') || '';
+      if (cartItems.length > 0 && lastProviderId && lastProviderId !== providerId && lastBranchId !== branchID) {
         // setShowClearItemsPopup(true);
       } else if (cartItems.length === 0) {
         // Update lastProviderId if cart is empty
-        sessionStorage.setItem('lastProviderId', providerId);
+        sessionStorage.setItem('lastProviderId', providerId || '');
+        sessionStorage.setItem('lastBranchId', branchID || '');
       }
     }
-  }, [providerId, cartItems.length]); // Add cartItems.length as dependency
+  }, [providerId, cartItems.length, branchID]); // Add cartItems.length as dependency
 
   // Add this function to handle cart changes
   // const handleCartChange = () => {
@@ -208,12 +211,16 @@ export const Overview = () => {
                     verifiedCheckmark={provider.verified}
                     serviceProviderCity={provider.provider_city}
                     serviceProviderState={provider.provider_state}
+                    branchID={provider.branch_id ?? 0}
+                    branchCity={provider.branch_city}
+                    branchName={provider.branch_name}
+                    branchState={provider.branch_state}
                     serviceProviderImage={provider.image_url}
                     branch_latitude={provider.branch_latitude}
                     branch_longitude={provider.branch_longitude}
                     reviewCount={provider.review_count}
-                    starRating={provider.average_rating} 
-                    />
+                    starRating={provider.average_rating}
+                  />
                 ))}
               </div>
             )}

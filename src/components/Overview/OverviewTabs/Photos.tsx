@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 // import photosTypeFive from "../../../assets/images/photosTypeFive.png"
 // import photosTypeSix from "../../../assets/images/photosTypeSix.png"
 // import photosTypeseven from "../../../assets/images/photosTypeSeven.png"
-import { fetchServiceProviderDetails } from "../../../api/ApiConfig"
+import { fetchServiceProviderDetailsBrachID } from "../../../api/ApiConfig"
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerDiv } from "shimmer-effects-react";
 
@@ -25,7 +25,8 @@ export const Photos = () => {
   const query = new URLSearchParams(location.search);
   const providerId = query.get('provider_id'); // Retrieve the provider_id from query parameters
   console.log("Getting provider ID from URL : ", providerId);
-
+  const branchID = query.get("branch_id");
+  console.log("Getting branchID ID from URl : ", branchID);
   const storedServiceId = sessionStorage.getItem('selectedServiceId');
   console.log("Stored Service ID for services:", storedServiceId);
 
@@ -35,10 +36,10 @@ export const Photos = () => {
 
   useEffect(() => {
     // API call to fetch data
-    const loadPhotosData = async (provider_id: number, service_id: number) => {
+    const loadPhotosData = async (provider_id: number, service_id: number, branchID: number) => {
       // setLoading(true);
       try {
-        const data = await fetchServiceProviderDetails(provider_id, service_id);
+        const data = await fetchServiceProviderDetailsBrachID(provider_id, service_id, branchID);
         setPhotos(data.photos); // Directly set the fetched data
         // setFilteredServices(data.data); // Initially set filteredServices to all services
         console.log("Photos data log", data.photos);
@@ -54,7 +55,7 @@ export const Photos = () => {
     if (providerId) {
       const numericProviderId = parseInt(providerId, 10); // Convert providerId to number
       if (!isNaN(numericProviderId)) {
-        loadPhotosData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
+        loadPhotosData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
       } else {
         setError('Invalid provider ID.');
       }

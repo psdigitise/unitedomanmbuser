@@ -13,8 +13,10 @@ export const ClearItemsPopup: React.FC<ClearItemsPopupProps> = ({ closePopup }) 
     const handleClearItems = () => {
         dispatch(clearCart());
         const currentProviderId = sessionStorage.getItem('selectedProviderId');
-        if (currentProviderId) {
+        const currentBranchId = sessionStorage.getItem('selectedBranchId');
+        if (currentProviderId && currentBranchId) {
             sessionStorage.setItem('lastProviderId', currentProviderId);
+            sessionStorage.setItem('lastBranchId', currentBranchId);
         }
         closePopup();
     };
