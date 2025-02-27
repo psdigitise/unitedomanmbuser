@@ -8,6 +8,7 @@ interface SalonCardProps {
   cardLocation: string;
   cardreviews: string;
   providerID: number;
+  branchID: number;
   starRating: number;
 }
 
@@ -17,14 +18,15 @@ export const SalonCard: React.FC<SalonCardProps> = ({
   cardLocation,
   cardreviews,
   providerID,
+  branchID,
   starRating
 }) => {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log("Card clicked", providerID);
-    navigate(`/Overview?provider_id=${providerID}`)
+    console.log("Card clicked", providerID, branchID);
+    navigate(`/Overview?provider_id=${providerID}&branch_id=${branchID}`)
   }
 
   return (

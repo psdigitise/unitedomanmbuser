@@ -8,6 +8,7 @@ interface SpecialistCardProps {
   cardLocation: string;
   cardreviews: string;
   providerID: number;
+  branchID: number;
   starRating: number;
 }
 
@@ -17,6 +18,7 @@ export const SpecialistCard: React.FC<SpecialistCardProps> = ({
   cardLocation,
   cardreviews,
   providerID,
+  branchID,
   starRating
 }) => {
 
@@ -24,8 +26,8 @@ export const SpecialistCard: React.FC<SpecialistCardProps> = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log("Card clicked", providerID);
-    navigate(`/Overview?provider_id=${providerID}`)
+    console.log("Card clicked", providerID, branchID);
+    navigate(`/Overview?provider_id=${providerID}&branch_id=${branchID}`)
   }
 
   return (

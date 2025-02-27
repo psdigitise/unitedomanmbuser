@@ -49,6 +49,7 @@ interface Salon {
   name: string;
   phone: string;
   provider_id: number;
+  branch_id: number;
   rating: number;
   review_count: string;
   skills: string;
@@ -228,14 +229,14 @@ export const SalonSlick = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 1,
         },
@@ -265,6 +266,7 @@ export const SalonSlick = () => {
                 <SalonCard
                   key={salon.provider_id}
                   providerID={salon.provider_id}
+                  branchID={salon.branch_id}
                   cardImage={salon.image_url}
                   cardTitle={salon.name}
                   cardLocation={`${salon.city}, ${salon.state}`}
@@ -274,6 +276,7 @@ export const SalonSlick = () => {
               ))}
             </Slider>
           </div>
+
           <div className="xl:hidden justify-center items-center mt-5 flex">
             <button className="bg-main text-sm text-mindfulWhite rounded-[17px] px-4 py-1 flex items-center">
               View all

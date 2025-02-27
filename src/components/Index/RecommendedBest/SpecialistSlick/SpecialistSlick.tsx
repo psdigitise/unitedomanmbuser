@@ -48,6 +48,7 @@ interface Salon {
   name: string;
   phone: string;
   provider_id: number;
+  branch_id: number;
   rating: number;
   review_count: string;
   skills: string;
@@ -237,6 +238,7 @@ export const SpecialistSlick = () => {
                 <SpecialistCard
                   key={salon.provider_id}
                   providerID={salon.provider_id}
+                  branchID={salon.branch_id}
                   cardImage={salon.image_url}
                   cardTitle={salon.name}
                   cardLocation={`${salon.city}, ${salon.state}`}
