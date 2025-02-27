@@ -59,15 +59,18 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
     const numericPrice = Number(price) || 0;
     const currentProviderId = sessionStorage.getItem('selectedProviderId');
     const lastProviderId = sessionStorage.getItem('lastProviderId');
+    const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
+    const lastBranchId = sessionStorage.getItem('lastBranchId');
 
     // If this is the first item being added to cart
     if (cartItems.length === 0) {
       sessionStorage.setItem('lastProviderId', currentProviderId || '');
+      sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
       dispatch(addToCart({ serviceID, serviceName, serviceDesc, price: numericPrice, image, serviceTime, branchID }));
       setIsAdded(true);
       dispatch(scrollToCartItemArea());
     } else {
-      if (currentProviderId === lastProviderId) {
+      if (currentProviderId === lastProviderId && currentBranchId === lastBranchId) { // Check if branch IDs match
         dispatch(addToCart({ serviceID, serviceName, serviceDesc, price: numericPrice, image, serviceTime, branchID }));
         setIsAdded(true);
         dispatch(scrollToCartItemArea());

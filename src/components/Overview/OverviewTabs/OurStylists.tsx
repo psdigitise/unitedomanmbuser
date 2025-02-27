@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { StylistCard } from "./OurStylists/StylistCard";
-import { fetchServiceProviderDetails } from "../../../api/ApiConfig";
+import { fetchServiceProviderDetailsBrachID } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerTable } from "shimmer-effects-react";
 
@@ -22,7 +22,8 @@ export const OurStylists: React.FC = () => {
   const query = new URLSearchParams(location.search);
   const providerId = query.get('provider_id'); // Retrieve the provider_id from query parameters
   console.log("Getting provider ID from URL : ", providerId);
-
+  const branchID = query.get("branch_id");
+  console.log("Getting branchID ID from URl : ", branchID);
 
   const storedServiceId = sessionStorage.getItem('selectedServiceId');
   console.log("Stored Service ID for services:", storedServiceId);
@@ -33,9 +34,9 @@ export const OurStylists: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadBeauticians = async (provider_id: number, service_id: number) => {
+    const loadBeauticians = async (provider_id: number, service_id: number, branchID: number) => {
       try {
-        const data = await fetchServiceProviderDetails(provider_id, service_id);
+        const data = await fetchServiceProviderDetailsBrachID(provider_id, service_id, branchID);
         setBeauticians(data.stylist);
         console.log("Fetched Beauticians data log:", data.stylist);
 
@@ -51,7 +52,7 @@ export const OurStylists: React.FC = () => {
     if (providerId) {
       const numericProviderId = parseInt(providerId, 10); // Convert providerId to number
       if (!isNaN(numericProviderId)) {
-        loadBeauticians(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
+        loadBeauticians(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
       } else {
         setError('Invalid provider ID.');
       }
