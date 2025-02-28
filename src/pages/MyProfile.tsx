@@ -34,24 +34,24 @@ export const MyProfile = () => {
     }, [userID]); // Re-run if userID changes
 
     return (
-        <div className="mt-[5rem] xl:mt-[6rem]">
+        <div className="mt-[5rem] xl:mt-[6rem] max-xl:mt-5">
             <section className="mt-[15px]">
                 {/* {/ Banner Content /} */}
                 <div>
                     <BannerContent bannerTitle="My Profile" />
                 </div>
 
-                <div className="container mx-auto px-4 py-20">
+                <div className="container mx-auto px-4 py-20 max-lg:py-16 max-md:py-10">
 
                     <div>
-                        <h2 className="text-4xl text-mindfulBlack font-bold pb-8">Hi {userName}</h2>
+                        <h2 className="text-4xl text-mindfulBlack font-bold pb-8 max-md:text-xl max-md:pb-4">Hi {userName}</h2>
                         {/* <p>My Profile is a page that displays information about the user.</p> */}
                     </div>
 
                     <div className="flex justify-between items-center border-b-[1px] border-mindfulGrey mb-3 ">
-                        <div className="flex justify-start items-center space-x-10 custom-d-block-mobile">
+                        <div className="flex justify-start items-center space-x-10  max-lg:flex-wrap max-lg:gap-4 max-lg:space-x-0">
                             <h5
-                                className={`text-lg font-semibold leading-tight cursor-pointer font-Montserrat pb-2 
+                                className={`text-lg font-semibold leading-tight cursor-pointer font-Montserrat pb-2 max-md:text-base
                                 ${activeSection === "myBookings"
                                         ? "text-main border-main border-b-2"
                                         : "text-mindfulBlack"
@@ -62,7 +62,7 @@ export const MyProfile = () => {
                             </h5>
 
                             <h5
-                                className={`text-lg font-semibold font-Montserrat cursor-pointer leading-tight pb-2
+                                className={`text-lg font-semibold font-Montserrat cursor-pointer leading-tight pb-2 max-md:text-base    
                                  ${activeSection === "myProfile"
                                         ? "text-main border-main border-b-2"
                                         : "text-mindfulBlack"

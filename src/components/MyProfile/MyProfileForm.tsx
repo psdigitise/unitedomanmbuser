@@ -112,10 +112,10 @@ export const MyProfileForm = () => {
       ) : (
         <div>
           <form onSubmit={handleSubmit(onSubmit)} method="post">
-            <div className="grid grid-cols-3 gap-5">
+            <div className="grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-md:grid-cols-1">
 
               <div>
-                <label htmlFor="name" className="text-lg text-mindfulBlack">
+                <label htmlFor="name" className="text-lg text-mindfulBlack max-md:text-xl">
                   Name<span className="text-main">*</span>
                 </label>
                 <input

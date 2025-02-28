@@ -69,7 +69,7 @@ export const MyBookings = () => {
     };
 
     return (
-        <div>
+        <div className="max-lg:overflow-x-auto">
             <table className="w-full">
                 <thead>
                     <tr className="border-b-2">

@@ -75,6 +75,10 @@ export const Header = () => {
   const sessionBranchID = sessionStorage.getItem("selectedBranchId");
   console.log("Selected Provider ID and sessionBranch ID from session storage", sessionProviderID, sessionBranchID);
 
+  const localProviderID = localStorage.getItem('selectedLocalProviderId');
+  const localBranchID = localStorage.getItem("selectedLocalBranchId");
+  console.log("localProviderID and localBranchID from local storage", localProviderID, localBranchID);
+
   const handleCartIcon = () => {
     if (!token) {
       navigate("/Login"); // Navigate to Login if no token
@@ -82,7 +86,8 @@ export const Header = () => {
       // navigate("/DateTime"); // Proceed to DateTime if token exists
 
       // Navigate to Overview with provider_id query parameter
-      navigate(`/Overview?provider_id=${sessionProviderID}&branch_id=${sessionBranchID}`);
+      // navigate(`/Overview?provider_id=${sessionProviderID}&branch_id=${sessionBranchID}`);
+      navigate(`/Overview?provider_id=${localProviderID}&branch_id=${localBranchID}`);
     }
   };
 
@@ -95,7 +100,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 transition-all duration-300 z-[100]
+      className={`fixed top-0 left-0 right-0 transition-all duration-300 z-[45]
               ${isScrolled
           ? "bg-mindfulWhite backdrop-blur-lg bg-opacity-100 shadow-md"
           : "bg-transparent"

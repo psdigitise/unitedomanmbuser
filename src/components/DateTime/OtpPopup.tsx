@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useNavigate } from 'react-router-dom';
-import { IoCloseOutline } from 'react-icons/io5';
+// import { IoCloseOutline } from 'react-icons/io5';
 
 interface OtpPopupProps {
     appID: string;
@@ -39,12 +39,14 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
 
     // Getting the stored provider_id from sessionStorage
     const sessionProviderID = sessionStorage.getItem('selectedProviderId');
-    console.log("Selected Provider ID from session storage", sessionProviderID);
+    const localProviderID = localStorage.getItem('selectedLocalProviderId');
+    console.log("Selected Provider ID and localProviderID from session storage", sessionProviderID, localProviderID);
 
 
     // Getting the stored provider_id from sessionStorage
     const sessionProviderName = sessionStorage.getItem('serviceProviderName');
-    console.log("Selected Provider Name from session storage", sessionProviderName);
+    const providerLocalName = localStorage.getItem('serviceProviderName');
+    console.log("Selected Provider Name and local provider name from session storage", sessionProviderName, providerLocalName);
 
 
     const { handleSubmit, setValue, clearErrors, formState: { errors } } = useForm<OtpFormData>({
@@ -184,7 +186,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                 {/* Close Button */}
                 <div>
                     <button onClick={handleClose} className="absolute top-3 right-3">
-                        <IoCloseOutline className="text-[28px] text-mindfulBlack hover:text-main" />
+                        {/* <IoCloseOutline className="text-[28px] text-mindfulBlack hover:text-main" /> */}
                     </button>
                 </div>
 
@@ -196,7 +198,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 Your appointment ID
                                 <span className="font-semibold"> {appID} </span>
                                 is created successfully & waiting for confirmation from the "Service Provider ID & Name :
-                                <span className="font-semibold"> {sessionProviderID} : {sessionProviderName} </span>".
+                                <span className="font-semibold"> {localProviderID} : {providerLocalName} </span>".
                             </p>
 
 
@@ -206,7 +208,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
 
                             {statusResponse == 1 &&
                                 <p className="text-md text-mindfulGreen text-center pt-5">Service Provider ID :
-                                    <span className="font-semibold"> {sessionProviderID} </span>
+                                    <span className="font-semibold"> {localProviderID} </span>
                                     has accepted your appointment request</p>
                             }
 

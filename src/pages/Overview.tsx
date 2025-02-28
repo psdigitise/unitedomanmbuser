@@ -58,10 +58,11 @@ export const Overview = () => {
   // Getting provider_id from URL
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const providerId = query.get("provider_id"); // Retrieve the provider_id from query parameters
-  console.log("Getting provider ID from URl : ", providerId);
+  const providerId = query.get("provider_id");
   const branchID = query.get("branch_id");
-  console.log("Getting branchID ID from URl : ", branchID);
+
+  const localproviderId = query.get("provider_id");
+  const localbranchID = query.get("branch_id");
 
   const cartItems = useSelector((state: RootState) => state.cart.items); // Get cart items from Redux
 
@@ -78,10 +79,12 @@ export const Overview = () => {
   console.log("Stored Service ID for services:", storedServiceId);
 
   useEffect(() => {
-    if (providerId && branchID) {
+    if (providerId && branchID && localproviderId && localbranchID) {
       // Store the provider_id in sessionStorage
       sessionStorage.setItem("selectedProviderId", providerId || '');
       sessionStorage.setItem("selectedBranchId", branchID || '');
+      localStorage.setItem("selectedLocalProviderId", localproviderId || '');
+      localStorage.setItem("selectedLocalBranchId", localbranchID || '');
     }
   }, [providerId, branchID]);
 

@@ -22,12 +22,19 @@ interface DateTimeProps {
 interface APIDateTimeProps {
     // API Props
     provider_id: number;
-    available_slots: string;
+    available_slots: string[];
 }
 
 export const DateTime: React.FC<DateTimeProps> = () => {
 
-
+    const AllDateandTimeSlot: APIDateTimeProps[] = [
+        {
+            "provider_id": 0,
+            "available_slots": [
+                "8:30 AM,9:30 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM,6:00 PM,7:00 PM "
+            ]
+        }
+    ]
     const userID = useSelector((state: RootState) => state.cart.userID);
     console.log("User ID taken from Redux Store: ", userID);
 
@@ -37,21 +44,10 @@ export const DateTime: React.FC<DateTimeProps> = () => {
     const quantity = useSelector((state: RootState) => state.cart.quantities);    // Default to 1 if not found
     console.log("Quantity data log:", quantity);
 
-
-    // Convert the object to a string of key-value pairs
-    // const quantityString = Object.entries(quantity)
-    //     .map(([key, value]) => `${key}:${value}`) // Format each key-value pair as "key:value"
-    //     .join(", "); // Join all pairs with a comma and space
-
-    // console.log("Quantity String:", quantityString);
-
     // Extract values and join them with a comma
     const quantityValuesString = Object.values(quantity).join(", ");
 
     console.log("Quantity Values String:", quantityValuesString);
-
-
-
     const joinedServiceIDs = cartItems.map(item => item.serviceID).join(',');
     // const joinedQuantities = quantity.map(q => q[0]).join(',');
 
@@ -60,12 +56,6 @@ export const DateTime: React.FC<DateTimeProps> = () => {
     cartItems.forEach((value) => {
         console.log("cart value", value);
         console.log("cart value ID", value.serviceID);
-        // console.log("cart value ID", value.serviceName);
-        // console.log("cart value ID", value.price);
-        // console.log("cart value ID", value.serviceDesc);
-        // console.log("cart value ID", value.serviceTime);
-        // console.log("cart value ID", value.image);
-
     })
 
     // State Declaration for Time slot API
@@ -73,41 +63,15 @@ export const DateTime: React.FC<DateTimeProps> = () => {
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [timeSlotError, setTimeSlotError] = useState<string | null>(null);  // Error state for time slot
 
-
-
-    // State to store the available slots
-    // const [availableSlots, setAvailableSlots] = useState("");
-
-    // Assuming timeSlot is passed as a prop, update the availableSlots state when timeSlot changes
-    // Dependency on timeSlot prop
-
-
     // State Declaration for date
     const [startDate, setStartDate] = useState<Date | null>(new Date());
-
-    // State to manage the background color
 
     // Toggle the background color on click
     const handleDateClick = (time: string) => {
         setSelectedTime(time);
         console.log("Selected time slot", time);
         setTimeSlotError(null);  // Clear the error when a time slot is selected
-
     };
-
-    // const isSlotDisabled = (slot: string): boolean => {
-    //     const currentTime = new Date(); // Get current real time
-    //     const slotTime = new Date(`${dateOnly}T${slot}:00`); // Convert slot to a Date object
-
-    //     console.log(slotTime, "Checking Slot Time");
-    //     console.log(currentTime, "Current Time");
-
-    //     console.log("Greater", slotTime, currentTime);
-
-
-
-    //     return slotTime <= currentTime; // Disable if slot time is less than or equal to current time
-    // };
 
     const isSlotDisabled = (slot: string): boolean => {
         const currentTime = new Date(); // Get current real time
@@ -130,15 +94,9 @@ export const DateTime: React.FC<DateTimeProps> = () => {
     // Ensure the startDate is not null before extracting the date
     const dateOnly = startDate ? startDate.toISOString().split("T")[0] : "";
 
-    console.log("Date Only:", dateOnly); // Output: "2024-12-10"
-
+    console.log("Date Only:", dateOnly);
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-    // const handleFileChange = (event: { target: { files: React.SetStateAction<null>[]; }; }) => {
-    //     setSelectedFile(event.target.files[0]);
-    //     // You can handle the file upload logic here
-    // };
 
     // File change handler
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,35 +122,34 @@ export const DateTime: React.FC<DateTimeProps> = () => {
 
     // Getting the stored provider_id from sessionStorage
     const sessionProviderID = sessionStorage.getItem('selectedProviderId');
-    console.log("Selected Provider ID from session storage", sessionProviderID);
-
+    console.log("Selected Provider ID from session storage and localProviderID", sessionProviderID);
+    const localProviderID = localStorage.getItem('selectedLocalProviderId');
+    console.log("Selected Provider ID from session storage and localProviderID", sessionProviderID, localProviderID);
     // Access the branch_id from the first item in the cart (if applicable)
     const branchID = cartItems.length > 0 ? cartItems[0].branchID : null;
-
     console.log("Branch ID from cart:", branchID);
 
     useEffect(() => {
-        const loadTimeSlotDate = async (sessionProviderID: number) => {
+        const loadTimeSlotDate = async (localProviderID: number) => {
             setLoading(true);
             try {
-                const data = await fetchTimeSlot(sessionProviderID);  // Fetch the time slots using the provider ID
-                setTimeSlot(data);
-                console.log("Fetched time slot data log", data);
-            }
-            catch (error: any) {
+                const data = await fetchTimeSlot(localProviderID);
+                if (data.length === 0) {
+                    setTimeSlot([AllDateandTimeSlot[0]]);
+                } else {
+                    setTimeSlot(data);
+                }
+            } catch (error: any) {
+                console.log("Time slots response error ===>", error);
                 setError(error.message || "Failed to fetch time slot data");
-            }
-            finally {
+            } finally {
                 setLoading(false);
             }
         }
-
         console.log("timeslottttt", timeSlot);
-        // loadTimeSlotDate();
-
         // Convert sessionProviderID to a number if it's not null
-        if (sessionProviderID) {
-            const providerIdAsNumber = Number(sessionProviderID);
+        if (localProviderID) {
+            const providerIdAsNumber = Number(localProviderID);
             if (!isNaN(providerIdAsNumber)) {
                 loadTimeSlotDate(providerIdAsNumber);
             } else {
@@ -201,7 +158,7 @@ export const DateTime: React.FC<DateTimeProps> = () => {
         } else {
             setError("No provider ID found in session storage");
         }
-    }, [sessionProviderID]);
+    }, [localProviderID]);
 
 
     const onConfirm = async () => {
@@ -214,15 +171,22 @@ export const DateTime: React.FC<DateTimeProps> = () => {
 
         setLoading(true);
         setError(null); // Clear any previous errors
-
+        console.log("appointment check ==>", String(userID),                  // Replace with actual user ID from state/auth
+            localProviderID || "",
+            String(branchID || 0),          // Convert branchID to string, default to "0" if null or undefined
+            joinedServiceIDs,                // Replace with selected service ID(s)
+            dateOnly,                        // Format the date
+            selectedTime || "",
+            quantityValuesString)
         try {
-            if (!userID || !sessionProviderID) {
+            if (!userID || !localProviderID) {
                 throw new Error("Missing required booking information. Please try again.");
             }
 
+
             const data = await bookNow(
                 String(userID),                  // Replace with actual user ID from state/auth
-                sessionProviderID || "",
+                localProviderID || "",
                 String(branchID || 0),          // Convert branchID to string, default to "0" if null or undefined
                 joinedServiceIDs,                // Replace with selected service ID(s)
                 dateOnly,                        // Format the date
@@ -411,25 +375,6 @@ export const DateTime: React.FC<DateTimeProps> = () => {
                                 ) : (
                                     // Render time slots when not loading
                                     timeSlot.map((time) => (
-                                        // <div key={time.provider_id} className="text-center">
-                                        //     <p className="grid grid-cols-3 gap-2 text-sm text-mindfulBlack rounded-[6px] px-2 py-1">
-                                        //         {/* Check if available_slots is an array and access the first element */}
-                                        //         {Array.isArray(time.available_slots) && time.available_slots.length > 0
-                                        //             ? time.available_slots[0].split(",").map((slot: any) => (
-                                        //                 <span
-                                        //                     key={slot}
-                                        //                     onClick={() => handleDateClick(slot.trim())} // Set the clicked time slot
-                                        //                     className={`text-sm cursor-pointer mx-1 px-2 py-1 text-mindfulBlack border-[1px] border-mindfulBlack rounded
-                                        //                          ${selectedTime === slot.trim() ? "bg-main text-white border-white" : ""}`}
-                                        //                 >
-                                        //                     {slot.trim()} {/* Trim in case of extra spaces */}
-                                        //                 </span>
-                                        //             ))
-                                        //             : <span>No available slots</span>
-                                        //         }
-                                        //     </p>
-                                        // </div>
-
                                         <div key={time.provider_id} className="text-center">
                                             <p className="grid grid-cols-3 gap-2 text-sm text-mindfulBlack rounded-[6px] px-2 py-1 max-sm:px-0">
                                                 {Array.isArray(time.available_slots) && time.available_slots.length > 0
@@ -442,8 +387,8 @@ export const DateTime: React.FC<DateTimeProps> = () => {
                                                                 key={trimmedSlot}
                                                                 onClick={() => !disabled && handleDateClick(trimmedSlot)} // Only allow click if not disabled
                                                                 className={`text-sm mx-1 px-2 py-1 rounded
-                                        ${selectedTime === trimmedSlot ? "bg-main text-white border-white" : ""}
-                                        ${disabled ? "bg-[#d6d6d6] text-gray-400 font-semibold cursor-not-allowed" : "text-mindfulBlack border-[1px] border-mindfulBlack cursor-pointer"}`}
+                                                                ${selectedTime === trimmedSlot ? "bg-main text-white border-white" : ""}
+                                                                ${disabled ? "bg-[#d6d6d6] text-gray-400 font-semibold cursor-not-allowed" : "text-mindfulBlack border-[1px] border-mindfulBlack cursor-pointer"}`}
                                                             >
                                                                 {trimmedSlot}
                                                             </span>

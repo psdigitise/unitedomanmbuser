@@ -97,8 +97,8 @@ export const RegisterPopup = () => {
 
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="relative w-6/12 bg-mindfulWhite rounded-lg px-8 py-8 max-xl:w-[800px] max-lg:w-[700px] max-md:w-[90%] max-md:p-5">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 py-5">
+            <div className="relative w-6/12 bg-mindfulWhite rounded-lg px-8 py-8 max-2xl:overflow-y-auto max-2xl:h-[95%] max-xl:w-[800px] max-lg:w-[700px] max-md:w-[90%] max-md:p-5">
 
                 {/* Close Button */}
                 <div>
