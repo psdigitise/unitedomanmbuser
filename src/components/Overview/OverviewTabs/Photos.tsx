@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { fetchServiceProviderDetailsBrachID } from "../../../api/ApiConfig"
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerDiv } from "shimmer-effects-react";
+import { NotifyError } from "../../common/Toast/ToastMessage";
 
 interface Photos {
   photo_id: number,
@@ -32,7 +33,7 @@ export const Photos = () => {
 
   const [photos, setPhotos] = useState<Photos[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // API call to fetch data
@@ -45,7 +46,8 @@ export const Photos = () => {
         console.log("Photos data log", data.photos);
 
       } catch (error: any) {
-        setError(error.message || "Failed to fetch photos.");
+        // setError(error.message || "Failed to fetch photos.");
+        NotifyError(error.message || "Failed to fetch photos.");
       } finally {
         setLoading(false);
       }
@@ -57,7 +59,8 @@ export const Photos = () => {
       if (!isNaN(numericProviderId)) {
         loadPhotosData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
       } else {
-        setError('Invalid provider ID.');
+        // setError('Invalid provider ID.');
+        NotifyError('Invalid provider ID.');
       }
     }
   }, [providerId, storedServiceId]);
@@ -74,12 +77,12 @@ export const Photos = () => {
     </div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>
+  // }
 
   if (photos.length <= 0) {
-    return (<div><NotFoundContent /></div>)
+    return (<div><NotFoundContent /></div>);
   }
 
   return (

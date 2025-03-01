@@ -13,6 +13,7 @@ import { RootState } from "../redux/store"; // Adjust this path as needed
 import { resetCartItemArea } from "../redux/scrollSlice"; // Adjust import path
 import { useDispatch, useSelector } from "react-redux";
 import { ClearItemsPopup } from "../components/Overview/ClearItemsPopup";
+import { NotifyError } from '../components/common/Toast/ToastMessage';
 
 // API Proptypes datatype
 interface ProviderDetails {
@@ -68,7 +69,7 @@ export const Overview = () => {
 
   const [providerDetails, setProviderDetails] = useState<ProviderDetails[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   const [showClearItemsPopup, setShowClearItemsPopup] = useState<boolean>(false);
   // const [currentProviderId, setCurrentProviderId] = useState<string | null>(null); // Track the current provider ID
@@ -103,7 +104,8 @@ export const Overview = () => {
         setProviderDetails(data.data);
         console.log("Provider Details and branch id ====>", data.data);
       } catch (error: any) {
-        setError(error.message || "Failed to fetch service provider details.");
+        // setError(error.message || "Failed to fetch service provider details.");
+        NotifyError(error.message || "Failed to fetch service provider details.");
       } finally {
         setLoading(false);
       }
@@ -119,7 +121,8 @@ export const Overview = () => {
           branchID ? parseInt(branchID, 10) : 0
         );
       } else {
-        setError("Invalid provider ID.");
+        // setError("Invalid provider ID.");
+        NotifyError("Invalid provider ID.");
       }
     }
   }, [providerId, storedServiceId]);
@@ -165,9 +168,9 @@ export const Overview = () => {
   //   return <div>Loading...</div>;
   // }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   return (
     <section ref={cartItemAreaRef} className="mt-[15px]">

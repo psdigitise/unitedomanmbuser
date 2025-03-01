@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { HomeServiceCard } from './HomeServiceCard';
 import { fetchHomePageFAQ } from '../../../../api/ApiConfig';
 import { ShimmerText, ShimmerTitle } from 'shimmer-effects-react';
+import { NotifyError } from '../../../common/Toast/ToastMessage';
 
-// API Proptypes
 interface HomeServiceFaqProps {
     faq_id: number;
     service_type: number;
@@ -18,7 +18,7 @@ export const HomeServiceFaq: React.FC<HomeServiceFaqProps> = () => {
     // State Declaration for Home Service FAQ's
     const [faqData, setFaqData] = useState<HomeServiceFaqProps[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         // API Call to fetch Home Service FAQ's data
@@ -29,7 +29,8 @@ export const HomeServiceFaq: React.FC<HomeServiceFaqProps> = () => {
                 console.log("Fetched home service faq's data log:", data.data);
 
             } catch (error: any) {
-                setError(error.message || "Failed to fetch home service faq's data");
+                // setError(error.message || "Failed to fetch home service faq's data");
+                NotifyError(error.message || "Failed to fetch home service faq's data");
             }
             finally {
                 setLoading(false)
@@ -44,7 +45,7 @@ export const HomeServiceFaq: React.FC<HomeServiceFaqProps> = () => {
         <ShimmerTitle mode="light" line={1} gap={8} />
         <ShimmerText mode="light" line={10} gap={6} />
     </div>;
-    if (error) return <div>Error: {error}</div>;
+    // if (error) return <div>Error: {error}</div>;
 
     return (
         <div>

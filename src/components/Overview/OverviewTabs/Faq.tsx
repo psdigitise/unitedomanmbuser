@@ -4,6 +4,7 @@ import { FaqCard } from "./Faq/FaqCard";
 import { fetchServiceProviderDetails } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerText, ShimmerTitle } from "shimmer-effects-react";
+import { NotifyError } from "../../common/Toast/ToastMessage";
 
 interface FaqProps {
   faq_id?: string;
@@ -27,7 +28,7 @@ export const Faq = () => {
   // API handling State Declaration
   const [faqData, setFaqData] = useState<FaqProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // API call to fetch data
@@ -39,7 +40,8 @@ export const Faq = () => {
         console.log("FAQs data log", data.faq);
 
       } catch (error: any) {
-        setError(error.message || "Failed to fetch FAQs.");
+        // setError(error.message || "Failed to fetch FAQs.");
+        NotifyError(error.message || "Failed to fetch FAQs.");
       } finally {
         setLoading(false);
       }
@@ -52,7 +54,8 @@ export const Faq = () => {
       if (!isNaN(numericProviderId)) {
         loadFaqData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0);
       } else {
-        setError('Invalid provider ID.');
+        // setError('Invalid provider ID.');
+        NotifyError('Invalid provider ID.');
       }
     }
   }, [providerId, storedServiceId]);
@@ -67,9 +70,9 @@ export const Faq = () => {
     </div>
   }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>
+  // }
 
   if (faqData.length <= 0) {
     return (

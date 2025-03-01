@@ -5,7 +5,7 @@ import { RootState } from "../../../../redux/store";
 import { addToCart } from '../../../../redux/cartSlice'; // Adjust path as necessary
 import { BsCartPlusFill } from "react-icons/bs";
 import { scrollToCartItemArea } from "../../../../redux/scrollSlice";
-import aiModel from "../../../../assets/images/gallery-img-1.jpeg"
+// import aiModel from "../../../../assets/images/gallery-img-1.jpeg"
 
 interface PackageCardProps {
     packageID: number;
@@ -123,7 +123,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({ packageID, packageName
 
                     <div className="max-lg:w-[40%]">
                         {/* <img src={aiModel} alt="" className="w-60 rounded-lg" /> */}
-                        <img src={packageImage || aiModel} alt={packageName} className="w-60 rounded-lg" />
+                        {/* <img src={packageImage || aiModel} alt={packageName} className="w-60 rounded-lg" /> */}
                     </div>
 
                     <div className="max-lg:w-[60%] h-full max-md:w-full ">

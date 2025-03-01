@@ -6,6 +6,7 @@ import { resetScroll } from "../../../redux/scrollSlice"; // Adjust import path
 import { NotFoundContent } from "../../common/NotFoundContent";
 import getDirectionIcon from "../../../assets/icons/getDirectionIcon.svg";
 import { ShimmerTitle } from "shimmer-effects-react";
+import { NotifyError } from "../../common/Toast/ToastMessage";
 
 
 // API Proptypes
@@ -49,7 +50,7 @@ export const Overview = () => {
   // State Declaration for API
   const [OverviewData, setOverviewData] = useState<OverviewProps | null>(null); // Adjust to a single object;
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // API Call to fetch data
@@ -60,7 +61,8 @@ export const Overview = () => {
         console.log(data.overview);
       }
       catch (error: any) {
-        setError(error.message || "Failed to fetch overview data.");
+        // setError(error.message || "Failed to fetch overview data.");
+        NotifyError(error.message || "Failed to fetch overview data.");
       }
       finally {
         setLoading(false);
@@ -74,7 +76,8 @@ export const Overview = () => {
       if (!isNaN(numericProviderId)) {
         loadOverviewData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
       } else {
-        setError('Invalid provider ID.');
+        // setError('Invalid provider ID.');
+        NotifyError('Invalid provider ID.');
       }
     }
   }, [providerId, storedServiceId]);
@@ -89,9 +92,9 @@ export const Overview = () => {
     </div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>
+  // }
 
   // If no data is fetched yet, show a fallback
   if (!OverviewData) {

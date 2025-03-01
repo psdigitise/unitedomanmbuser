@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux';
 import { ShimmerTable } from 'shimmer-effects-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { showToast } from '../common/ToastService';
+import { NotifyError } from '../common/Toast/ToastMessage';
+// import { showToast } from '../common/ToastService';
 
 interface Booking {
     id: string;
@@ -37,7 +38,7 @@ export const MyBookings = () => {
                 console.log("Booking response ==>", response);
                 setBookings(response.data || []);
             } catch (err: any) {
-                toast.error(err.message || "Failed to fetch bookings");
+                NotifyError(err.message || "Failed to fetch bookings");
             } finally {
                 setLoading(false);
             }
@@ -64,7 +65,8 @@ export const MyBookings = () => {
 
             // showToast("success", "My Booking invoice downloaded successfully.");
         } catch (error: any) {
-            showToast("error", error.message || "Failed to download My Booking Invoice.");
+            // showToast("error", error.message || "Failed to download My Booking Invoice.");
+            NotifyError(error.message || "Failed to download My Booking Invoice.");
         }
     };
 

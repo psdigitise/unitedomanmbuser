@@ -996,3 +996,26 @@ export const salesTransactionsInvoice = async (appointmentID: number) => {
         throw new Error(error.response?.data?.message || "Unable to fetch My Booking invoice. Please try again later.");
     }
 }
+
+
+
+
+// New API Call for category in Services Tab -- --> Overview Page
+export const ServicesCategory = async (providerId: number) => {
+    try {
+        const response = await apiAxios.get(`/provider-api/provider_category/`, {
+            params: { provider_id: providerId } // Pass provider_id as query param
+        });
+        console.log("Featured Services response", response.data);
+
+        if (!response.data || response.status !== 200) {
+            throw new Error("Failed to fetch featured Services");
+        }
+
+        return response.data; // Adjust based on actual response structure
+
+    } catch (error: any) {
+        console.error("Error fetching featured Services:", error.message || error);
+        throw new Error("Unable to fetch featured Services. Please try again later.");
+    }
+};

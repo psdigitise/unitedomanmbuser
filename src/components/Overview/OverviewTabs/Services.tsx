@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AppointmentCard } from './Services/AppointmentCard'
-import { featuredServices, fetchServiceProviderDetailsBrachID, fetchSubcategories } from "../../../api/ApiConfig";
+import { fetchServiceProviderDetailsBrachID, fetchSubcategories, ServicesCategory } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerContentBlock } from "shimmer-effects-react";
+import { NotifyError } from "../../common/Toast/ToastMessage";
 
 
 interface FeaturedServicesProps {
@@ -51,7 +52,9 @@ export const Services = () => {
   const [servicesDetails, setServicesDetails] = useState<ServiceDetails[]>([]);
   const [categoryDetails, setCategoryDetails] = useState<FeaturedServicesProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+
+  // const [error, setError] = useState<string | null>(null);
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   // const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [filteredSubcategories, setFilteredSubcategories] = useState<Subcategory[]>([]);
@@ -70,14 +73,17 @@ export const Services = () => {
         // setFilteredServices(data.data); // Initially set filteredServices to all services
         console.log("services list details data log", data.services);
         // console.log("branch id check on service page ==>", data.data[0].branch_id);
-        const loadCategorySelectData = await featuredServices();
+        // const loadCategorySelectData = await featuredServices();
+        const loadCategorySelectData = await ServicesCategory(providerId);
+
         setCategoryDetails(loadCategorySelectData.data)
         console.log("Category ID on select data log:", loadCategorySelectData);
 
 
 
       } catch (error: any) {
-        setError(error.message || "Failed to fetch services list details.");
+        // setError(error.message || "Failed to fetch services list details.");
+        NotifyError(error.message || "Failed to fetch services list details.");
       } finally {
         setLoading(false);
       }
@@ -89,7 +95,8 @@ export const Services = () => {
       if (!isNaN(numericProviderId)) {
         loadServicesDetailsData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
       } else {
-        setError('Invalid provider ID.');
+        // setError('Invalid provider ID.');
+        NotifyError('Invalid provider ID.');
       }
     }
 
@@ -97,7 +104,7 @@ export const Services = () => {
       // Cleanup
       setServicesDetails([]);
       setLoading(true);
-      setError(null);
+      // setError(null);
     };
   }, [providerId, storedServiceId]);
 
@@ -120,7 +127,8 @@ export const Services = () => {
       setFilteredSubcategories(response.data);
     } catch (error) {
       console.error("Error loading subcategories:", error);
-      setError("Failed to load subcategories");
+      // setError("Failed to load subcategories");
+      NotifyError("Failed to load subcategories");
     }
   };
 
@@ -142,7 +150,8 @@ export const Services = () => {
         );
         setServicesDetails(data.services);
       } catch (error: any) {
-        setError(error.message || "Failed to fetch services");
+        // setError(error.message || "Failed to fetch services");
+        NotifyError(error.message || "Failed to fetch services");
       } finally {
         setLoading(false);
       }
@@ -168,9 +177,10 @@ export const Services = () => {
     </div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>
+  // }
+
   console.log("log", servicesDetails);
 
   // if (servicesDetails.length <= 0) {

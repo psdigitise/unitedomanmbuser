@@ -13,6 +13,7 @@ import { fetchServiceProviders1 } from "../../../../api/ApiConfig";
 import { HiArrowSmRight } from "react-icons/hi";
 import { NotFoundContent } from "../../../common/NotFoundContent";
 import { ShimmerText, ShimmerTitle } from "shimmer-effects-react";
+import { NotifyError } from '../../../common/Toast/ToastMessage';
 
 interface Salon {
   // provider_id: number;
@@ -64,7 +65,7 @@ interface Salon {
 
 export const SalonSlick = () => {
   const [salons, setSalons] = useState<Salon[]>([]); // Use the interface here
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   // const [currentLocation, setCurrentLocation] = useState<string | null>(null);
@@ -120,7 +121,8 @@ export const SalonSlick = () => {
           console.log("Salon data from recommended list", data);
 
         } catch (error: any) {
-          setError(error.message || "Failed to fetch services list.");
+          // setError(error.message || "Failed to fetch services list.");
+          NotifyError(error.message || "Failed to fetch services list.");
         } finally {
           setLoading(false);
         }
@@ -165,7 +167,7 @@ export const SalonSlick = () => {
     </div>;
   }
 
-  if (error) { return <div>Error: {error}</div>; }
+  // if (error) { return <div>Error: {error}</div>; }
 
   const settings = {
     dots: false,

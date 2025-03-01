@@ -1,7 +1,7 @@
 import React from "react";
 import stylistCardImg from "../../../../assets/images/stylistCardImg.png";
 // import { CiStar } from "react-icons/ci";
-import { TiStar } from "react-icons/ti";
+// import { TiStar } from "react-icons/ti";
 
 interface StylistCardProps {
   id?: string;
@@ -18,7 +18,7 @@ export const StylistCard: React.FC<StylistCardProps> = ({
   name,
   role,
   years_of_experience,
-  rating,
+  // rating,
   profile_image
 }) => {
 
@@ -49,13 +49,13 @@ export const StylistCard: React.FC<StylistCardProps> = ({
               />
             ))} */}
 
-            {Array(5).fill(null).map((_, index) => (
+            {/* {Array(5).fill(null).map((_, index) => (
               <TiStar
                 key={index}
                 className={`text-[22px] ${index < rating ? "text-mindfulYellow" : "text-mindfulGreyTypeOne"
                   }`}
               />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

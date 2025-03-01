@@ -4,6 +4,7 @@ import { PackageCard } from "./Packages/PackageCard";
 import { fetchServiceProviderDetailsBrachID } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerText, ShimmerTitle } from "shimmer-effects-react";
+import { NotifyError } from "../../common/Toast/ToastMessage";
 
 interface PackagesProps {
     service_id: number;
@@ -29,7 +30,7 @@ export const Packages = () => {
     // API handling State Declaration
     const [packagesData, setPackagesData] = useState<PackagesProps[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         // API call to fetch data
@@ -41,7 +42,8 @@ export const Packages = () => {
                 console.log("Packages data log", data.packages);
 
             } catch (error: any) {
-                setError(error.message || "Failed to fetch Packages.");
+                // setError(error.message || "Failed to fetch Packages.");
+                NotifyError(error.message || "Failed to fetch Packages.");
             } finally {
                 setLoading(false);
             }
@@ -54,7 +56,8 @@ export const Packages = () => {
             if (!isNaN(numericProviderId)) {
                 loadFaqData(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
             } else {
-                setError('Invalid provider ID.');
+                // setError('Invalid provider ID.');
+                NotifyError('Invalid provider ID.');
             }
         }
     }, [providerId, storedServiceId]);
@@ -69,9 +72,9 @@ export const Packages = () => {
         </div>
     }
 
-    if (error) {
-        return <div>Error: {error}</div>
-    }
+    // if (error) {
+    //     return <div>Error: {error}</div>
+    // }
 
     if (packagesData.length <= 0) {
         return (

@@ -6,6 +6,7 @@ import locationIcon from "../../assets/icons/locationIcon.png";
 import { fetchServicesListDropdown } from "../../api/ApiConfig";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { NotifyError } from '../common/Toast/ToastMessage';
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { LoginPopup } from "./Popups/LoginPopup";
@@ -36,7 +37,7 @@ export const HeroSection = () => {
   const [servicesDropdown, setServicesDropdown] = useState<Service[]>([]);
   // const [filteredServices, setFilteredServices] = useState<HeroSectionProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
 
@@ -129,7 +130,8 @@ export const HeroSection = () => {
         // setFilteredServices(data.data); // Initially set filteredServices to all services
         console.log("services list data log", data);
       } catch (error: any) {
-        setError(error.message || "Failed to fetch services list.");
+        // setError(error.message || "Failed to fetch services list.");
+        NotifyError(error.message || "Failed to fetch services list.");
       } finally {
         setLoading(false);
       }
@@ -351,9 +353,9 @@ export const HeroSection = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   return (
     <section className="bg-heroSectionBgImg w-full h-screen bg-cover bg-center">

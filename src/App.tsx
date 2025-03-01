@@ -33,6 +33,7 @@ import { OurServices } from "./pages/OurServices";
 import { MyProfile } from "./pages/MyProfile";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditons from "./pages/TermsAndConditions";
+import { ToastMessage } from "./components/common/Toast/ToastMessage";
 
 
 // import AuthWatcher from "./components/common/AuthWatcher";
@@ -85,6 +86,9 @@ function App() {
 
         {/* ScrollToTop component */}
         <ScrollToTop />
+
+        {/* Toast Message */}
+        <ToastMessage />      {/* Keep this in the root of your app */}
 
         <Routes>
           {/* Main Layout Routes */}

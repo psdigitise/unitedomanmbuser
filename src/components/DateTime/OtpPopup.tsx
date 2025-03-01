@@ -34,7 +34,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
     // const [isVerified, setIsVerified] = useState<boolean>(false); // Track success response
 
     const [statusResponse, setStatusResponse] = useState(0);
-    const [timer, setTimer] = useState(120);
+    const [timer, setTimer] = useState(300);
     const [isResendEnabled, setIsResendEnabled] = useState(true);
 
     // Getting the stored provider_id from sessionStorage
@@ -186,6 +186,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                 {/* Close Button */}
                 <div>
                     <button onClick={handleClose} className="absolute top-3 right-3">
+                        <span className="text-red-500 text-center mx-auto">Cancel</span>
                         {/* <IoCloseOutline className="text-[28px] text-mindfulBlack hover:text-main" /> */}
                     </button>
                 </div>

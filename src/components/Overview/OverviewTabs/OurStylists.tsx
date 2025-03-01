@@ -4,6 +4,7 @@ import { StylistCard } from "./OurStylists/StylistCard";
 import { fetchServiceProviderDetailsBrachID } from "../../../api/ApiConfig";
 import { NotFoundContent } from "../../common/NotFoundContent";
 import { ShimmerTable } from "shimmer-effects-react";
+import { NotifyError } from '../../common/Toast/ToastMessage';
 
 // Define the type for StylistCardProps if it's not imported
 interface OurStylistsProps {
@@ -31,7 +32,7 @@ export const OurStylists: React.FC = () => {
   // Beautician List function API Call
   const [beauticians, setBeauticians] = useState<OurStylistsProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadBeauticians = async (provider_id: number, service_id: number, branchID: number) => {
@@ -41,7 +42,8 @@ export const OurStylists: React.FC = () => {
         console.log("Fetched Beauticians data log:", data.stylist);
 
       } catch (error: any) {
-        setError(error.message);
+        // setError(error.message);
+        NotifyError(error.message);
       } finally {
         setLoading(false);
       }
@@ -54,7 +56,8 @@ export const OurStylists: React.FC = () => {
       if (!isNaN(numericProviderId)) {
         loadBeauticians(numericProviderId, storedServiceId ? parseInt(storedServiceId, 10) : 0, branchID ? parseInt(branchID, 10) : 0);
       } else {
-        setError('Invalid provider ID.');
+        // setError('Invalid provider ID.');
+        NotifyError("Invalid provider ID.");
       }
     }
   }, [providerId, storedServiceId]);
@@ -76,7 +79,7 @@ export const OurStylists: React.FC = () => {
     </div>
   }
 
-  if (error) return <div>Error: {error}</div>;
+  // if (error) return <div>Error: {error}</div>;
 
 
   if (beauticians.length <= 0) {
