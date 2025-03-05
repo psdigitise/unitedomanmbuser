@@ -30,6 +30,7 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
 
   const handleImgClick = async () => {
     if (!catID) {
+      
       setError("Category ID is missing");
       return;
     }
@@ -40,6 +41,8 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
     try {
       // Ensure the service ID is a number if you are passing it as such
       const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 1;
+      sessionStorage.setItem("selectedCategoryID", catID); // Store catID in sessionStorage
+
       // Perform the API call using catID
       // const data = await fetchServiceProvidersCategory(catID, "Trivandrum", '20');
       const data = await fetchServiceProviders(
@@ -54,8 +57,6 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
       if (data.status === "success") {
         // Navigate to SearchResults page and pass catID as state
         navigate("/SearchResults", { state: { catID } });
-        // navigate('/SearchResults', { state: { serviceId } });
-        // navigate('/SearchResults');
       } else {
         setError("Failed to fetch data. Please try again.");
       }

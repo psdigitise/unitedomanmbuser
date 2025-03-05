@@ -20,9 +20,6 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  // const [categoryID, setCategoryID] = useState("");
-  // const [categoryID, setCategoryID] = useState<string[]>([]); // Store all category IDs
-
   useEffect(() => {
     // API call to fetch data
     const loadFeaturedServicesData = async () => {
@@ -31,16 +28,6 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
         const data = await featuredServices();
         setFeaturedServicesData(data.data); // Directly set the fetched data
         console.log("Featured Services data log:", data.data);
-        // setCategoryID(data.data[0].category_id)
-
-        // Set the categoryID based on the first category (or any other logic)
-        // if (data.data.length > 0) {
-        //     setCategoryID(data.data.category_id);
-        // }
-
-        // Extract all category IDs and set them
-        // const ids = data.data.map((service: FeaturedServicesProps) => service.category_id);
-        // setCategoryID(ids);
       } catch (error: any) {
         console.error("Error fetching Featured Services:", error);
         setError("Failed to fetch Featured Services data.");
@@ -95,9 +82,6 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
           ) : (
             <div>No Featured Services Available</div>
           )}
-          {/* <FeaturedServicesCard cardImage={hairSkin} cardImageAlt={"Hair & Skin"} cardCaption={"Hair"} />
-                <FeaturedServicesCard cardImage={skin} cardImageAlt={"Products"} cardCaption={"Skin"} />
-                <FeaturedServicesCard cardImage={nails} cardImageAlt={"Nails"} cardCaption={"Nails"} /> */}
         </div>
       </div>
     </section>

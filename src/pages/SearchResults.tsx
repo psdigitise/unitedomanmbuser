@@ -54,12 +54,6 @@ interface SearchResultsProps {
   image_url: string;
   review_count: string;
   average_rating: number;
-
-  // reviews_count: string,
-  // services_offered: string,
-  // address: string,
-  // distance: string,
-  // image_url: string,
 }
 
 interface ServiceProviderType {
@@ -83,9 +77,6 @@ export const SearchResults = () => {
 
   const userID = useSelector((state: RootState) => state.cart.userID);
   console.log("User ID taken from Redux Store: ", userID);
-
-
-  // const [buttonState, setButtonState] = useState({ buttonText: "Submit", isSubmitted: false });
   const [buttonState, setButtonState] = useState<{ buttonText: string; isSubmitted: boolean }>({
     buttonText: "Call Me",
     isSubmitted: false,
@@ -105,9 +96,26 @@ export const SearchResults = () => {
   console.log("Stored Location:", storedLocation);
 
   const location = useLocation();
-  const catID = location.state?.catID;
+  //const catID = location.state?.catID;
+  const [catID, setCatID] = useState<string | undefined>(location.state?.catID);
+
 
   console.log("Category ID:", catID); // Use catID as needed
+
+   // Update catID only if it's changed (i.e., when navigating from FeaturedServices)
+  //  useEffect(() => {
+  //   if (location.state?.catID) {
+  //     setCatID(location.state.catID); // Set the category ID when location changes
+  //   }
+  // }, [location]);
+  // If catID is not in location state, try to get it from sessionStorage
+ 
+  // useEffect(() => {
+  //   if (!catID) {
+  //     const storedCatID = sessionStorage.getItem("selectedCategoryID");
+  //     setCatID(storedCatID || undefined); // Set to undefined if it's null
+  //   }
+  // }, [catID]);
 
   useEffect(() => {
     // Getting Service Provider
@@ -116,12 +124,18 @@ export const SearchResults = () => {
         // Ensure the service ID is a number if you are passing it as such
         const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
 
+        if (!catID) {
+          const storedCatID = sessionStorage.getItem("selectedCategoryID");
+          console.log("storedCatID",storedCatID)
+          setCatID(storedCatID || ""); // Set to undefined if it's null
+        }
+
         // API call to fetch service providers
         const data = await fetchServiceProviders(
           serviceId,
           storedLocation,
           "20",
-          catID
+          catID || ""
         );
         // const data = await fetchServiceProviders(serviceId, storedLocation, "20");
 
@@ -139,7 +153,7 @@ export const SearchResults = () => {
     };
 
     loadServiceProvider();
-  }, [storedServiceId, storedLocation]); // Add dependencies so the useEffect runs if these values change
+  }, [storedServiceId, storedLocation, catID]); // Add dependencies so the useEffect runs if these values change
 
   // API call for service provider type (Salon or Freelancer)
   useEffect(() => {
@@ -264,21 +278,7 @@ export const SearchResults = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-8 border-b-2">
           <div className="flex items-center space-x-5 max-sm:flex-col max-sm:gap-4 max-sm:space-x-0 max-sm:items-start">
-            {/* {/ Sort By /} */}
-            {/* <div>
-              <select
-                name=""
-                id=""
-                className="w-32 bg-mindfulMildGrey text-sm text-mindfulBlack font-semibold border-[1px] border-mindfulGreySecondary px-3 py-2 cursor-pointer"
-              >
-                <option value="" selected disabled>
-                  Sort By
-                </option>
-                <option value="">Option 1</option>
-                <option value="">Option 2</option>
-              </select>
-            </div> */}
-
+      
             {/* {/ Type /} */}
             <div>
               <select
@@ -385,44 +385,6 @@ export const SearchResults = () => {
               </div>
             )}
 
-            {/* {serviceProvider.map((provider) => (
-              <ServiceBookingCard
-                key={provider.provider_id} // You can use a better unique identifier if available (like provider ID)
-                serviceProviderID={provider.provider_id}
-                serviceProviderName={provider.provider_name}
-                serviceProviderRating={parseFloat(provider.rating)}
-                city={provider.provider_city}
-                state={provider.provider_state}
-                distance={parseFloat(provider.distance_km)}
-                verifiedCheckmark={provider.verified}
-                serviceName={provider.service_name}
-                allServices={provider.all_services}
-                reviewCount={provider.review_count}
-                serviceType={provider.service_type}
-              />
-            ))} */}
-
-            {/* 
-            <ServiceBookingCard
-              serviceProviderName="Nezeera Ansu"
-              serviceProviderRating={4.82}
-              location="Edapally, Ernakulam"
-              distance={1.5}
-            />
-
-            <ServiceBookingCard
-              serviceProviderName="Head And Face Unisex"
-              serviceProviderRating={4.82}
-              location="Edapally, Ernakulam"
-              distance={1.5}
-            />
-
-            <ServiceBookingCard
-              serviceProviderName="Neha Beauty Saloon"
-              serviceProviderRating={4.82}
-              location="Edapally, Ernakulam"
-              distance={1.5}
-            /> */}
 
             {/* Request a CallBack */}
             <div className="bg-RequestaCallBack bg-no-repeat bg-cover bg-center rounded-[8px] mb-8 hidden lg:block">

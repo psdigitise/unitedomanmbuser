@@ -1019,3 +1019,32 @@ export const ServicesCategory = async (providerId: number) => {
         throw new Error("Unable to fetch featured Services. Please try again later.");
     }
 };
+
+
+export const cancelBooking = async (userId: number, appointmentId: number, reason: string) => {
+    try {
+        const response = await apiAxios.post(
+            "/api/cancel-booking/",
+            {
+                user_id: userId,
+                appointment_id: appointmentId,
+                reason: reason,
+            }
+        );
+
+        console.log("Cancel Booking Response:", response.data);
+
+        if (!response.data || response.status !== 200) {
+            throw new Error("Failed to cancel booking");
+        }
+
+        return response.data; // Expected { "message": "Appointment cancelled successfully." }
+
+    } catch (error: any) {
+        if (error.response && error.response.status === 400 && error.response.data.error) {
+            throw new Error(error.response.data.error); // Show the error message from the API
+        }
+        console.error("Error cancelling booking:", error.message || error);
+        throw new Error("Unable to cancel booking. Please try again later.");
+    }
+};

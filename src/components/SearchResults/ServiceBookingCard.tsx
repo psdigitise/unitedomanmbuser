@@ -111,7 +111,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                       {/* {/ Service Provider Name /} */}
                       <h5 className="sm:text-[18px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px]">
                         {/* {serviceProviderName} */}
-                        {branchName}
+                        {branchName} 
                       </h5>
                     </div>
 
