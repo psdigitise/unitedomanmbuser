@@ -263,7 +263,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                 {/* {/ Dynamically set provider_id in the URL /} */}
                 <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
                   <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[14px]">
-                    Book a Servicel;
+                    Book a Service
                   </button>
                 </Link>
               </div>

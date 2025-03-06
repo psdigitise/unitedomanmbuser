@@ -74,7 +74,7 @@ export const Services = () => {
         console.log("services list details data log", data.services);
         // console.log("branch id check on service page ==>", data.data[0].branch_id);
         // const loadCategorySelectData = await featuredServices();
-        const loadCategorySelectData = await ServicesCategory(providerId);
+        const loadCategorySelectData = await ServicesCategory(providerId, branchID);
 
         setCategoryDetails(loadCategorySelectData.data)
         console.log("Category ID on select data log:", loadCategorySelectData);

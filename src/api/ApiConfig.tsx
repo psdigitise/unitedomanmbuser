@@ -1001,10 +1001,12 @@ export const salesTransactionsInvoice = async (appointmentID: number) => {
 
 
 // New API Call for category in Services Tab -- --> Overview Page
-export const ServicesCategory = async (providerId: number) => {
+export const ServicesCategory = async (providerId: number, branchID:number) => {
     try {
         const response = await apiAxios.get(`/provider-api/provider_category/`, {
-            params: { provider_id: providerId } // Pass provider_id as query param
+            params: { provider_id: providerId,
+                     branch_id:branchID
+             } // Pass provider_id as query param
         });
         console.log("Featured Services response", response.data);
 
