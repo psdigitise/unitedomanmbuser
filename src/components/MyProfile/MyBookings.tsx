@@ -38,7 +38,7 @@ export const MyBookings = () => {
   
   console.log("selectedAppointment", selectedAppointment);
 
-  useEffect(() => {
+ 
     const loadUserBookings = async (userId: string | number | null) => {
       if (!userId) {
         toast.error("User ID is required");
@@ -56,6 +56,7 @@ export const MyBookings = () => {
       }
     };
 
+    useEffect(() => {
     loadUserBookings(userID);
   }, [userID]);
 
@@ -204,7 +205,8 @@ export const MyBookings = () => {
             closePopup={() => setCancelShowPopup(false)}
             appointmentID={selectedAppointment}
             userID={userID} 
-
+            // refreshBookings={loadUserBookings} // Pass the function as a prop
+            refreshBookings={() => loadUserBookings(userID)} // Wrap in a function
           />
         )}
       </table>

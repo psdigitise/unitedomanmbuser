@@ -9,7 +9,8 @@ interface CancelPopupProps {
   closePopup: () => void;
   appointmentID: string;
   userID:number;
- 
+  refreshBookings: () => void; // Accept the function as a prop
+
 }
 
 type addReasonormData = zod.infer<typeof addReasonSchema>;
@@ -22,7 +23,8 @@ const addReasonSchema = zod.object({
 export const CancelPopup: React.FC<CancelPopupProps> = ({
   closePopup,
   appointmentID,
-  userID
+  userID,
+  refreshBookings
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +45,8 @@ export const CancelPopup: React.FC<CancelPopupProps> = ({
       // Call the cancelBooking API with the userID, appointmentID, and reason
       const response = await cancelBooking(userID, Number(appointmentID), data.reason);
       console.log("Booking canceled successfully:", response.message);
-
+       // Refresh bookings after cancellation
+       refreshBookings();
       // Handle the success - close the popup and reset loading state
       setTimeout(() => {
         setLoading(false);
