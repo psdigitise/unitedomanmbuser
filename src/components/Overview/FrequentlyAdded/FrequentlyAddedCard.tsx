@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from '../../../redux/cartSlice'; // Adjust path as necessary
 import { scrollToCartItemArea } from "../../../redux/scrollSlice";
 import { RootState } from "../../../redux/store";
+import { ClearItemsPopup } from "../ClearItemsPopup";
 
 interface FrequentlyAddedCard {
     serviceID: number;
@@ -13,16 +14,20 @@ interface FrequentlyAddedCard {
     categoryName: string;
     serviceDesc: string;
     serviceTime: string;
+    branchID?: number;
 }
 
-export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, serviceName, image, price, categoryName, serviceDesc, serviceTime }) => {
+export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, serviceName, image, price, categoryName, serviceDesc, serviceTime, branchID }) => {
 
     const dispatch = useDispatch();
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+    const [isAdded, setIsAdded] = useState(false);
+    const [showClearItemsPopup, setShowClearItemsPopup] = useState(false);
 
-    const cartItems = useSelector((state: RootState) => state.cart.items); // Access the cart from Redux
-
-    const [isAdded, setIsAdded] = useState(false); // State to track if the item is added
-
+    // Add close handler
+    const handleClosePopup = () => {
+      setShowClearItemsPopup(false);
+    };
     // Check if the item is in the cart and update the isAdded state
     useEffect(() => {
         const itemExistsInCart = cartItems.some(item => item.serviceID === serviceID);
@@ -30,27 +35,68 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
     }, [cartItems, serviceID]);
 
     // Function to handle adding the service to the cart
-    const handleAddToCart = () => {
-        const item = {
-            serviceID,
-            serviceName,
-            price,
-            categoryName,
-            image,
-            serviceDesc,
-            serviceTime
-        };
-        dispatch(addToCart(item)); // Dispatch action to add the service to the cart
-        setIsAdded(true); // Set the button state to "Added"
-
-
-        // Dispatch action to scroll to cart area
-        dispatch(scrollToCartItemArea());
-    };
-
-    // const handleRemove = (serviceID: number) => {
-    //     dispatch(removeFromCart(serviceID));
+    // const handleAddToCart = () => {
+    //     const item = {
+    //         serviceID,
+    //         serviceName,
+    //         price,
+    //         categoryName,
+    //         image,
+    //         serviceDesc,
+    //         serviceTime,
+    //         branchID
+    //     };
+    //     dispatch(addToCart(item)); // Dispatch action to add the service to the cart
+    //     setIsAdded(true); // Set the button state to "Added"
+    //     // Dispatch action to scroll to cart area
+    //     dispatch(scrollToCartItemArea());
     // };
+
+    const handleAddToCart = () => {
+        const currentProviderId = sessionStorage.getItem('selectedProviderId');
+        const lastProviderId = sessionStorage.getItem('lastProviderId');
+        const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
+        const lastBranchId = sessionStorage.getItem('lastBranchId');
+    
+        if (cartItems.length === 0) {
+            sessionStorage.setItem('lastProviderId', currentProviderId || '');
+                  sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
+                const item = {
+                        serviceID,
+                        serviceName,
+                        price,
+                        categoryName,
+                        image,
+                        serviceDesc,
+                        serviceTime,
+                        branchID
+                    };
+    
+            dispatch(addToCart(item)); // Dispatch action to add the package to the cart
+            setIsAdded(true); // Set the button state to "Added"
+    
+            // Dispatch action to scroll to cart area
+            dispatch(scrollToCartItemArea());
+        } else {
+            if(currentProviderId === lastProviderId && currentBranchId === lastBranchId){
+                const item = {
+                    serviceID,
+                    serviceName,
+                    price,
+                    categoryName,
+                    image,
+                    serviceDesc,
+                    serviceTime,
+                    branchID
+                };
+            dispatch(addToCart(item)); // Dispatch action to add the package to the cart
+            setIsAdded(true); // Set the button state to "Added"
+            dispatch(scrollToCartItemArea());
+            } else {
+                setShowClearItemsPopup(true);
+            }
+        }
+    };
 
     return (
         <div key={serviceID} className="flex items-start border-b-2 border-mindfulLightGrey pb-5 space-x-5 max-sm:flex-col max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
@@ -79,7 +125,8 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
                     </button>
                 </div>
             </div>
-
+            {/* Add ClearItemsPopup */}
+                  {showClearItemsPopup && (<ClearItemsPopup closePopup={handleClosePopup} />)}
         </div>
     )
 }

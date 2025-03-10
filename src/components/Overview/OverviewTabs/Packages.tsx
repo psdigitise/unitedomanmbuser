@@ -8,7 +8,7 @@ import { NotifyError } from "../../common/Toast/ToastMessage";
 
 interface PackagesProps {
     service_id: number;
-    service_name: string;
+    package_name: string;
     service_image: string;
     service_price?: string;
     package_services?: string | string[]; // Ensure proper type
@@ -30,6 +30,7 @@ export const Packages = () => {
     // API handling State Declaration
     const [packagesData, setPackagesData] = useState<PackagesProps[]>([]);
     const [loading, setLoading] = useState(true);
+    const [OverviewData, setOverviewData] = useState<number>();
     // const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -38,6 +39,7 @@ export const Packages = () => {
             try {
                 // const data = await fetchFAQs();
                 const data = await fetchServiceProviderDetailsBrachID(provider_id, service_id, branchID);
+                setOverviewData(data.data[0].branch_id);
                 setPackagesData(data.packages); // Directly set the fetched data
                 console.log("Packages data log", data.packages);
 
@@ -99,10 +101,11 @@ export const Packages = () => {
                 <PackageCard
                     key={pkg.service_id}
                     packageID={pkg.service_id}
-                    packageName={pkg.service_name}
+                    packageName={pkg.package_name}
                     packageImage={pkg.service_image}
                     packageAmount={pkg.service_price}
                     packageServices={pkg.package_services}  // Convert to array if needed
+                    branchID={OverviewData || 0}
                 />
             ))}
         </div>

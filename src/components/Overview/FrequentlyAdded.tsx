@@ -28,7 +28,7 @@ export const FrequentlyAdded: React.FC = () => {
     const [frequentlyAdded, setFrequentlyAdded] = useState<FrequentlyAddedProps[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
+    const [OverviewData, setOverviewData] = useState<number>();
     // useEffect(() => {
     //     const fetchFrequentlyAdded = async (provider_id: number, service_id: number) => {
     //         setLoading(true);
@@ -66,7 +66,7 @@ export const FrequentlyAdded: React.FC = () => {
             try {
                 // const loadFrequentlyAddedData = await fetchFrequentlyAddedServices();
                 const loadFrequentlyAddedData = await fetchServiceProviderDetailsBrachID(provider_id, service_id, branchID);
-
+                setOverviewData(loadFrequentlyAddedData.data[0].branch_id);
                 setFrequentlyAdded(loadFrequentlyAddedData.frequently_used_services);
                 console.log("Frequently used services data log:", loadFrequentlyAddedData.frequently_used_services);
 
@@ -112,6 +112,7 @@ export const FrequentlyAdded: React.FC = () => {
                             categoryName={faqItem.category_name}
                             serviceDesc={faqItem.serviceDesc}
                             serviceTime={faqItem.serviceTime}
+                            branchID={OverviewData || 0}
                         />
                     ))
                 ) : (
