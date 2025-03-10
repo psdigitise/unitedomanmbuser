@@ -246,13 +246,26 @@ export const LoginHeader = () => {
   };
 
   // On component mount, retrieve the service name and location from sessionStorage
+  // Update the useEffect to clear searchTerm when mounted on SearchResults page
   useEffect(() => {
     const storedServiceName = sessionStorage.getItem("selectedServiceName");
-
-    if (storedServiceName) {
-      setSearchTerm(storedServiceName); // Set the service name in the input field
+    const currentPath = window.location.pathname;
+    const previousPath = sessionStorage.getItem("previousPath");
+  
+    // Clear search term only if:
+    // We're on SearchResults page AND previousPath is "/" (home) or "" (empty)
+    if (currentPath === "/SearchResults" && 
+        (previousPath === "/" || previousPath === "")) {
+      setSearchTerm("");
+      sessionStorage.removeItem("selectedServiceName");
+    } else if (storedServiceName) {
+      // Set the stored service name for other cases
+      setSearchTerm(storedServiceName);
     }
-  }, []); // Empty dependency array ensures it only runs once on mount
+  
+    // Store current path for next navigation
+    sessionStorage.setItem("previousPath", currentPath);
+  }, [window.location.pathname]); // Add pathname as dependency to react to route changes // Empty dependency array ensures it only runs once on mount
 
   // Google Location API
   useEffect(() => {

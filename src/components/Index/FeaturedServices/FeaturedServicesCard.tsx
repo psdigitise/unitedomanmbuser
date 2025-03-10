@@ -55,10 +55,17 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
       console.log("fetchServiceProvidersCategory API response:", data);
 
       if (data.status === "success") {
+        // Clear search term and service name before navigation
+        sessionStorage.setItem("previousPath", "/");  // Set as coming from home
+        sessionStorage.removeItem("selectedServiceName");
+        sessionStorage.setItem("selectedServiceId", "0");
         // Navigate to SearchResults page and pass catID as state
         navigate("/SearchResults", { state: { catID } });
       } else {
         setError("Failed to fetch data. Please try again.");
+        // Clear search term and service name even on error
+        sessionStorage.setItem("previousPath", "/");
+        sessionStorage.removeItem("selectedServiceName");
         navigate("/SearchResults", { state: { catID } });
       }
     } catch (error: any) {
