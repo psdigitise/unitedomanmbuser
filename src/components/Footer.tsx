@@ -23,17 +23,24 @@ const emailSchema = zod.object({
 type EmailFormData = zod.infer<typeof emailSchema>;
 
 export const Footer = () => {
-
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [citiesError, setCitiesError] = useState<string | null>(null);
 
   // Consolidated state for button text and submission status
-  const [buttonState, setButtonState] = useState({ buttonText: "Submit", isSubmitted: false });
+  const [buttonState, setButtonState] = useState({
+    buttonText: "Submit",
+    isSubmitted: false,
+  });
 
   // React Hook Form setup with Zod validation
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<EmailFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<EmailFormData>({
     resolver: zodResolver(emailSchema),
     defaultValues: {
       email: "",
@@ -60,19 +67,19 @@ export const Footer = () => {
   }, []);
 
   const onSubmit = async (data: EmailFormData) => {
-
     setLoading(true); // Start loading state
-    setError(null);   // Clear any previous errors
+    setError(null); // Clear any previous errors
     setButtonState({ ...buttonState, isSubmitted: false }); // Reset submission state
-
 
     try {
       const response = await subscribeNewsLetter(data.email);
       console.log("Email submitted successfully:", response);
 
-
       // Update button text and color on success
-      setButtonState({ buttonText: "Email Submitted Successfully", isSubmitted: true });
+      setButtonState({
+        buttonText: "Email Submitted Successfully",
+        isSubmitted: true,
+      });
 
       // Reset the form after successful submission
       reset(); // Clears all form fields including rating and comment
@@ -81,9 +88,10 @@ export const Footer = () => {
       setTimeout(() => {
         setButtonState({ buttonText: "Submit", isSubmitted: false });
       }, 3000);
-
     } catch (error: any) {
-      setError(error.message || "Error submitting the email. Please try again.")
+      setError(
+        error.message || "Error submitting the email. Please try again."
+      );
     } finally {
       setLoading(false); // End loading state
     }
@@ -157,8 +165,15 @@ export const Footer = () => {
 
                 <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
                   {/* <a href="#" className="hover:underline"> */}
-                  Register as a professional
-                  {/* </a> */}
+                  <a
+                    href="https://calm-sand-0e7a0520f.4.azurestaticapps.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    Register as a professional
+                    {/* </a> */}
+                  </a>
                 </li>
               </ul>
             </div>
@@ -288,28 +303,37 @@ export const Footer = () => {
                   placeholder="Enter your email"
                   // className="w-full rounded-[6px] border-[1px] border-mindfulLightGrey px-4 py-2 focus-visible:outline-none"
                   className={`w-full rounded-[6px] border-[1px] 
-                    ${errors.email ? "border-red-500" : "border-mindfulLightGrey"}
+                    ${
+                      errors.email
+                        ? "border-red-500"
+                        : "border-mindfulLightGrey"
+                    }
                      px-4 py-2 focus-visible:outline-none`}
                   {...register("email")}
                 />
 
-                {errors.email && (<p className="text-red-500 text-sm mt-1">{errors.email.message}</p>)}
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               <button
                 type="submit"
-                className={`${buttonState.isSubmitted ? "bg-green-500" : "bg-main"}
+                className={`${
+                  buttonState.isSubmitted ? "bg-green-500" : "bg-main"
+                }
                  text-mindfulWhite rounded-[20px] px-4 py-2 flex items-center`}
                 disabled={loading}
               >
                 {/* Submit */}
-                {loading ? "Submitting..." : buttonState.buttonText} {/* Use buttonText state */}
-
+                {loading ? "Submitting..." : buttonState.buttonText}{" "}
+                {/* Use buttonText state */}
                 <HiArrowSmRight className="text-[22px] text-mindfulWhite ml-1" />
               </button>
 
               {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
             </form>
           </div>
         </div>
@@ -317,18 +341,16 @@ export const Footer = () => {
         {/* Location */}
         <div className="text-mindfulBlack text-center border-y border-mindfulGrey py-8">
           <p className="text-[15px] text-mindfulBlack">
-            {citiesError ? (
-              "Unable to load cities"
-            ) : cities.length > 0 ? (
-              cities
-                .filter((city: string) => city.length > 1)
-                .sort((a: string, b: string) => a.localeCompare(b))
-                .map((city: string) => city.trim())
-                .filter((city: string) => city !== "")
-                .join(" | ")
-            ) : (
-              "Loading cities..."
-            )}
+            {citiesError
+              ? "Unable to load cities"
+              : cities.length > 0
+              ? cities
+                  .filter((city: string) => city.length > 1)
+                  .sort((a: string, b: string) => a.localeCompare(b))
+                  .map((city: string) => city.trim())
+                  .filter((city: string) => city !== "")
+                  .join(" | ")
+              : "Loading cities..."}
           </p>
         </div>
 

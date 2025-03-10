@@ -29,6 +29,7 @@ interface ServiceBookingCardProps {
   branch_longitude: number;
   reviewCount: string;
   starRating: number;
+  //serviceType:string;
 }
 
 export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
@@ -45,7 +46,8 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
   branch_latitude,
   branch_longitude,
   reviewCount,
-  starRating
+  starRating,
+  
 }) => {
   // const dispatch = useDispatch();
 

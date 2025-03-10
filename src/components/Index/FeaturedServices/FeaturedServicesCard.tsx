@@ -47,8 +47,8 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
       // const data = await fetchServiceProvidersCategory(catID, "Trivandrum", '20');
       const data = await fetchServiceProviders(
         serviceId,
-        // storedLocation,
-        "Trivandrum",
+         storedLocation,
+        //"Trivandrum",
         "20",
         catID
       );
@@ -59,6 +59,7 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
         navigate("/SearchResults", { state: { catID } });
       } else {
         setError("Failed to fetch data. Please try again.");
+        navigate("/SearchResults", { state: { catID } });
       }
     } catch (error: any) {
       setError(error.message || "Error fetching category data");

@@ -34,7 +34,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
     // const [isVerified, setIsVerified] = useState<boolean>(false); // Track success response
 
     const [statusResponse, setStatusResponse] = useState(0);
-    const [timer, setTimer] = useState(300);
+    const [timer, setTimer] = useState(120);
     const [isResendEnabled, setIsResendEnabled] = useState(true);
 
     // Getting the stored provider_id from sessionStorage
