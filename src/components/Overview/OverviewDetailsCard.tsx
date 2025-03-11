@@ -71,7 +71,9 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
 
   const providerName = sessionStorage.setItem("serviceProviderName", serviceProviderName);
   const providerLocalName = localStorage.setItem("serviceProviderName", serviceProviderName);
-  console.log("Service Provider Name and providerLocalName log:", providerName, providerLocalName);
+  const BranchName=sessionStorage.setItem("BranchName", branchName);
+  console.log("Service Provider Name and providerLocalName log:", providerName, providerLocalName,BranchName);
+
 
 
   return (
