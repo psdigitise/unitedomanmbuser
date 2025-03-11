@@ -125,7 +125,7 @@ export const Overview = () => {
       </div>
 
       {/* Business Summary List */}
-      <div className="pl-10 pb-10 max-sm:pb-5 max-sm:pl-5">
+      {/* <div className="pl-10 pb-10 max-sm:pb-5 max-sm:pl-5">
         <ul className="list-disc marker:text-main space-y-3">
           <li>Morbi vitae nibh scelerisque, commodo felis ut, rhoncus elit.</li>
           <li>Vivamus tristique nulla quis sem finibus aliquet.</li>
@@ -134,7 +134,7 @@ export const Overview = () => {
           </li>
           <li>Nunc mattis diam at lectus malesuada porttitor.</li>
         </ul>
-      </div>
+      </div> */}
 
       {/* Gender & Timings */}
       <div className="flex justify-start gap-10 items-center pb-10 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:pb-5">
@@ -162,7 +162,7 @@ export const Overview = () => {
       </div>
 
       {/* Lorem ipsum list */}
-      <div className="" ref={locationMapRef}>
+      {/* <div className="" ref={locationMapRef}>
         <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px]">
           Lorem Ipsum
         </h5>
@@ -172,7 +172,7 @@ export const Overview = () => {
             Integer at nisl ultrices, scelerisque nulla in, placerat odio.
           </li>
         </ul>
-      </div>
+      </div> */}
 
       {/* Location Map & Get Direction */}
       <div>
