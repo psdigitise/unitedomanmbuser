@@ -164,7 +164,8 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
       } else if (permissionStatus.state === "denied") {
         // ❌ Permanently denied → Show one-time error
         NotifyError(
-          "Location access is blocked. Enable it in browser settings to continue."
+          //"Location access is blocked. Enable it in browser settings to continue."
+          "Please enable the location settings or Select your preferred location."
         );
       } else {
         // 🚀 Permission is in 'prompt' state → Ask for location once
