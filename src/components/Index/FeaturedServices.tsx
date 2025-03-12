@@ -93,7 +93,7 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
               />
             ))
           ) : (
-            <div>No Featured Services Available</div>
+            <div className="text-center py-4">No Featured Services Available</div>
           )}
           {/* <FeaturedServicesCard cardImage={hairSkin} cardImageAlt={"Hair & Skin"} cardCaption={"Hair"} />
                 <FeaturedServicesCard cardImage={skin} cardImageAlt={"Products"} cardCaption={"Skin"} />

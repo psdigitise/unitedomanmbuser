@@ -216,19 +216,26 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
                 </div>
               </div>
 
-              {/* Distance */}
-              <div className="flex items-center">
-                <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
-                  <img
-                    src={virtualTryOn}
-                    alt="virtual try-on image"
-                    className="p-0.5"
-                  />
+              {/* Virtual TryOn */}
+              <a
+                href="https://try.mindfulbeauty.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="flex items-center">
+                  <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
+                    <img
+                      src={virtualTryOn}
+                      alt="virtual try-on image"
+                      className="p-0.5"
+                    />
+                  </div>
+
+                  <button className="bg-main text-mindfulWhite rounded-[20px] pl-10 pr-4 py-2 sm:flex items-center hidden">
+                    Virtual Try-on
+                  </button>
                 </div>
-                <button className="bg-main text-mindfulWhite rounded-[20px] pl-10 pr-4 py-2 sm:flex items-center hidden">
-                  Virtual Try-on
-                </button>
-              </div>
+              </a>
             </div>
           </div>
         </div>
