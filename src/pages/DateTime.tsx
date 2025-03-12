@@ -177,7 +177,9 @@ export const DateTime: React.FC<DateTimeProps> = () => {
             joinedServiceIDs,                // Replace with selected service ID(s)
             dateOnly,                        // Format the date
             selectedTime || "",
-            quantityValuesString)
+            quantityValuesString,
+            selectedFile
+        )
         try {
             if (!userID || !localProviderID) {
                 throw new Error("Missing required booking information. Please try again.");
@@ -191,7 +193,8 @@ export const DateTime: React.FC<DateTimeProps> = () => {
                 joinedServiceIDs,                // Replace with selected service ID(s)
                 dateOnly,                        // Format the date
                 selectedTime || "",
-                quantityValuesString             // Replace with actual quantity
+                quantityValuesString,             // Replace with actual quantity
+                selectedFile
             );
 
             if (data.status === "success") {

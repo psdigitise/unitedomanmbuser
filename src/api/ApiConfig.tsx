@@ -702,40 +702,90 @@ export const fetchHomePageFAQ = async (serviceTypeID: number) => {
 
 
 // Login Page -> Register API
+// export const bookNow = async (
+//     userID: string,
+//     providerID: string,
+//     branchID: string,
+//     serviceIDS: string,
+//     appointmentDate: any,
+//     appointmentTime: string,
+//     quantityCount: string,
+//     virtualImage: File | null, // Ensure virtualImage is of type File or null,
+// ) => {
+//     try {
+//         const response = await apiAxios.post("/api/book_now/", {
+//             user_id: userID,
+//             provider_id: providerID,
+//             service_ids: serviceIDS,
+//             appointment_date: appointmentDate,
+//             appointment_time: appointmentTime,
+//             branch_id: branchID,
+//             quantity: quantityCount,
+//             reference_image: virtualImage
+//         });
+
+//         console.log("Book Now API response", response.data);
+
+//         // Assuming the API returns an object with a `status` field and a `data` field
+//         if (!response.data || response.status !== 201) {
+//             throw new Error("Error during booking:");
+//         }
+
+//         return response.data; // Adjust based on the actual response structure
+
+//     } catch (error: any) {
+//         console.error("Error during booking:", error.message || error);
+//         throw new Error("Unable to complete booking. Please try again later.");
+//     }
+// };
+
+
 export const bookNow = async (
     userID: string,
     providerID: string,
     branchID: string,
     serviceIDS: string,
-    appointmentDate: any,
+    appointmentDate: string,
     appointmentTime: string,
-    quantityCount: string
+    quantityCount: string,
+    virtualImage: File | null, // Ensure virtualImage is of type File or null
 ) => {
     try {
-        const response = await apiAxios.post("/api/book_now/", {
-            user_id: userID,
-            provider_id: providerID,
-            service_ids: serviceIDS,
-            appointment_date: appointmentDate,
-            appointment_time: appointmentTime,
-            branch_id: branchID,
-            quantity: quantityCount
-        });
+        // Create FormData object to send files
+        const formData = new FormData();
+        formData.append("user_id", userID);
+        formData.append("provider_id", providerID);
+        formData.append("service_ids", serviceIDS);
+        formData.append("appointment_date", appointmentDate);
+        formData.append("appointment_time", appointmentTime);
+        formData.append("branch_id", branchID);
+        formData.append("quantity", quantityCount);
 
-        console.log("Book Now API response", response.data);
-
-        // Assuming the API returns an object with a `status` field and a `data` field
-        if (!response.data || response.status !== 201) {
-            throw new Error("Error during booking:");
+        // Append image file only if it exists
+        if (virtualImage) {
+            formData.append("reference_image", virtualImage);
         }
 
-        return response.data; // Adjust based on the actual response structure
+        const response = await apiAxios.post("/api/book_now/", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data", // Required for file uploads
+            },
+        });
+
+        console.log("Book Now API response:", response.data);
+
+        if (!response.data || response.status !== 201) {
+            throw new Error("Error during booking.");
+        }
+
+        return response.data;
 
     } catch (error: any) {
         console.error("Error during booking:", error.message || error);
         throw new Error("Unable to complete booking. Please try again later.");
     }
 };
+
 
 
 

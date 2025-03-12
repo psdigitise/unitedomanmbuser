@@ -206,7 +206,8 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
 
         navigate("/SearchResults", { state: { catID } });
       } else {
-        NotifyError("Failed to fetch data. Please try again.");
+        // NotifyError("Failed to fetch data. Please try again.");
+        console.log("Failed to fetch data. Please try again.");
         sessionStorage.setItem("previousPath", "/");
         sessionStorage.removeItem("selectedServiceName");
         navigate("/SearchResults", { state: { catID } });
