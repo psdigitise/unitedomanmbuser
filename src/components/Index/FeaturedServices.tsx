@@ -78,7 +78,7 @@ export const FeaturedServices: React.FC<FeaturedServicesProps> = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {featuredServicesData.length > 0 ? (
             featuredServicesData.map((fsData, index) => (
               <FeaturedServicesCard
