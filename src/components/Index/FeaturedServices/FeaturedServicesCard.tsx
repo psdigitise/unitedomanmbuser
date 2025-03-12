@@ -177,7 +177,7 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
           (error) => {
             console.error("Location Error:", error);
             if (error.code === error.PERMISSION_DENIED) {
-              NotifyError("Location access denied. Please allow location to proceed.");
+              // NotifyError("Location access denied. Please allow location to proceed.");
             }
           },
           { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
