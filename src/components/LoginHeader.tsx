@@ -251,18 +251,18 @@ export const LoginHeader = () => {
     const storedServiceName = sessionStorage.getItem("selectedServiceName");
     const currentPath = window.location.pathname;
     const previousPath = sessionStorage.getItem("previousPath");
-  
+
     // Clear search term only if:
     // We're on SearchResults page AND previousPath is "/" (home) or "" (empty)
-    if (currentPath === "/SearchResults" && 
-        (previousPath === "/" || previousPath === "")) {
+    if (currentPath === "/SearchResults" &&
+      (previousPath === "/" || previousPath === "")) {
       setSearchTerm("");
       sessionStorage.removeItem("selectedServiceName");
     } else if (storedServiceName) {
       // Set the stored service name for other cases
       setSearchTerm(storedServiceName);
     }
-  
+
     // Store current path for next navigation
     sessionStorage.setItem("previousPath", currentPath);
   }, [window.location.pathname]); // Add pathname as dependency to react to route changes // Empty dependency array ensures it only runs once on mount

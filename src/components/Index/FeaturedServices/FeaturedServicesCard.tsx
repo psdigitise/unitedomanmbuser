@@ -30,7 +30,7 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
 
   const handleImgClick = async () => {
     if (!catID) {
-      
+
       setError("Category ID is missing");
       return;
     }
@@ -47,7 +47,7 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
       // const data = await fetchServiceProvidersCategory(catID, "Trivandrum", '20');
       const data = await fetchServiceProviders(
         serviceId,
-         storedLocation,
+        storedLocation,
         //"Trivandrum",
         "20",
         catID

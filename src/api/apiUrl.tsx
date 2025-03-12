@@ -2,11 +2,11 @@
 import axios from 'axios';
 
 export const apiUrl = {
-   // apiUrlConfig: "http://192.168.1.10:8000",
+    // apiUrlConfig: "http://192.168.1.17:8000",
     // apiUrlConfig: "http://192.168.43.150:8000", Motorola One Power
     // apiUrlConfig: "https://djangoapp-git-main-mindful-beautys-projects.vercel.app",
     apiUrlConfig: "https://mbrestapi-f8cphtgaf7fjdyb0.westcentralus-01.azurewebsites.net",    // Azure
-   
+    // apiUrlConfig: "https://djangoapp-mindful-beautys-projects.vercel.app/",
 }
 
 // Create an Axios instance with the base URL

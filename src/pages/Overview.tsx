@@ -33,7 +33,7 @@ interface ProviderDetails {
   image_url: string;
   review_count: string;
   average_rating: number;
-  service_type: string; // Include the service_type field
+  service_type: string;
 }
 
 export const Overview = () => {
@@ -48,6 +48,8 @@ export const Overview = () => {
   // Ref for cart item area
   const cartItemAreaRef = useRef<HTMLDivElement>(null);
   console.log(cartItemAreaRef, "Hello");
+
+  const [serviceType, setServiceType] = useState<string | null>("");
 
   // Scroll to the cart area when the state indicates so
   useEffect(() => {
@@ -79,8 +81,6 @@ export const Overview = () => {
 
   const storedServiceId = sessionStorage.getItem("selectedServiceId");
   console.log("Stored Service ID for services:", storedServiceId);
-  const [serviceType, setServiceType] = useState<string>(''); // State for dynamic bannerTitle
-
 
   useEffect(() => {
     if (providerId && branchID && localproviderId && localbranchID) {
@@ -106,10 +106,11 @@ export const Overview = () => {
         const data = await fetchServiceProviderDetailsBrachID(providerId, service_id, branchID);
         setProviderDetails(data.data);
         console.log("Provider Details and branch id ====>", data.data);
-         // Set the service type from the API response
-         if (data.data && data.data.length > 0) {
+
+        if (data.data && data.data.length > 0) {
           setServiceType(data.data[0].service_type); // Assuming service_type is present in the first item
         }
+
       } catch (error: any) {
         // setError(error.message || "Failed to fetch service provider details.");
         NotifyError(error.message || "Failed to fetch service provider details.");
@@ -156,11 +157,35 @@ export const Overview = () => {
     }
   }, [providerId, cartItems.length, branchID]); // Add cartItems.length as dependency
 
+  // Add this function to handle cart changes
+  // const handleCartChange = () => {
+  //   if (cartItems.length === 1) { // First item being added
+  //     const storedProviderId = sessionStorage.getItem('lastProviderId');
+  //     if (storedProviderId && storedProviderId !== providerId) {
+  //       openClearItemsPopup();
+  //     }
+  //   }
+  // };
+
+  // // Add useEffect to watch cart changes
+  // useEffect(() => {
+  //   handleCartChange();
+  // }, [cartItems.length]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
+
   return (
     <section ref={cartItemAreaRef} className="mt-[15px]">
       {/* {/ Banner Content /} */}
       <div>
-        <BannerContent bannerTitle={serviceType || ""} />
+        {/* <BannerContent bannerTitle="Salon Service" /> */}
+        <BannerContent bannerTitle={serviceType || "Service"} />
       </div>
 
       <div className="container mx-auto px-4">
@@ -210,7 +235,6 @@ export const Overview = () => {
                     branch_longitude={provider.branch_longitude}
                     reviewCount={provider.review_count}
                     starRating={provider.average_rating}
-                    //serviceType={provider.service_type}
                   />
                 ))}
               </div>

@@ -6,7 +6,8 @@ import { RecommendedBest } from '../components/Index/RecommendedBest'
 import { BookingFlow } from '../components/Index/BookingFlow'
 import { FeedBack } from '../components/Index/FeedBack'
 import { Faq } from '../components/Index/Faq'
-import { Blog } from '../components/Index/Blog'
+import { RegAsAProfessional } from '../components/Index/RegAsAProfessional'
+// import { Blog } from '../components/Index/Blog'
 
 export const Index = () => {
 
@@ -38,7 +39,8 @@ export const Index = () => {
             <BookingFlow />
             <FeedBack />
             <Faq />
-            <Blog />
+            {/* <Blog /> */}
+            <RegAsAProfessional />
         </div>
     )
 }

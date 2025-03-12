@@ -26,7 +26,7 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
 
     // Add close handler
     const handleClosePopup = () => {
-      setShowClearItemsPopup(false);
+        setShowClearItemsPopup(false);
     };
     // Check if the item is in the cart and update the isAdded state
     useEffect(() => {
@@ -57,28 +57,28 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
         const lastProviderId = sessionStorage.getItem('lastProviderId');
         const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
         const lastBranchId = sessionStorage.getItem('lastBranchId');
-    
+
         if (cartItems.length === 0) {
             sessionStorage.setItem('lastProviderId', currentProviderId || '');
-                  sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
-                const item = {
-                        serviceID,
-                        serviceName,
-                        price,
-                        categoryName,
-                        image,
-                        serviceDesc,
-                        serviceTime,
-                        branchID
-                    };
-    
+            sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
+            const item = {
+                serviceID,
+                serviceName,
+                price,
+                categoryName,
+                image,
+                serviceDesc,
+                serviceTime,
+                branchID
+            };
+
             dispatch(addToCart(item)); // Dispatch action to add the package to the cart
             setIsAdded(true); // Set the button state to "Added"
-    
+
             // Dispatch action to scroll to cart area
             dispatch(scrollToCartItemArea());
         } else {
-            if(currentProviderId === lastProviderId && currentBranchId === lastBranchId){
+            if (currentProviderId === lastProviderId && currentBranchId === lastBranchId) {
                 const item = {
                     serviceID,
                     serviceName,
@@ -89,9 +89,9 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
                     serviceTime,
                     branchID
                 };
-            dispatch(addToCart(item)); // Dispatch action to add the package to the cart
-            setIsAdded(true); // Set the button state to "Added"
-            dispatch(scrollToCartItemArea());
+                dispatch(addToCart(item)); // Dispatch action to add the package to the cart
+                setIsAdded(true); // Set the button state to "Added"
+                dispatch(scrollToCartItemArea());
             } else {
                 setShowClearItemsPopup(true);
             }
@@ -126,7 +126,7 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
                 </div>
             </div>
             {/* Add ClearItemsPopup */}
-                  {showClearItemsPopup && (<ClearItemsPopup closePopup={handleClosePopup} />)}
+            {showClearItemsPopup && (<ClearItemsPopup closePopup={handleClosePopup} />)}
         </div>
     )
 }

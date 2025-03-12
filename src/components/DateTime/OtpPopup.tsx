@@ -46,8 +46,8 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
     // Getting the stored provider_id from sessionStorage
     const sessionProviderName = sessionStorage.getItem('serviceProviderName');
     const providerLocalName = localStorage.getItem('serviceProviderName');
-    const BranchName=sessionStorage.getItem('BranchName');
-    console.log("Selected Provider Name and local provider name from session storage", sessionProviderName, providerLocalName, BranchName);
+    const providerBranchName = localStorage.getItem('serviceProviderBranchName');
+    console.log("Selected Provider Name and local provider name & providerBranchName from session storage", sessionProviderName, providerLocalName, providerBranchName);
 
 
     const { handleSubmit, setValue, clearErrors, formState: { errors } } = useForm<OtpFormData>({
@@ -200,8 +200,10 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 Your appointment ID
                                 <span className="font-semibold"> {appID} </span>
                                 is created successfully & waiting for confirmation from the "Service Provider ID & Name :
-                                <span className="font-semibold"> {localProviderID} : {providerLocalName} </span>,<br/>
-                                Branch Name:   <span className="font-semibold"> {BranchName} </span>"
+                                <span className="font-semibold"> {localProviderID} : {providerLocalName} </span>
+                                <br />
+                                Branch Name :<span className="font-semibold"> {providerBranchName}</span>
+                                ".
                             </p>
 
 
@@ -214,6 +216,7 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                     <span className="font-semibold"> {localProviderID} </span>
                                     has accepted your appointment request</p>
                             }
+
                             <div className="text-center my-5 space-x-3">
 
                                 {otpInput.map((_, index) => (

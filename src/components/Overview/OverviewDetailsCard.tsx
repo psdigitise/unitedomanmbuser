@@ -29,7 +29,6 @@ interface ServiceBookingCardProps {
   branch_longitude: number;
   reviewCount: string;
   starRating: number;
-  //serviceType:string;
 }
 
 export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
@@ -46,8 +45,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
   branch_latitude,
   branch_longitude,
   reviewCount,
-  starRating,
-  
+  starRating
 }) => {
   // const dispatch = useDispatch();
 
@@ -71,9 +69,8 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
 
   const providerName = sessionStorage.setItem("serviceProviderName", serviceProviderName);
   const providerLocalName = localStorage.setItem("serviceProviderName", serviceProviderName);
-  const BranchName=sessionStorage.setItem("BranchName", branchName);
-  console.log("Service Provider Name and providerLocalName log:", providerName, providerLocalName,BranchName);
-
+  const providerBranchName = localStorage.setItem("serviceProviderBranchName", branchName);
+  console.log("Service Provider Name, providerLocalName & providerBranchName log:", providerName, providerLocalName, providerBranchName);
 
 
   return (

@@ -67,68 +67,49 @@ export const PackageCard: React.FC<PackageCardProps> = ({ packageID, packageName
     const cartItems = useSelector((state: RootState) => state.cart.items); // Access the cart from Redux
 
     const [isAdded, setIsAdded] = useState(false); // State to track if the item is added
-// Add state for popup
-  const [showClearItemsPopup, setShowClearItemsPopup] = useState(false);
+    // Add state for popup
+    const [showClearItemsPopup, setShowClearItemsPopup] = useState(false);
 
-  // Add close handler
-  const handleClosePopup = () => {
-    setShowClearItemsPopup(false);
-  };
-// const handleAddToCart = () => {
-//     const numericPrice = Number(price) || 0;
-//     const currentProviderId = sessionStorage.getItem('selectedProviderId');
-//     const lastProviderId = sessionStorage.getItem('lastProviderId');
-//     const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
-//     const lastBranchId = sessionStorage.getItem('lastBranchId');
+    // Add close handler
+    const handleClosePopup = () => {
+        setShowClearItemsPopup(false);
+    };
+    // const handleAddToCart = () => {
+    //     const numericPrice = Number(price) || 0;
+    //     const currentProviderId = sessionStorage.getItem('selectedProviderId');
+    //     const lastProviderId = sessionStorage.getItem('lastProviderId');
+    //     const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
+    //     const lastBranchId = sessionStorage.getItem('lastBranchId');
 
-//     // If this is the first item being added to cart
-//     if (cartItems.length === 0) {
-//       sessionStorage.setItem('lastProviderId', currentProviderId || '');
-//       sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
-//       dispatch(addToCart({ serviceID, serviceName, serviceDesc, price: numericPrice, image, serviceTime, branchID }));
-//       setIsAdded(true);
-//       dispatch(scrollToCartItemArea());
-//     } else {
-//       if (currentProviderId === lastProviderId && currentBranchId === lastBranchId) { // Check if branch IDs match
-//         dispatch(addToCart({ serviceID, serviceName, serviceDesc, price: numericPrice, image, serviceTime, branchID }));
-//         setIsAdded(true);
-//         dispatch(scrollToCartItemArea());
-//       } else {
-//         setShowClearItemsPopup(true);
-//       }
-//     }
-//   };
+    //     // If this is the first item being added to cart
+    //     if (cartItems.length === 0) {
+    //       sessionStorage.setItem('lastProviderId', currentProviderId || '');
+    //       sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
+    //       dispatch(addToCart({ serviceID, serviceName, serviceDesc, price: numericPrice, image, serviceTime, branchID }));
+    //       setIsAdded(true);
+    //       dispatch(scrollToCartItemArea());
+    //     } else {
+    //       if (currentProviderId === lastProviderId && currentBranchId === lastBranchId) { // Check if branch IDs match
+    //         dispatch(addToCart({ serviceID, serviceName, serviceDesc, price: numericPrice, image, serviceTime, branchID }));
+    //         setIsAdded(true);
+    //         dispatch(scrollToCartItemArea());
+    //       } else {
+    //         setShowClearItemsPopup(true);
+    //       }
+    //     }
+    //   };
 
     const handleAddToCart = () => {
-    const currentProviderId = sessionStorage.getItem('selectedProviderId');
-    const lastProviderId = sessionStorage.getItem('lastProviderId');
-    const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
-    const lastBranchId = sessionStorage.getItem('lastBranchId');
+        const currentProviderId = sessionStorage.getItem('selectedProviderId');
+        const lastProviderId = sessionStorage.getItem('lastProviderId');
+        const currentBranchId = sessionStorage.getItem('selectedBranchId'); // Get the current branch ID from sessionStorage
+        const lastBranchId = sessionStorage.getItem('lastBranchId');
 
 
 
-    if (cartItems.length === 0) {
-        sessionStorage.setItem('lastProviderId', currentProviderId || '');
-              sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
-        const packageItem = {
-            // serviceID: packageID || '',                        // Use `id` as serviceID
-            serviceID: packageID,                        // Use `id` as serviceID
-            serviceName: packageName || '',             // Use `packageName` as serviceName
-            price: packageAmount || '0',                // Use `packageAmount` as price
-            categoryName: packageName || 'Bridal Package',             // Set a category name
-            image: packageImage || '',                  // Use `packageImage` as image
-            serviceDesc: packageName || 'Bridal Package Services',     // Optional description
-            serviceTime: '3 hours',                     // Optional service time
-            branchID
-        };
-
-        dispatch(addToCart(packageItem)); // Dispatch action to add the package to the cart
-        setIsAdded(true); // Set the button state to "Added"
-
-        // Dispatch action to scroll to cart area
-        dispatch(scrollToCartItemArea());
-    } else {
-        if(currentProviderId === lastProviderId && currentBranchId === lastBranchId){
+        if (cartItems.length === 0) {
+            sessionStorage.setItem('lastProviderId', currentProviderId || '');
+            sessionStorage.setItem('lastBranchId', lastBranchId || ''); // Set the current branch ID
             const packageItem = {
                 // serviceID: packageID || '',                        // Use `id` as serviceID
                 serviceID: packageID,                        // Use `id` as serviceID
@@ -140,13 +121,32 @@ export const PackageCard: React.FC<PackageCardProps> = ({ packageID, packageName
                 serviceTime: '3 hours',                     // Optional service time
                 branchID
             };
-        dispatch(addToCart(packageItem)); // Dispatch action to add the package to the cart
-        setIsAdded(true); // Set the button state to "Added"
-        dispatch(scrollToCartItemArea());
+
+            dispatch(addToCart(packageItem)); // Dispatch action to add the package to the cart
+            setIsAdded(true); // Set the button state to "Added"
+
+            // Dispatch action to scroll to cart area
+            dispatch(scrollToCartItemArea());
         } else {
-            setShowClearItemsPopup(true);
+            if (currentProviderId === lastProviderId && currentBranchId === lastBranchId) {
+                const packageItem = {
+                    // serviceID: packageID || '',                        // Use `id` as serviceID
+                    serviceID: packageID,                        // Use `id` as serviceID
+                    serviceName: packageName || '',             // Use `packageName` as serviceName
+                    price: packageAmount || '0',                // Use `packageAmount` as price
+                    categoryName: packageName || 'Bridal Package',             // Set a category name
+                    image: packageImage || '',                  // Use `packageImage` as image
+                    serviceDesc: packageName || 'Bridal Package Services',     // Optional description
+                    serviceTime: '3 hours',                     // Optional service time
+                    branchID
+                };
+                dispatch(addToCart(packageItem)); // Dispatch action to add the package to the cart
+                setIsAdded(true); // Set the button state to "Added"
+                dispatch(scrollToCartItemArea());
+            } else {
+                setShowClearItemsPopup(true);
+            }
         }
-    }
 
     };
 
@@ -254,7 +254,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({ packageID, packageName
 
             </div>
             {/* Add ClearItemsPopup */}
-                  {showClearItemsPopup && (<ClearItemsPopup closePopup={handleClosePopup} />)}
+            {showClearItemsPopup && (<ClearItemsPopup closePopup={handleClosePopup} />)}
         </div >
     );
 };
