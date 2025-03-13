@@ -1,4 +1,6 @@
-import registerAsAProfessional from '../../assets/images/registerAsAProfessional.webp';
+// import registerAsAProfessional from '../../assets/images/registerAsAProfessional.webp';
+import registerAsAProfessionalDesktop from '../../assets/images/registerAsAProfessionalDesktop.png';
+import registerAsAProfessionalMobile from '../../assets/images/registerAsAProfessionalMobile.png';
 
 export const RegAsAProfessional = () => {
     return (
@@ -6,17 +8,25 @@ export const RegAsAProfessional = () => {
             <div className="container mx-auto px-4 py-10 max-sm:py-5">
                 <div className="text-center">
                     <a
-                        href="https://calm-sand-0e7a0520f.4.azurestaticapps.net"
+                        href="https://services.mindfulbeauty.ai/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <div>
+                        <div className="max-md:hidden">
                             <img
-                                src={registerAsAProfessional}
+                                src={registerAsAProfessionalDesktop}
                                 alt="registerAsAProfessional-image"
                                 className="w-full"
                             />
                         </div>
+                        <div className='hidden max-md:block'>
+                            <img
+                                src={registerAsAProfessionalMobile}
+                                alt="registerAsAProfessional-image"
+                                className="w-full"
+                            />
+                        </div>
+
                     </a>
                 </div>
             </div>

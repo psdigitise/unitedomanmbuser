@@ -378,10 +378,10 @@ export const HeroSection = () => {
                     </div> */}
 
           {/* Search Bar */}
-          <div className="w-fit mx-auto rounded-[12px] md:rounded-[40px] bg-mindfulWhite md:pl-8 px-4 md:pr-2 md:py-2 py-4 mt-[20px]">
+          <div className="w-fit mx-auto rounded-[12px] md:rounded-[40px] bg-mindfulWhite md:pl-8 px-4 md:pr-2 md:py-2 py-4 mt-[20px] max-md:w-[90%]">
             <div className="flex flex-col items-center space-y-0 md:flex-row md:items-center md:space-x-5 md:space-y-0">
-              <div>
-                <div className="relative">
+              <div className="max-md:w-full"> 
+                <div className="relative max-md:w-full">
                   <img
                     src={ladyIcon}
                     alt="lady Icon"
@@ -418,8 +418,8 @@ export const HeroSection = () => {
                 </div>
               </div>
 
-              <div className="border-mindfulLightGrey md:border-l-2 md:border-t-0 pt-0 md:pt-0 md:pb-0 pb-[25px]">
-                <div className="relative ml-4">
+              <div className="border-mindfulLightGrey md:border-l-2 md:border-t-0 pt-0 md:pt-0 md:pb-0 pb-[25px] max-md:w-full max-md:pb-[15px]">
+                <div className="relative ml-4 max-md:w-full max-md:ml-0">
                   <img
                     src={locationIcon}
                     alt="lady Icon"

@@ -269,8 +269,8 @@ export const SearchResults = () => {
 
       {/* {/ Select Options /} */}
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-8 border-b-2">
-          <div className="flex items-center space-x-5 max-sm:flex-col max-sm:gap-4 max-sm:space-x-0 max-sm:items-start">
+        <div className="flex justify-between items-center py-8 border-b-2 max-sm:flex-wrap max-sm:gap-3 max-sm:items-start max-md:py-4">
+          <div className="flex items-center space-x-5 max-sm:flex-wrap max-sm:gap-4 max-sm:space-x-0 max-sm:items-start ">
             {/* {/ Sort By /} */}
             {/* <div>
               <select

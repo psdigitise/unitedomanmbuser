@@ -242,8 +242,8 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
         {/* {Mobile} */}
         <div className="w-full sm:mt-[25px] md:hidden border-t-2 border-dotted pt-[15px]">
           {/* Location & Distance & Virual Try-on Mobile*/}
-          <div className="flex justify-between items-center md:hidden">
-            <div className="space-y-3">
+          <div className="flex justify-between items-center md:hidden max-md:flex-wrap max-md:items-start max-md:gap-3 ">
+            <div className="space-y-3 ">
               {/* Location Details */}
               <div className="flex items-center space-x-2">
                 {/* Location Icon */}
@@ -257,7 +257,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
               </div>
 
               {/* Rating, Share & Get Direction Tags */}
-              <div className="flex items-center space-x-3 max-sm:flex-col max-sm:gap-3 max-sm:items-start max-sm:space-x-0">
+              <div className="flex items-center space-x-3 max-sm:flex-wrap max-sm:gap-3 max-sm:items-start max-sm:space-x-0">
                 {/* Share */}
                 <div className="w-fit bg-mindfulWhite border-[1px] border-mindfulBlack rounded-md px-3 py-1">
                   <div className="flex items-center text-[14px] text-mindfulBlack font-semibold space-x-2">

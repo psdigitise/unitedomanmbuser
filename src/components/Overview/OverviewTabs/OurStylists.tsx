@@ -87,7 +87,7 @@ export const OurStylists: React.FC = () => {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4 max-xl:mb-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+    <div className="grid grid-cols-4 gap-4 max-xl:mb-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-2">
       {beauticians.map((beautician) => (
         <StylistCard
           key={beautician.beautician_id}

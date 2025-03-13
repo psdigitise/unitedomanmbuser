@@ -28,7 +28,7 @@ export const ClearItemsPopup: React.FC<ClearItemsPopupProps> = ({ closePopup }) 
                     <div className="fixed inset-0 bg-mindfulBlack bg-opacity-50 flex justify-center items-center z-50">
                         <div className="container mx-auto">
 
-                            <div className="relative bg-white rounded-[5px] w-4/12 mx-auto px-5 py-5">
+                            <div className="relative bg-white rounded-[5px] w-4/12 mx-auto px-5 py-5 max-lg:w-[300px]">
 
 
                                 <div className="relative mb-10">

@@ -190,13 +190,13 @@ export const Services = () => {
   return (
     <div>
 
-      <div className="flex items-center space-x-5 max-sm:flex-wrap max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
+      <div className="flex items-center space-x-5 max-sm:flex-wrap max-sm:items-start max-sm:gap-2 max-sm:space-x-0 max-sm:w-full">
         {/* Category */}
-        <div>
+        <div className="max-sm:w-full">
           <select
             value={selectedCategory}
             onChange={handleCategoryChange}
-            className="w-64 bg-mindfulMildGrey text-sm text-mindfulBlack font-semibold border-[1px] border-mindfulGreySecondary px-3 py-2 mb-5 cursor-pointer"
+            className="w-64 bg-mindfulMildGrey text-sm text-mindfulBlack font-semibold border-[1px] border-mindfulGreySecondary px-3 py-2 mb-5 cursor-pointer max-sm:w-full"
           >
             <option value="" disabled>
               Select Category
@@ -210,11 +210,11 @@ export const Services = () => {
         </div>
 
         {/* Category */}
-        <div>
+        <div className="max-sm:w-full">
           <select
             value={selectedSubcategory}
             onChange={handleSubcategoryChange}
-            className="w-64 bg-mindfulMildGrey text-sm text-mindfulBlack font-semibold border-[1px] border-mindfulGreySecondary px-3 py-2 mb-5 cursor-pointer"
+            className="w-64 bg-mindfulMildGrey text-sm text-mindfulBlack font-semibold border-[1px] border-mindfulGreySecondary px-3 py-2 mb-5 cursor-pointer max-sm:w-full"
           >
             <option value="">
               {selectedCategory ? 'Select Subcategory' : 'Please select a category first'}
@@ -248,7 +248,7 @@ export const Services = () => {
         ))}
       </div> */}
       {servicesDetails.length > 0 ? (
-        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1 max-sm:gap-4">
           {servicesDetails.map((service) => (
             <AppointmentCard
               key={service.service_id}

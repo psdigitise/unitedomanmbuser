@@ -193,7 +193,7 @@ export const Overview = () => {
           {/* {/ Grid Column first grid /} */}
           <div>
             {/* {/ OverSlick  /} */}
-            <div>
+            <div className="max-md:hidden">
               <OverviewSlick />
             </div>
 
@@ -261,12 +261,12 @@ export const Overview = () => {
           </div>
 
           {/* {/ Grid Column second grid /} */}
-          <div className="space-y-10 max-xl:mb-5">
+          <div className="space-y-10 max-xl:mb-5 max-md:hidden">
             <div>
               <AddtoCart />
             </div>
 
-            <div>
+            <div className="max-md:hidden">
               <FrequentlyAdded />
             </div>
 

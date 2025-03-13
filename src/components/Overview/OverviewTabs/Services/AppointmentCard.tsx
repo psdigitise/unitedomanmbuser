@@ -82,14 +82,14 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
 
   return (
     <>
-      <div className="flex items-center space-x-5 max-sm:flex-col max-sm:items-start max-sm:gap-2 max-sm:space-x-0 max-sm:border-b-2 max-sm:pb-4">
+      <div className="flex items-center space-x-5 max-sm:flex-row max-sm:items-start max-sm:gap-2 max-sm:space-x-0 max-sm:border-b-2 max-sm:pb-4">
         <div className="relative flex-shrink-0">
           <div className="w-full h-full">
-            <img src={image || manicure} alt="" className="w-44 h-40 rounded-lg flex-shrink-0" />
+            <img src={image || manicure} alt="" className="w-44 h-40 rounded-lg flex-shrink-0 max-sm:w-[120px] max-sm:h-[120px]" />
           </div>
 
           {/* Timer Icon */}
-          <div className="absolute top-5 left-0 flex items-center space-x-1 bg-mindfulBlue py-1 px-2 rounded-r-full">
+          <div className="absolute top-5 left-0 flex items-center space-x-1 bg-mindfulBlue py-1 px-2 rounded-r-full max-sm:top-2">
             <div>
               <img src={timerIcon} alt="timer-icon" />
             </div>
@@ -100,7 +100,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
         </div>
 
         <div>
-          <h5 className="text-lg text-mindfulBlack font-semibold mb-2 max-sm:text-base">
+          <h5 className="text-lg text-mindfulBlack font-semibold mb-2 max-sm:text-base max-sm:font-medium">
             {serviceName}
           </h5>
 
@@ -125,7 +125,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
 
           <div className="flex justify-between items-center">
             <div className="mb-2">
-              <p className="text-[22px] text-mindfulGreen font-semibold">
+              <p className="text-[22px] text-mindfulGreen font-semibold max-sm:text-base">
                 &#8377; {price}
               </p>
             </div>

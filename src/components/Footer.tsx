@@ -141,11 +141,11 @@ export const Footer = () => {
                   {/* </a> */}
                 </li>
 
-                <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
+                {/* <li className="text-[16px] text-mindfulBlack mb-2 hover:underline"> */}
                   {/* <a href="#" className="hover:underline"> */}
-                  Blog
+                  {/* Blog */}
                   {/* </a> */}
-                </li>
+                {/* </li> */}
 
                 <Link to="/Contact">
                   <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
@@ -325,8 +325,8 @@ export const Footer = () => {
         </div>
 
         {/* Location */}
-        <div className="text-mindfulBlack text-center border-y border-mindfulGrey py-8">
-          <p className="text-[15px] text-mindfulBlack">
+        <div className="text-mindfulBlack text-center border-y border-mindfulGrey py-8 max-sm:py-0 max-md:border-t-0">
+          <p className="text-[15px] text-mindfulBlack max-md:hidden ">
             {citiesError ? (
               "Unable to load cities"
             ) : cities.length > 0 ? (

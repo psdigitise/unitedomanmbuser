@@ -24,7 +24,7 @@ export const StylistCard: React.FC<StylistCardProps> = ({
 
   return (
 
-    <div className="w-fit text-center rounded-[8px] border-[1px] border-mindfulGreyTypeTwo px-10 py-10 mx-auto">
+    <div className="w-fit text-center rounded-[8px] border-[1px] border-mindfulGreyTypeTwo px-10 py-10 mx-auto max-sm:px-5 max-sm:py-5">
 
       <div>
         {/* Card Image */}
@@ -34,7 +34,7 @@ export const StylistCard: React.FC<StylistCardProps> = ({
 
         {/* Card Content */}
         <div className="mb-3">
-          <h5 className="text-lg text-mindfulBlack font-semibold">{name}</h5>
+          <h5 className="text-lg text-mindfulBlack font-semibold max-sm:text-base">{name}</h5>
           <p className="text-md text-mindfulBlack">{role}</p>
           <p className="text-sm text-mindfulGreyTypeOne">{years_of_experience}</p>
         </div>

@@ -33,8 +33,8 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
   serviceProviderID,
   // serviceProviderName,
   // serviceProviderRating,
-  city,
-  state,
+  // city,
+  // state,
   branchID,
   branchCity,
   branchName,
@@ -196,10 +196,10 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                       <img src={locationIconGreen} alt="" />
                     </div>
 
-                    <div className="">
+                    <div className="flex-shrink-0">
                       <p className="text-[16px] text-mindfulBlack font-medium">
                         {/* {city}, {state} */}
-                        {branchCity}, {branchState}
+                        {branchCity} {branchState}
                       </p>
                     </div>
                   </div>
@@ -241,7 +241,8 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
 
                   <div className="">
                     <p className="text-[14px] text-mindfulBlack font-medium">
-                      {city}, {state}
+                    {branchCity} {branchState}
+
                     </p>
                   </div>
                 </div>
