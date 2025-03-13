@@ -280,7 +280,11 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
                 </div>
               </div>
             </div>
-
+            <a
+                href="https://try.mindfulbeauty.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
             {/* Virtual */}
             <div className="flex items-center">
               <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
@@ -294,6 +298,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
                 Virtual Try-on
               </button>
             </div>
+            </a>
           </div>
         </div>
       </div>
