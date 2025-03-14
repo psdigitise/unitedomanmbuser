@@ -6,6 +6,7 @@ import loginPopupReducer from './loginSlice'; // Updated import
 import registerPopupReducer from './registerSlice'; // Updated import
 import verificationPopupReducer from './VerificationCodeSlice'; // Updated import
 import loginHeaderReducer from './loginHeaderSlice'; // Updated import
+import locationReducer from "./locationSlice"; // Import the location slice
 
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { persistReducer, persistStore } from 'redux-persist';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   registerPopup: registerPopupReducer,
   verificationCodePopup: verificationPopupReducer,
   loginHeaderSlice: loginHeaderReducer,
+  location: locationReducer, // Add location reducer to store
 });
 
 // Create a persisted reducer

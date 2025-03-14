@@ -241,7 +241,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
 
                   <div className="">
                     <p className="text-[14px] text-mindfulBlack font-medium">
-                    {branchCity} {branchState}
+                      {branchCity} {branchState}
 
                     </p>
                   </div>

@@ -142,9 +142,9 @@ export const Footer = () => {
                 </li>
 
                 {/* <li className="text-[16px] text-mindfulBlack mb-2 hover:underline"> */}
-                  {/* <a href="#" className="hover:underline"> */}
-                  {/* Blog */}
-                  {/* </a> */}
+                {/* <a href="#" className="hover:underline"> */}
+                {/* Blog */}
+                {/* </a> */}
                 {/* </li> */}
 
                 <Link to="/Contact">

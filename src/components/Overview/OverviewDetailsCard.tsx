@@ -242,8 +242,8 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
         {/* {Mobile} */}
         <div className="w-full sm:mt-[25px] md:hidden border-t-2 border-dotted pt-[15px]">
           {/* Location & Distance & Virual Try-on Mobile*/}
-          <div className="flex justify-between items-center md:hidden max-md:flex-wrap max-md:items-start max-md:gap-3 ">
-            <div className="space-y-3 ">
+          <div className="flex justify-between items-center md:hidden max-md:flex-wrap max-md:items-start max-md:gap-3">
+            <div className="space-y-3">
               {/* Location Details */}
               <div className="flex items-center space-x-2">
                 {/* Location Icon */}
@@ -281,23 +281,23 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
               </div>
             </div>
             <a
-                href="https://try.mindfulbeauty.ai/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-            {/* Virtual */}
-            <div className="flex items-center">
-              <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
-                <img
-                  src={virtualTryOn}
-                  alt="virtual try-on image"
-                  className="p-0.5"
-                />
+              href="https://try.mindfulbeauty.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {/* Virtual */}
+              <div className="flex items-center">
+                <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
+                  <img
+                    src={virtualTryOn}
+                    alt="virtual try-on image"
+                    className="p-0.5"
+                  />
+                </div>
+                <button className="bg-main text-mindfulWhite rounded-[20px] pl-10 pr-4 py-2 sm:flex items-center hidden">
+                  Virtual Try-on
+                </button>
               </div>
-              <button className="bg-main text-mindfulWhite rounded-[20px] pl-10 pr-4 py-2 sm:flex items-center hidden">
-                Virtual Try-on
-              </button>
-            </div>
             </a>
           </div>
         </div>
