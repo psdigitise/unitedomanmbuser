@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import mindfulBeauty from "../assets/icons/mindfulBeautyLogo.png";
+// import mindfulBeauty from "../assets/icons/mindfulBeautyLogo.png";
+import mindfulBeautyNew from "../assets/icons/mindfulBeautyLogoNew.png";
 import ladyIcon from "../assets/icons/ladyIcon.png";
 import locationIcon from "../assets/icons/locationIcon.png";
 import { SideBar } from "./SideBar";
@@ -459,7 +460,7 @@ export const LoginHeader = () => {
                 <Link to="/">
                   <div>
                     <img
-                      src={mindfulBeauty}
+                      src={mindfulBeautyNew}
                       alt="mindfulBeauty logo"
                       className="w-fit header-logo max-sm:w-24"
                     />

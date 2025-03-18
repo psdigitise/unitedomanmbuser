@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import mindfulBeautyLogoFooter from "../assets/icons/mindfulBeautyLogoFooter.png";
+// import mindfulBeautyLogoFooter from "../assets/icons/mindfulBeautyLogoFooter.png";
+import mindfulBeautyLogoNewSmallFooter from "../assets/icons/mindfulBeautyLogoNewSmallFooter.png";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { MdPhone } from "react-icons/md";
 import { MdMailOutline } from "react-icons/md";
@@ -105,7 +106,7 @@ export const Footer = () => {
           <div>
             <div className="mb-4">
               <img
-                src={mindfulBeautyLogoFooter}
+                src={mindfulBeautyLogoNewSmallFooter}
                 alt="mindfulBeautyLogoFooter"
                 className="footer-logo"
               />

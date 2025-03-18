@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import mindfulBeauty from "../assets/icons/mindfulBeautyLogo.png";
+// import mindfulBeauty from "../assets/icons/mindfulBeautyLogo.png";
+import mindfulBeautyNew from "../assets/icons/mindfulBeautyLogoNew.png";
 import { SideBar } from "./SideBar";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -114,7 +115,7 @@ export const Header = () => {
               <Link to="/">
                 <div>
                   <img
-                    src={mindfulBeauty}
+                    src={mindfulBeautyNew}
                     alt="mindfulBeauty logo"
                     className="w-fit header-logo max-sm:w-24"
                   />

@@ -1,6 +1,8 @@
 // import registerAsAProfessional from '../../assets/images/registerAsAProfessional.webp';
-import registerAsAProfessionalDesktop from '../../assets/images/registerAsAProfessionalDesktop.png';
-import registerAsAProfessionalMobile from '../../assets/images/registerAsAProfessionalMobile.png';
+// import registerAsAProfessionalDesktop from '../../assets/images/registerAsAProfessionalDesktop.png';
+// import registerAsAProfessionalMobile from '../../assets/images/registerAsAProfessionalMobile.png';
+import registerAsAProfessionalDesktopNew from '../../assets/images/registerAsAProfessionalDesktopNew.webp';
+import registerAsAProfessionalMobileNew from '../../assets/images/registerAsAProfessionalMobileNew.webp';
 
 export const RegAsAProfessional = () => {
     return (
@@ -14,14 +16,14 @@ export const RegAsAProfessional = () => {
                     >
                         <div className="max-md:hidden">
                             <img
-                                src={registerAsAProfessionalDesktop}
+                                src={registerAsAProfessionalDesktopNew}
                                 alt="registerAsAProfessional-image"
                                 className="w-full"
                             />
                         </div>
                         <div className='hidden max-md:block'>
                             <img
-                                src={registerAsAProfessionalMobile}
+                                src={registerAsAProfessionalMobileNew}
                                 alt="registerAsAProfessional-image"
                                 className="w-full"
                             />
