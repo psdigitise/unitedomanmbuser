@@ -35,6 +35,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditons from "./pages/TermsAndConditions";
 import { ToastMessage } from "./components/common/Toast/ToastMessage";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 
 // import AuthWatcher from "./components/common/AuthWatcher";
 
@@ -132,7 +134,7 @@ function App() {
               }
             />{" "}
             <Route path="/Cart" element={<Cart />} />{" "}
-            <Route path="/MyProfile" element={<MyProfile />} />
+            <Route path="/MyProfile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
 
           </Route>
           <Route path="/" element={<MainLayout />}>

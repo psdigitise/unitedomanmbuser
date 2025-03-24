@@ -1,7 +1,8 @@
 import React from 'react';
-import { ToastContainer, toast, ToastOptions } from 'react-toastify';
+import { ToastContainer, toast, ToastOptions, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Zoom } from 'react-toastify';
+// import { Zoom } from 'react-toastify';
+import "./toastStyles.css";
 
 interface ToastMessageProps {
     // Explicitly stating that it takes no props
@@ -9,14 +10,16 @@ interface ToastMessageProps {
 }
 
 const defaultOptions: ToastOptions = {
-    position: "top-right",
+    // position: "top-right",
+    position: window.innerWidth < 640 ? "top-center" : "top-right", // Adjust for mobile
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     theme: "colored",
-    transition: Zoom,
+    transition: Slide,
+    // transition: Zoom,
 };
 
 // Success Message

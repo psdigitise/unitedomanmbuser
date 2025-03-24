@@ -60,6 +60,10 @@ export const Services = () => {
   const [filteredSubcategories, setFilteredSubcategories] = useState<Subcategory[]>([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
   const [OverviewData, setOverviewData] = useState<number>();
+
+  const selectedCategoryID = sessionStorage.getItem("selectedCategoryID") || "0";
+  console.log("Selected Category ID:", selectedCategoryID);
+
   // API for services list dropdown details
   useEffect(() => {
 
@@ -67,7 +71,7 @@ export const Services = () => {
     const loadServicesDetailsData = async (providerId: number, storedServiceId: number, branchID: number) => {
       console.log("providerId, storedServiceId ===>", providerId, storedServiceId);
       try {
-        const data = await fetchServiceProviderDetailsBrachID(providerId, storedServiceId, branchID);
+        const data = await fetchServiceProviderDetailsBrachID(providerId, storedServiceId, branchID, selectedCategoryID,);
         setOverviewData(data.data[0].branch_id);
         setServicesDetails(data.services); // Directly set the fetched data
         // setFilteredServices(data.data); // Initially set filteredServices to all services

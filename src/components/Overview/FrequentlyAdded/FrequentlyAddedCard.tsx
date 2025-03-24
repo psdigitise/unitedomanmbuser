@@ -101,7 +101,11 @@ export const FrequentlyAddedCard: React.FC<FrequentlyAddedCard> = ({ serviceID, 
     return (
         <div key={serviceID} className="flex items-start border-b-2 border-mindfulLightGrey pb-5 space-x-5 max-sm:flex-col max-sm:items-start max-sm:gap-2 max-sm:space-x-0">
             <div>
-                <img src={frequentlyAddedImg || image} alt={serviceName} />
+                <img
+                    src={image || frequentlyAddedImg}
+                    alt={serviceName}
+                    className="w-32 h-28 rounded-lg flex-shrink-0 max-sm:w-[120px] max-sm:h-[120px]"
+                />
             </div>
             <div>
                 <div className="mb-2">

@@ -144,22 +144,15 @@ export const MyBookings = () => {
                                         </button> */}
                                         <button
                                             // className={`text-md text-mindfulWhite rounded-2xl px-3 py-1 flex items-center justify-between gap-2 ${
-                                            className={`text-md text-mindfulWhite rounded-2xl px-3 py-1 flex items-center gap-2 ${booking.status_name === "Completed"
-                                                ? "bg-mindfulGreen"
-                                                // : booking.status_name === "Accepted"
-                                                // ? "bg-mindfulYellow"
-                                                : booking.status_name === "Inprogress"
-                                                    ? "bg-[#3a96f8]"  // Set background color for "Inprogress"
-                                                    : booking.status_name === "Schedule"
-                                                        ? "bg-[#FABC2A]"  // Set background color for "Inprogress"
-
-                                                        : "bg-mindfulGrey"
-
+                                            className={`w-[7rem] text-sm text-mindfulWhite rounded-2xl px-3 py-1 
+                                                ${booking.status_name === "Completed" ? "bg-mindfulGreen"
+                                                    : booking.status_name === "Inprogress" ? "bg-[#3A96F8]"  // Set background color for "Inprogress"
+                                                        : booking.status_name === "Schedule" ? "bg-[#FABC2A]"  // Set background color for "Schedule"
+                                                            : booking.status_name === "Pending" ? "bg-[#FF5733]"  // Set background color for "Pending"
+                                                                : "bg-mindfulGrey"
                                                 }`}
-
                                         >
                                             {booking.status_name}
-
 
                                         </button>
                                         {(booking.status_name === "Inprogress" ||
@@ -173,14 +166,17 @@ export const MyBookings = () => {
                                             )}
                                     </div>
                                 </td>
-                                <td className="text-start px-2 py-5">
-                                    <div
-                                        onClick={() => handleDownloadInvoice(Number(booking.appointment_id))}
-                                        className="w-10 h-10 flex items-center justify-center border-[1px] bg-mindfulGrey rounded-full px-2 py-1.5 cursor-pointer hover:bg-main"
-                                    >
-                                        <FiDownload className="text-[18px] text-mindfulWhite" />
-                                    </div>
-                                </td>
+
+                                {booking.status_name === "Completed" &&
+                                    <td className="text-start px-2 py-5">
+                                        <div
+                                            onClick={() => handleDownloadInvoice(Number(booking.appointment_id))}
+                                            className="w-10 h-10 flex items-center justify-center border-[1px] bg-mindfulGrey rounded-full px-2 py-1.5 cursor-pointer hover:bg-main"
+                                        >
+                                            <FiDownload className="text-[18px] text-mindfulWhite" />
+                                        </div>
+                                    </td>
+                                }
                             </tr>
                         ))
                     ) : (
