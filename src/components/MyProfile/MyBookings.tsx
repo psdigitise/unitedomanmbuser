@@ -21,6 +21,7 @@ interface Booking {
     stylist_name: string;
     payment_amount: number;
     status_name: string;
+    reason: string;
 }
 
 export const MyBookings = () => {
@@ -175,6 +176,12 @@ export const MyBookings = () => {
                                         >
                                             <FiDownload className="text-[18px] text-mindfulWhite" />
                                         </div>
+                                    </td>
+                                }
+
+                                {booking.status_name === "Cancelled" &&
+                                    <td className="text-start px-2 py-5">
+                                        {booking.reason || "N/A"}
                                     </td>
                                 }
                             </tr>
