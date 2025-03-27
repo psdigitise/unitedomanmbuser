@@ -66,6 +66,21 @@ export const DateTime: React.FC<DateTimeProps> = () => {
     // State Declaration for date
     const [startDate, setStartDate] = useState<Date | null>(new Date());
 
+
+    // Function to update the selected time based on the current date
+    useEffect(() => {
+        if (selectedTime) {
+            // Check if the selected time is still valid for the new date
+            const disabled = isSlotDisabled(selectedTime);
+
+            if (disabled) {
+                console.log("Resetting selected time as it is now disabled.");
+                setSelectedTime(null); // Reset the selected time if it's now disabled
+            }
+        }
+    }, [startDate]); // Run this effect whenever the date changes
+
+
     // Toggle the background color on click
     const handleDateClick = (time: string) => {
         setSelectedTime(time);
