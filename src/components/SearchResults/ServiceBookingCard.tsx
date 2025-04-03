@@ -2,12 +2,14 @@
 import salonIcon from "../../assets/icons/salonIcon.svg";
 import specialistIcon from "../../assets/icons/specialistIcon.svg";
 // import femaleIcon from "../../assets/icons/femaleIcon.png";
-// import timerIcon from "../../assets/icons/timerIcon.svg";
+//import timerIcon from "../../assets/icons/timerIcon.svg";
 import verified from "../../assets/icons/verified.png";
 import { FaStar } from "react-icons/fa";
 import locationIconGreen from "../../assets/icons/locationIconGreen.png";
 import distanceIcon from "../../assets/icons/distanceIcon.png";
 import { Link } from "react-router-dom";
+import { IoMdTime } from "react-icons/io";
+
 
 interface ServiceBookingCardProps {
   serviceProviderID?: number;
@@ -27,6 +29,7 @@ interface ServiceBookingCardProps {
   image_url: string;
   reviewCount: string;
   starRating: number;
+  OpeningTime:string;
 }
 
 export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
@@ -46,7 +49,8 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
   serviceTypeID,
   image_url,
   reviewCount,
-  starRating
+  starRating,
+  OpeningTime
 }) => {
   return (
     <>
@@ -109,10 +113,12 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                       )}
 
                       {/* {/ Service Provider Name /} */}
-                      <h5 className="sm:text-[18px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px]">
+                      <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
+                      <h5 className="sm:text-[18px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px] transition duration-200 hover:text-main ">
                         {/* {serviceProviderName} */}
                         {branchName}
                       </h5>
+                      </Link>
                     </div>
 
                     {/* {/ Verified /} */}
@@ -161,6 +167,15 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                         </p>
                       )}
                     </div>
+                    <div className="flex items-center space-x-2 flex-shrink-0">
+                      <div className="-ml-2">
+                      <IoMdTime className="text-2xl text-main" />                      
+                      </div>
+                      <p className="text-[16px] text-mindfulBlack font-medium">
+                        Opening Time :{OpeningTime}
+                      </p>
+                    </div>
+
                   </div>
 
                   {/* {/ Service Provider Tags /} */}

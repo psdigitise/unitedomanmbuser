@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useNavigate } from 'react-router-dom';
+import { IoCloseOutline } from 'react-icons/io5';
 // import { IoCloseOutline } from 'react-icons/io5';
 
 interface OtpPopupProps {
@@ -187,15 +188,15 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                 {/* Close Button */}
                 <div>
                     <button onClick={handleClose} className="absolute top-3 right-3">
-                        <span className="text-red-500 text-center mx-auto">Cancel</span>
-                        {/* <IoCloseOutline className="text-[28px] text-mindfulBlack hover:text-main" /> */}
+                        {/* <span className="text-red-500 text-center mx-auto">Cancel</span> */}
+                        {/* <span className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Cancel</span> */}
+                        <IoCloseOutline className="text-[28px] text-white bg-main rounded-full" />
                     </button>
                 </div>
 
                 <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-0 max-lg:w-full">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="w-fit mx-auto">
-
                             <p className="text-md text-mindfulBlack text-center">
                                 Your appointment ID
                                 <span className="font-semibold"> {appID} </span>
@@ -243,7 +244,6 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                             </div>
 
                             <div className="w-6/12 mx-auto max-md:w-full text-center">
-
                                 {/* <button className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Submit</button> */}
                                 <button
                                     type="submit"
@@ -256,6 +256,17 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 {isResendEnabled && (
                                     <span className="text-red-500 text-center mx-auto">Auto cancelled in {timer} seconds</span>
                                 )}
+                                <p className="text-md text-mindfulBlack text-center mb-3">
+                                    If you want to cancel Appointment?
+                                </p>
+                                <button
+                                    onClick={handleClose}
+                                    // type="submit"
+                                    className="w-1/3  bg-white border border-black rounded-[7px] text-base text-mindfulBlack px-4 py-2 hover:bg-gray-200"  
+                                >
+                                 Cancel Booking
+                                </button>
+
                                 {/* <button
                                     type="submit"
                                     className={`w-full rounded-[7px] text-lg px-4 py-2.5

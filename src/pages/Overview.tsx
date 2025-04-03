@@ -48,7 +48,6 @@ export const Overview = () => {
   // Ref for cart item area
   const cartItemAreaRef = useRef<HTMLDivElement>(null);
   console.log(cartItemAreaRef, "Hello");
-
   const [serviceType, setServiceType] = useState<string | null>("");
 
   // Scroll to the cart area when the state indicates so
@@ -108,7 +107,11 @@ export const Overview = () => {
         console.log("Provider Details and branch id ====>", data.data);
 
         if (data.data && data.data.length > 0) {
-          setServiceType(data.data[0].service_type); // Assuming service_type is present in the first item
+          //setServiceType(data.data[0].service_type); // Assuming service_type is present in the first item
+          const serviceType = data.data[0].service_type; // Assuming service_type is present in the first item
+          setServiceType(serviceType);
+          // Store service_type in sessionStorage
+          sessionStorage.setItem("selectedServiceType", serviceType);
         }
 
       } catch (error: any) {

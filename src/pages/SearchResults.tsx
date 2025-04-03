@@ -54,6 +54,7 @@ interface SearchResultsProps {
   image_url: string;
   review_count: string;
   average_rating: number;
+  timings:string
 
   // reviews_count: string,
   // services_offered: string,
@@ -393,6 +394,7 @@ export const SearchResults = () => {
                     image_url={provider.image_url}
                     reviewCount={provider.review_count}
                     starRating={provider.average_rating}
+                    OpeningTime={provider.timings}
                   />
                 ))}
               </div>

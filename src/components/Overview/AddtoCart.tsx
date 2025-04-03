@@ -77,29 +77,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store'; // Adjust this path as needed
 import { removeFromCart } from '../../redux/cartSlice';
 // import { Link } from 'react-router-dom';
+// import { NotifyError } from './common/Toast/ToastMessage';
+import { NotifyError } from '../common/Toast/ToastMessage';
 
 export const AddtoCart = () => {
 
-    // const [cartItems, setCartItems] = useState([{ id: 1, name: "Elysian British Rose Manicure" }]); // Example item list
-
-    // const removeItem = (id) => {
-    //     setCartItems(cartItems.filter((item) => item.id !== id));
-    // };
-
     const cartItems = useSelector((state: RootState) => state.cart.items);
     console.log(cartItems, "cart items");
-
-
     const { token } = useSelector((state: RootState) => state.cart); // Token from Redux
-
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
-
     // Getting the stored provider_id from sessionStorage
     const sessionProviderID = sessionStorage.getItem('selectedProviderId');
     console.log("Selected Provider ID from session storage", sessionProviderID);
-
+    const quantities = useSelector((state: RootState) => state.cart.quantities); // Get quantities from Redux
     // Handle booking navigation on button click
     // const handleBookNow = () => {
     //     if (!token) {
@@ -109,13 +100,33 @@ export const AddtoCart = () => {
     //     }
     // };
     const handleBookNow = () => {
+        // Get the stored serviceType from sessionStorage
+        const selectedServiceType = sessionStorage.getItem('selectedServiceType');
+        console.log("Service Type Book Now:", selectedServiceType); // Log the serviceType
+        // Calculate the total cart price
+        const totalCartPrice = cartItems.reduce((total, item) => {
+        const itemPrice = Number(item.price) || 0;
+        const itemQuantity = quantities[item.serviceID] || 1;
+        return total + (itemPrice * itemQuantity);
+        }, 0);
+        console.log("Total Cart Price:", totalCartPrice); // Log the total price
         if (!token) {
             navigate('/Login'); // Navigate to Login if no token
         } else if (cartItems.length > 0 && sessionProviderID) {
-            navigate('/DateTime'); // Proceed to DateTime if token exists
+            // navigate('/DateTime'); // Proceed to DateTime if token exists
+            if (selectedServiceType === "Salon Service") {
+                navigate('/DateTime');
+            }
+            else {
+                //NotifyError("FreeLaunce");
+                if (totalCartPrice < 1000) {
+                    NotifyError("Minimun Cart amount should be 1000"); // Display error message
+                } else {
+                    navigate('/DateTime');
+                }
+            }
         }
     };
-
     console.log("Cart Items", cartItems);
 
     const handleRemove = (serviceID: number) => {
