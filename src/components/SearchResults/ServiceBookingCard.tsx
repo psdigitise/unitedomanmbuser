@@ -10,7 +10,6 @@ import distanceIcon from "../../assets/icons/distanceIcon.png";
 import { Link } from "react-router-dom";
 import { IoMdTime } from "react-icons/io";
 
-
 interface ServiceBookingCardProps {
   serviceProviderID?: number;
   serviceProviderName: string;
@@ -140,6 +139,31 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                     )}
                   </div>
 
+                  <div className="flex items-center space-x-2 flex-shrink-0">
+                      <div className="-ml-1/2">
+                      <IoMdTime className="text-2xl text-main" />                      
+                      </div>
+                      {/* <p className="text-[16px] text-mindfulBlack font-medium">
+                        Opening Time :{OpeningTime}
+                      </p> */}
+                      {serviceTypeID === 1 ? (
+                        <div >
+                          {/* {/ Salon Timings /} */}
+                          Opening Time :{OpeningTime}
+                        </div>
+                      ) : serviceTypeID === 2 ? (
+                        <div >
+                          {/* {/ Freelauncer Timings /} */}
+                          Working Time :{OpeningTime}
+                        </div>
+                      ) : (
+                        <div >
+                           {/* {/ Freelauncer Timings /} */}
+                           Working Time :{OpeningTime}
+                        </div>
+                      )}
+                  </div>
+
                   {/* {/ Ratings & Reviews /} */}
                   <div className="flex items-center space-x-2">
                     {starRating > 0 &&
@@ -167,17 +191,11 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                         </p>
                       )}
                     </div>
-                    <div className="flex items-center space-x-2 flex-shrink-0">
-                      <div className="-ml-2">
-                      <IoMdTime className="text-2xl text-main" />                      
-                      </div>
-                      <p className="text-[16px] text-mindfulBlack font-medium">
-                        Opening Time :{OpeningTime}
-                      </p>
                     </div>
 
-                  </div>
+                    
 
+               
                   {/* {/ Service Provider Tags /} */}
                   <div className="flex items-center space-x-2">
                     {allServices.split(",").map((service) => (
@@ -238,7 +256,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                   {/* {/ Dynamically set provider_id in the URL /} */}
                   <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
                     <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[16px]">
-                      Book a Service
+                      Book a Service 
                     </button>
                   </Link>
                 </div>
@@ -279,7 +297,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                 {/* {/ Dynamically set provider_id in the URL /} */}
                 <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
                   <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[14px]">
-                    Book a Service
+                    Book a Service 
                   </button>
                 </Link>
               </div>
