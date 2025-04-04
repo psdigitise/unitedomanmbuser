@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import overviewCardImg from "../../assets/images/overviewCardImg.png";
 import salonIcon from "../../assets/icons/salonIcon.svg";
+import specialistIcon from "../../assets/icons/specialistIcon.svg"
 // import femaleIcon from "../../assets/icons/femaleIcon.png";
 import verified from "../../assets/icons/verified.png";
 import { FaStar } from "react-icons/fa6";
@@ -29,6 +30,7 @@ interface ServiceBookingCardProps {
   branch_longitude: number;
   reviewCount: string;
   starRating: number;
+  ServiceType: string;
 }
 
 export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
@@ -45,7 +47,8 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
   branch_latitude,
   branch_longitude,
   reviewCount,
-  starRating
+  starRating,
+  ServiceType
 }) => {
   // const dispatch = useDispatch();
 
@@ -93,9 +96,21 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
               <div className="flex justify-between lg:items-center items-start">
                 <div className="flex items-center space-x-2">
                   {/* Gender Icon  */}
-                  <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
+                  {/* <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
                     <img src={salonIcon} alt="" />
+                  </div> */}
+                  <div >
+                    {ServiceType === "Salon Service" ? (
+                      <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
+                      <img src={salonIcon} alt="parlour-icon" />
+                      </div>
+                    ) : (
+                      <div className="bg-main rounded-full px-1 py-1 lg:block hidden">
+                      <img src={specialistIcon} alt="specialist-icon" />
+                      </div>
+                    )}
                   </div>
+
 
                   {/* Service Provider Name */}
                   <h5 className="sm:text-[20px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px]">

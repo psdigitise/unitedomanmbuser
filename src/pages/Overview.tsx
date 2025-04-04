@@ -238,6 +238,7 @@ export const Overview = () => {
                     branch_longitude={provider.branch_longitude}
                     reviewCount={provider.review_count}
                     starRating={provider.average_rating}
+                    ServiceType={provider.service_type}
                   />
                 ))}
               </div>

@@ -120,7 +120,7 @@ export const AddtoCart = () => {
             else {
                 //NotifyError("FreeLaunce");
                 if (totalCartPrice < 1000) {
-                    NotifyError("Minimun Cart amount should be 1000"); // Display error message
+                    NotifyError("Please add more services to your cart to meet the minimum requirement"); // Display error message
                 } else {
                     navigate('/DateTime');
                 }
