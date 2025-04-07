@@ -1,3 +1,75 @@
+// // import { useState } from 'react';
+// import { CartItem } from './AddtoCart/CartItem';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { RootState } from '../../redux/store'; // Adjust this path as needed
+// import { removeFromCart } from '../../redux/cartSlice';
+// import { Link } from 'react-router-dom';
+
+// export const AddtoCart = () => {
+
+//     // const [cartItems, setCartItems] = useState([{ id: 1, name: "Elysian British Rose Manicure" }]); // Example item list
+
+//     // const removeItem = (id) => {
+//     //     setCartItems(cartItems.filter((item) => item.id !== id));
+//     // };
+
+//     const cartItems = useSelector((state: RootState) => state.cart.items);
+//     const dispatch = useDispatch();
+
+//     const handleRemove = (serviceID: number) => {
+//         dispatch(removeFromCart(serviceID));
+//     };
+
+//     return (
+//         <div className="rounded-[8px] border-[1px] border-mindfulLightGrey px-5 py-5">
+//             <div>
+//                 <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2">Cart</h5>
+//             </div>
+
+//             <div>
+//                 {/* {cartItems.map((item) => (
+//                     <CartItem key={item.id} id={item.id} name={item.name} removeItem={removeItem} />
+//                 ))} */}
+//                 {/* <CartItem />
+//                 <CartItem /> */}
+//                 {cartItems.length === 0 ? (
+//                     <p className="text-lg text-mindfulBlack font-medium">Your cart is empty</p> // Show empty message
+//                 ) : (
+//                     cartItems.map((item) => (
+//                         <CartItem
+//                             key={item.serviceID}
+//                             serviceID={item.serviceID}
+//                             serviceName={item.serviceName}
+//                             price={item.price || 0} // Pass the price to CartItem
+//                             removeItem={() => handleRemove(item.serviceID)}
+//                         />
+//                     ))
+//                 )}
+//             </div>
+
+//             <div>
+//                 {/* <button className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite font-semibold px-4 py-2">Book Now</button> */}
+//                 {/* Conditionally render Book Now button if there are items in the cart */}
+//                 {cartItems.length > 0 && (
+//                     <Link to="/Login">
+//                         <div className="mt-5">
+//                             <button className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite font-semibold px-4 py-2">
+//                                 Book Now
+//                             </button>
+//                         </div>
+//                     </Link>
+//                 )}
+//             </div>
+//         </div>
+//     )
+// }
+
+
+
+
+
+
+
 // import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartItem } from './AddtoCart/CartItem';
