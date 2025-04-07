@@ -35,7 +35,9 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({ serviceID, ser
 
   // Check if the item is in the cart and update the isAdded state
   useEffect(() => {
+    console.log("cartItems ======>", cartItems);
     const itemExistsInCart = cartItems.some(item => item.serviceID === serviceID);
+    
     setIsAdded(itemExistsInCart);
   }, [cartItems, serviceID]);
 

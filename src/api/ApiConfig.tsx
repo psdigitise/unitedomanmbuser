@@ -1100,3 +1100,21 @@ export const cancelBooking = async (userId: number, appointmentId: number, reaso
         throw new Error("Unable to cancel booking. Please try again later.");
     }
 };
+
+// My Profile -> Get Appointment Details API
+export const fetchAppointmentDetails = async (appointmentId: string) => {
+    try {
+        const response = await apiAxios.get(`/api/appointment_details/${appointmentId}/`);
+        console.log("Appointment details response", response.data);
+
+        if (!response.data || response.status !== 200) {
+            throw new Error("Failed to fetch appointment details");
+        }
+
+        return response.data;
+
+    } catch (error: any) {
+        console.error("Error fetching appointment details:", error.message || error);
+        throw new Error(error.response?.data?.message || "Unable to fetch appointment details. Please try again later.");
+    }
+};

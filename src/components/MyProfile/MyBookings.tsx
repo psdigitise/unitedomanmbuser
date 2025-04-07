@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { FiDownload } from 'react-icons/fi';
-import { fetchUserBookings, salesTransactionsInvoice } from '../../api/ApiConfig';
+import { MdSchedule } from 'react-icons/md';
+import { fetchUserBookings, salesTransactionsInvoice, fetchAppointmentDetails } from '../../api/ApiConfig';
 import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/cartSlice';
 import { ShimmerTable } from 'shimmer-effects-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NotifyError } from '../common/Toast/ToastMessage';
 import { CancelPopup } from './CancelPopup';
 import { IoIosClose } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 // import { showToast } from '../common/ToastService';
 
 interface Booking {
@@ -25,6 +28,8 @@ interface Booking {
 }
 
 export const MyBookings = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const userID = useSelector((state: RootState) => state.cart.userID);
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
@@ -34,7 +39,6 @@ export const MyBookings = () => {
     );
 
     console.log("selectedAppointment", selectedAppointment);
-
 
     const loadUserBookings = async (userId: string | number | null) => {
         if (!userId) {
@@ -84,6 +88,37 @@ export const MyBookings = () => {
     const handleCancelClick = (appointmentID: string) => {
         setSelectedAppointment(appointmentID);
         setCancelShowPopup(true);
+    };
+
+    const handleAppointmentDetails = async (appointmentId: string) => {
+        try {
+            const response = await fetchAppointmentDetails(appointmentId);
+            console.log('Appointment Details:', response);
+            
+            // Set provider and branch IDs in session storage
+            sessionStorage.setItem('selectedProviderId', response.provider_id.toString());
+            sessionStorage.setItem('selectedBranchId', response.branch_id.toString());
+            sessionStorage.setItem('lastProviderId', response.provider_id.toString());
+            sessionStorage.setItem('lastBranchId', response.branch_id.toString());
+
+            // Add services to cart before navigation
+            response.services.forEach((service: any) => {
+                dispatch(addToCart({
+                    serviceID: service.service_id,
+                    serviceName: service.servicename,
+                    serviceDesc: service.servicedesc || '',
+                    price: service.price,
+                    image: service.image,
+                    serviceTime: service.service_time,
+                    branchID: response.branch_id
+                }));
+            });
+
+            // Navigate to Overview page
+            navigate(`/Overview?provider_id=${response.provider_id}&branch_id=${response.branch_id}`);
+        } catch (err: any) {
+            NotifyError(err.message || 'Failed to fetch appointment details');
+        }
     };
 
     return (
@@ -136,13 +171,6 @@ export const MyBookings = () => {
                                 <td className="text-start px-2 py-5">Rs. {booking.payment_amount}/-</td>
                                 <td className="text-start px-2 py-5">
                                     <div className="flex items-center gap-2">
-                                        {/* <button
-                                            className={`text-md text-mindfulWhite rounded-2xl px-3 py-1 ${booking.status_name === 'Completed' ? 'bg-mindfulGreen' :
-                                                booking.status_name === 'Accepted' ? 'bg-mindfulYellow' : 'bg-mindfulGrey'
-                                                }`}
-                                        >
-                                            {booking.status_name}
-                                        </button> */}
                                         <button
                                             // className={`text-md text-mindfulWhite rounded-2xl px-3 py-1 flex items-center justify-between gap-2 ${
                                             className={`w-[7rem] text-sm text-mindfulWhite rounded-2xl px-3 py-1 
@@ -165,6 +193,12 @@ export const MyBookings = () => {
                                                     className="text-red-500 cursor-pointer text-2xl "
                                                 />
                                             )}
+                                            <button
+                                                onClick={() => handleAppointmentDetails(booking.appointment_id)}
+                                                className="flex items-center gap-1 text-white bg-[#3A96F8] rounded-2xl px-3 py-1"
+                                            >
+                                                <span className="text-sm">Reschedule</span>
+                                            </button>
                                     </div>
                                 </td>
 
