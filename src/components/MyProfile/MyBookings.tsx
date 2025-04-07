@@ -3,7 +3,7 @@ import { FiDownload } from 'react-icons/fi';
 import { fetchUserBookings, salesTransactionsInvoice, fetchAppointmentDetails } from '../../api/ApiConfig';
 import { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/cartSlice';
+import { addToCart, clearCart } from '../../redux/cartSlice';
 import { ShimmerTable } from 'shimmer-effects-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -99,6 +99,9 @@ export const MyBookings = () => {
             sessionStorage.setItem('selectedBranchId', response.branch_id.toString());
             sessionStorage.setItem('lastProviderId', response.provider_id.toString());
             sessionStorage.setItem('lastBranchId', response.branch_id.toString());
+
+            // Clear the cart before adding new items
+            dispatch(clearCart());
 
             // Add services to cart before navigation
             response.services.forEach((service: any) => {
