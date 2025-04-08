@@ -79,8 +79,28 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
               {/* {/ Service Booking Card Content /} */}
               <div className="w-full space-y-3">
                 <div className="md:border-b-2 md:border-dotted space-y-3 pb-4">
+                <div className="flex items-center space-x-2 flex-shrink-0">                
+                      {serviceTypeID === 1 ? (
+                        <div className="text-mindfulBlue font-bold">
+                          {/* {/ Salon Timings /} */}
+                         Salon
+                        </div>
+                      ) : serviceTypeID === 2 ? (
+                        <div className="text-main font-bold">
+                          {/* {/ Freelauncer Timings /} */}
+                          Freelauncer
+                        </div>
+                      ) : (
+                        <div >
+                           {/* {/ Freelauncer Timings /} */}
+                           Freelauncer
+                        </div>
+                      )}
+                  </div>
                   {/* {/ Service Provider Name /} */}
                   <div className="flex justify-between lg:items-center items-start">
+                  
+                  
                     <div className="flex items-center">
                       {/* <div>
                       Salon Icon
@@ -97,17 +117,17 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                       {serviceTypeID === 1 ? (
                         <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
                           {/* {/ Salon Icon /} */}
-                          <img src={salonIcon} alt="parlour-icon" />
+                          <img src={salonIcon} alt="parlour-icon" className="w-[34px] h-[34px] p-1"/>
                         </div>
                       ) : serviceTypeID === 2 ? (
                         <div className="bg-main rounded-full px-1 py-1 lg:block hidden">
                           {/* {/ Specialist Icon /} */}
-                          <img src={specialistIcon} alt="specialist-icon" />
+                          <img src={specialistIcon} alt="specialist-icon" className="w-[34px] h-[34px] p-1"/>
                         </div>
                       ) : (
                         <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
                           {/* {/ Salon Icon /} */}
-                          <img src={salonIcon} alt="parlour-icon" />
+                          <img src={salonIcon} alt="parlour-icon" className="w-[34px] h-[34px] p-1"/>
                         </div>
                       )}
 
