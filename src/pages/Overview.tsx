@@ -573,7 +573,7 @@ export const Overview = () => {
             </div>
 
             {/* {/ Service Provider Ad /} */}
-            <div onClick={openClearItemsPopup}>
+            <div onClick={openClearItemsPopup} className="max-md:hidden">
               <img
                 src={serviceProviderAd}
                 alt="service provider ad"
