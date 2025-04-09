@@ -11,14 +11,12 @@ import { NotifyError } from "../../common/Toast/ToastMessage";
 
 // API Proptypes
 interface OverviewProps {
-
   // Add props here
   business_summary: string;
   gender_type: string;
-  timings: string;
+  Working_hours: string;
   latitude: number;
   longitude: number;
-
 }
 
 export const Overview = () => {
@@ -102,7 +100,7 @@ export const Overview = () => {
   }
 
   // Destructure the fetched data for convenience
-  const { business_summary, gender_type, timings, latitude, longitude } = OverviewData;
+  const { business_summary, gender_type, Working_hours, latitude, longitude } = OverviewData;
 
 
   const handleGetDirectionClick = () => {
@@ -156,7 +154,7 @@ export const Overview = () => {
           </h5>
           <p>
             {/* Mon - Sun: 8:00 am to 8:00 pm */}
-            {timings}
+            {Working_hours}
           </p>
         </div>
       </div>
