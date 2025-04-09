@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NotifyError } from '../common/Toast/ToastMessage';
 import { CancelPopup } from './CancelPopup';
-import { IoIosClose } from 'react-icons/io';
+
 import { useNavigate } from 'react-router-dom';
 // import { showToast } from '../common/ToastService';
 
@@ -93,7 +93,7 @@ export const MyBookings = () => {
         try {
             const response = await fetchAppointmentDetails(appointmentId);
             console.log('Appointment Details:', response);
-            
+
             // Set provider and branch IDs in session storage
             sessionStorage.setItem('selectedProviderId', response.provider_id.toString());
             sessionStorage.setItem('selectedBranchId', response.branch_id.toString());
@@ -137,16 +137,17 @@ export const MyBookings = () => {
                         <th className="text-start px-2 py-2">Amount</th>
                         <th className="text-start px-2 py-2">Status</th>
                         <th className="text-start px-2 py-2">Action</th>
+                        <th className="text-start px-2 py-2">Reason</th>
                     </tr>
                 </thead>
                 <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan={9} className="text-center px-2 py-5">
+                            <td colSpan={10} className="text-center px-2 py-5">
                                 <ShimmerTable
                                     mode="light"
                                     row={bookings.length + 1}
-                                    col={8}
+                                    col={10}
                                     border={1}
                                     borderColor={"#cbd5e1"}
                                     rounded={0.25}
@@ -186,7 +187,13 @@ export const MyBookings = () => {
                                             {booking.status_name}
 
                                         </button>
-                                        {(booking.status_name === "Inprogress" ||
+
+                                    </div>
+                                </td>
+
+                                {/*Action */}
+                                <td className="text-start px-2 py-5">
+                                    {/* {(booking.status_name === "Inprogress" ||
                                             booking.status_name === "Schedule") && (
                                                 <IoIosClose
                                                     onClick={() =>
@@ -194,13 +201,23 @@ export const MyBookings = () => {
                                                     }
                                                     className="text-red-500 cursor-pointer text-2xl "
                                                 />
+                                            )} */}
+                                    <div className="flex gap-2"> {/* Flex container with gap between buttons */}
+                                        <button
+                                            onClick={() => handleAppointmentDetails(booking.appointment_id)}
+                                            className="flex items-center justify-center text-white bg-main rounded-md px-3 py-1"
+                                        >
+                                            <span className="text-sm">Reschedule</span>
+                                        </button>
+                                        {(booking.status_name === "Inprogress" ||
+                                            booking.status_name === "Schedule") && (
+                                        <button
+                                            onClick={() => handleCancelClick(booking.appointment_id)}
+                                            className="flex items-center justify-center text-main bg-white rounded-md px-3 py-1 border-2 border-main "
+                                        >
+                                            <span className="text-sm">Cancel</span>
+                                        </button>
                                             )}
-                                            <button
-                                                onClick={() => handleAppointmentDetails(booking.appointment_id)}
-                                                className="flex items-center gap-1 text-white bg-[#3A96F8] rounded-2xl px-3 py-1"
-                                            >
-                                                <span className="text-sm">Reschedule</span>
-                                            </button>
                                     </div>
                                 </td>
 
