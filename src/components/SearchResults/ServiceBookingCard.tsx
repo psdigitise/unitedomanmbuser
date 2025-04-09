@@ -28,7 +28,7 @@ interface ServiceBookingCardProps {
   image_url: string;
   reviewCount: string;
   starRating: number;
-  OpeningTime:string;
+  OpeningTime: string;
 }
 
 export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
@@ -79,29 +79,12 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
               {/* {/ Service Booking Card Content /} */}
               <div className="w-full space-y-3">
                 <div className="md:border-b-2 md:border-dotted space-y-3 pb-4">
-                <div className="flex items-center space-x-2 flex-shrink-0">                
-                      {serviceTypeID === 1 ? (
-                        <div className="text-mindfulBlue font-bold">
-                          {/* {/ Salon Timings /} */}
-                         Salon
-                        </div>
-                      ) : serviceTypeID === 2 ? (
-                        <div className="text-main font-bold">
-                          {/* {/ Freelancer Timings /} */}
-                          Freelancer
-                        </div>
-                      ) : (
-                        <div >
-                           {/* {/ Freelancer Timings /} */}
-                           Freelancer
-                        </div>
-                      )}
-                  </div>
+
                   {/* {/ Service Provider Name /} */}
                   <div className="flex justify-between lg:items-center items-start">
-                  
-                  
-                    <div className="flex items-center">
+
+
+                    <div className="flex items-center gap-4">
                       {/* <div>
                       Salon Icon
                       <div className="bg-mindfulBlue rounded-full px-1 py-1">
@@ -117,27 +100,49 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                       {serviceTypeID === 1 ? (
                         <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
                           {/* {/ Salon Icon /} */}
-                          <img src={salonIcon} alt="parlour-icon" className="w-[34px] h-[34px] p-1"/>
+                          <img src={salonIcon} alt="parlour-icon" className="w-[34px] h-[34px] p-1" />
                         </div>
                       ) : serviceTypeID === 2 ? (
                         <div className="bg-main rounded-full px-1 py-1 lg:block hidden">
                           {/* {/ Specialist Icon /} */}
-                          <img src={specialistIcon} alt="specialist-icon" className="w-[34px] h-[34px] p-1"/>
+                          <img src={specialistIcon} alt="specialist-icon" className="w-[34px] h-[34px] p-1" />
                         </div>
                       ) : (
                         <div className="bg-mindfulBlue rounded-full px-1 py-1 lg:block hidden">
                           {/* {/ Salon Icon /} */}
-                          <img src={salonIcon} alt="parlour-icon" className="w-[34px] h-[34px] p-1"/>
+                          <img src={salonIcon} alt="parlour-icon" className="w-[34px] h-[34px] p-1" />
                         </div>
                       )}
+                      <div>
+                        <div className="flex items-center space-x-2 flex-shrink-0">
+                          {serviceTypeID === 1 ? (
+                            <div className="text-mindfulBlue font-bold">
+                              {/* {/ Salon Timings /} */}
+                              Salon
+                            </div>
+                          ) : serviceTypeID === 2 ? (
+                            <div className="text-main font-bold">
+                              {/* {/ Freelauncer Timings /} */}
+                              Freelauncer
+                            </div>
+                          ) : (
+                            <div >
+                              {/* {/ Freelauncer Timings /} */}
+                              Freelauncer
+                            </div>
+                          )}
+                        </div>
+                        {/* {/ Service Provider Name /} */}
+                        <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
+                          <h5 className="sm:text-[18px] text-mindfulBlack font-semibold text-[16px]  transition duration-200 hover:text-main ">
+                            {/* {serviceProviderName} */}
+                            {branchName}
+                          </h5>
+                        </Link>
+                      </div>
 
-                      {/* {/ Service Provider Name /} */}
-                      <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
-                      <h5 className="sm:text-[18px] text-mindfulBlack font-semibold text-[16px] lg:pl-[5px] transition duration-200 hover:text-main ">
-                        {/* {serviceProviderName} */}
-                        {branchName}
-                      </h5>
-                      </Link>
+
+
                     </div>
 
                     {/* {/ Verified /} */}
@@ -160,28 +165,28 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                   </div>
 
                   <div className="flex items-center space-x-2 flex-shrink-0">
-                      <div className="-ml-1/2">
-                      <IoMdTime className="text-2xl text-main" />                      
-                      </div>
-                      {/* <p className="text-[16px] text-mindfulBlack font-medium">
+                    <div className="-ml-1/2">
+                      <IoMdTime className="text-2xl text-main" />
+                    </div>
+                    {/* <p className="text-[16px] text-mindfulBlack font-medium">
                         Opening Time :{OpeningTime}
                       </p> */}
-                      {serviceTypeID === 1 ? (
-                        <div >
-                          {/* {/ Salon Timings /} */}
-                          Opening Time : {OpeningTime}
-                        </div>
-                      ) : serviceTypeID === 2 ? (
-                        <div >
-                          {/* {/ Freelancer Timings /} */}
-                          Working Time : {OpeningTime}
-                        </div>
-                      ) : (
-                        <div >
-                           {/* {/ Freelancer Timings /} */}
-                           Working Time : {OpeningTime}
-                        </div>
-                      )}
+                    {serviceTypeID === 1 ? (
+                      <div >
+                        {/* {/ Salon Timings /} */}
+                        Opening Time : {OpeningTime}
+                      </div>
+                    ) : serviceTypeID === 2 ? (
+                      <div >
+                        {/* {/ Freelauncer Timings /} */}
+                        Working Time : {OpeningTime}
+                      </div>
+                    ) : (
+                      <div >
+                        {/* {/ Freelauncer Timings /} */}
+                        Working Time : {OpeningTime}
+                      </div>
+                    )}
                   </div>
 
                   {/* {/ Ratings & Reviews /} */}
@@ -211,11 +216,11 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                         </p>
                       )}
                     </div>
-                    </div>
+                  </div>
 
-                    
 
-               
+
+
                   {/* {/ Service Provider Tags /} */}
                   <div className="flex items-center space-x-2">
                     {allServices.split(",").map((service) => (
@@ -276,7 +281,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                   {/* {/ Dynamically set provider_id in the URL /} */}
                   <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
                     <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[16px]">
-                      Book a Service 
+                      Book a Service
                     </button>
                   </Link>
                 </div>
@@ -317,7 +322,7 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                 {/* {/ Dynamically set provider_id in the URL /} */}
                 <Link to={`/Overview?provider_id=${serviceProviderID}&branch_id=${branchID}`}>
                   <button className="bg-main rounded-[4px] text-mindfulWhite font-normal px-4 py-2 text-[14px]">
-                    Book a Service 
+                    Book a Service
                   </button>
                 </Link>
               </div>
