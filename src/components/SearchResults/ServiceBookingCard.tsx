@@ -122,13 +122,13 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                             </div>
                           ) : serviceTypeID === 2 ? (
                             <div className="text-main font-bold">
-                              {/* {/ Freelauncer Timings /} */}
-                              Freelauncer
+                              {/* {/ Freelancer Timings /} */}
+                              Freelancer
                             </div>
                           ) : (
                             <div >
-                              {/* {/ Freelauncer Timings /} */}
-                              Freelauncer
+                              {/* {/ Freelancer Timings /} */}
+                              Freelancer
                             </div>
                           )}
                         </div>
@@ -178,12 +178,12 @@ export const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({
                       </div>
                     ) : serviceTypeID === 2 ? (
                       <div >
-                        {/* {/ Freelauncer Timings /} */}
+                        {/* {/ Freelancer Timings /} */}
                         Working Time : {OpeningTime}
                       </div>
                     ) : (
                       <div >
-                        {/* {/ Freelauncer Timings /} */}
+                        {/* {/ Freelancer Timings /} */}
                         Working Time : {OpeningTime}
                       </div>
                     )}
