@@ -1,3 +1,4 @@
+
 import { apiUrl, apiAxios } from './apiUrl';
 
 
@@ -311,7 +312,7 @@ export const fetchServiceProviderTypeFilterOTP = async (service_id: number) => {
 }
 
 
-export const fetchServiceProviderTypeFilter = async (service_id: number, address: string, radius: string, serviceTypeId: number) => {
+export const fetchServiceProviderTypeFilter = async (service_id: number, address: string, radius: string, serviceTypeId: number, CategoryID:number) => {
 
     console.log(service_id, address, radius, serviceTypeId, "log");
 
@@ -324,6 +325,7 @@ export const fetchServiceProviderTypeFilter = async (service_id: number, address
                     address: address,           // Send address as a query param
                     radius: radius,              // Send radius as a query param
                     service_type_id: serviceTypeId,  // Send service_type_id as a query param
+                    category_id: CategoryID,
                 },
                 headers: {
                     "Content-Type": "application/json"

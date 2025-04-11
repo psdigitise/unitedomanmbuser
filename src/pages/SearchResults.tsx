@@ -93,6 +93,9 @@ export const SearchResults = () => {
   });
   const location = useLocation();
   const [catID, setCatID] = useState<string | undefined>(location.state?.catID);
+  console.log("catID",catID)
+  const [filtercatID] = useState<number>(0);
+  console.log("filtercatID",filtercatID)
 
   // Function to handle the click event
   const handleOpenNowClick = () => {
@@ -173,12 +176,18 @@ export const SearchResults = () => {
     try {
       // Ensure the service ID is a number if you are passing it as such
       const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
+     // Get category ID from session if not available in state
+    const currentCatID = filtercatID || 
+    (sessionStorage.getItem("selectedCategoryID") ? 
+      parseInt(sessionStorage.getItem("selectedCategoryID")!, 10) : 
+      0);
       setLoading(true); // Set loading to true before API call
       const data = await fetchServiceProviderTypeFilter(
         serviceId,
         storedLocation,
         "20",
-        serviceTypeId
+        serviceTypeId,
+        currentCatID || 0, // Ensure catID is always a number,
       );
 
       setServiceProvider(data);
@@ -205,7 +214,6 @@ export const SearchResults = () => {
       }
     }
   };
-
   console.log("Not Found", notFound);
 
   // React Hook Form setup with Zod validation
@@ -222,24 +230,17 @@ export const SearchResults = () => {
     setLoading(true); // Start loading state
     setError(null);   // Clear any previous errors
     setButtonState({ ...buttonState, isSubmitted: false }); // Reset submission state
-
-
     try {
       const response = await requestaCallback(data.fullName, data.phoneNumber, String(userID));
       console.log("Callback request submitted successfully:", response);
-
-
       // Update button text and color on success
       setButtonState({ buttonText: "Request Submitted Successfully", isSubmitted: true });
-
       // Reset the form after successful submission
       reset(); // Clears all form fields including rating and comment
-
       // Reset button text and color after 3 seconds
       setTimeout(() => {
         setButtonState({ buttonText: "Call Me", isSubmitted: false });
       }, 3000);
-
     } catch (error: any) {
       setError(error.message || "Error submitting the email. Please try again.")
     } finally {
