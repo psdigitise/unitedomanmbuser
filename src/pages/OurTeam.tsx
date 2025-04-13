@@ -5,6 +5,7 @@ import deviSriPalla from "../assets/images/deviSriPalla.jpg";
 import { TechnologyImgBox } from "../components/OurTechnology/TechnologyImgBox";
 import ourTeamBoxImg from "../assets/images/ourTeamBoxImg.jpg";
 import { TeamBeforeAftergallery } from "../components/OurTeam/TeamBeforeAftergallery";
+import { Helmet } from "react-helmet-async";
 
 export const OurTeam = () => {
   return (
@@ -13,6 +14,21 @@ export const OurTeam = () => {
         bannerTitle="About Us"
         bannerDesc="A Joyful Journey of Mindful Beauty and Imagination"
       />
+       <Helmet>
+              <script>
+                {`
+                  (function (c, s, q, u, a, r, e) {
+                    c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
+                    c._hjSettings = { hjid: 6369861 };
+                    r = s.getElementsByTagName('head')[0];
+                    e = s.createElement('script');
+                    e.async = true;
+                    e.src = q + c._hjSettings.hjid + u;
+                    r.appendChild(e);
+                  })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
+                `}
+              </script>
+            </Helmet>
 
       <div className="bg-cover w-full bg-white lg:py-[60px] py-[40px]  max-md:py-6">
         <div className="container mx-auto px-4">

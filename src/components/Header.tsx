@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { persistor, RootState } from "../redux/store";
 import { clearCart, logout } from "../redux/cartSlice";
 import { BiSolidUser } from "react-icons/bi";
+import { Helmet } from "react-helmet-async";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -99,6 +100,8 @@ export const Header = () => {
   // API Function
   // Services List function API Call
 
+  
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 transition-all duration-300 z-[45]
@@ -108,6 +111,22 @@ export const Header = () => {
         }
         }`}
     >
+     {/* Hotjar Tracking Script */}
+     <Helmet>
+        <script>
+          {`
+            (function (c, s, q, u, a, r, e) {
+              c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
+              c._hjSettings = { hjid: 6369861 };
+              r = s.getElementsByTagName('head')[0];
+              e = s.createElement('script');
+              e.async = true;
+              e.src = q + c._hjSettings.hjid + u;
+              r.appendChild(e);
+            })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
+          `}
+        </script>
+      </Helmet>
       <div className="relative">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-3">

@@ -234,6 +234,7 @@ export const OverviewDetailsCard: React.FC<ServiceBookingCardProps> = ({
               {/* Virtual TryOn */}
               <a
                 href="https://try.mindfulbeauty.ai/"
+                //  href="http://localhost:5174/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

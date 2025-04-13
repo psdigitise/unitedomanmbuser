@@ -10,6 +10,7 @@ import { bookNow, fetchTimeSlot } from '../api/ApiConfig';
 import { ShimmerTable } from 'shimmer-effects-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { Helmet } from 'react-helmet-async';
 // import { Index } from './Index';
 
 
@@ -262,6 +263,21 @@ export const DateTime: React.FC<DateTimeProps> = () => {
             <div>
                 <BannerContent bannerTitle="Select Date and Time" />
             </div>
+             <Helmet>
+                    <script>
+                      {`
+                        (function (c, s, q, u, a, r, e) {
+                          c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
+                          c._hjSettings = { hjid: 6369861 };
+                          r = s.getElementsByTagName('head')[0];
+                          e = s.createElement('script');
+                          e.async = true;
+                          e.src = q + c._hjSettings.hjid + u;
+                          r.appendChild(e);
+                        })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
+                      `}
+                    </script>
+                  </Helmet>
 
             <div className="container mx-auto px-4">
                 <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-10 max-lg:w-full">

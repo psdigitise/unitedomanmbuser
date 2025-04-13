@@ -11,6 +11,7 @@ import { clearCart } from "../redux/cartSlice"; // Import clearCart action
 import { clearFields } from "../redux/loginHeaderSlice";
 import { persistor } from "../redux/store"; // Import the persistor from your store configuration
 import { ShimmerTable } from "shimmer-effects-react";
+import { Helmet } from "react-helmet-async";
 
 // Define the structure of a cart item
 interface CartItem {
@@ -192,6 +193,21 @@ export const Cart = () => {
       <div>
         <BannerContent bannerTitle="Your Cart" />
       </div>
+       <Helmet>
+              <script>
+                {`
+                  (function (c, s, q, u, a, r, e) {
+                    c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
+                    c._hjSettings = { hjid: 6369861 };
+                    r = s.getElementsByTagName('head')[0];
+                    e = s.createElement('script');
+                    e.async = true;
+                    e.src = q + c._hjSettings.hjid + u;
+                    r.appendChild(e);
+                  })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
+                `}
+              </script>
+            </Helmet>
 
       <div className="container mx-auto px-5">
         <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-10 max-lg:w-full ">

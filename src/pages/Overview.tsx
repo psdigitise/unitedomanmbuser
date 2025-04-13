@@ -312,6 +312,7 @@ import { resetCartItemArea } from "../redux/scrollSlice"; // Adjust import path
 import { useDispatch, useSelector } from "react-redux";
 import { ClearItemsPopup } from "../components/Overview/ClearItemsPopup";
 import { NotifyError } from '../components/common/Toast/ToastMessage';
+import { Helmet } from "react-helmet-async";
 
 // API Proptypes datatype
 interface ProviderDetails {
@@ -488,6 +489,21 @@ export const Overview = () => {
         {/* <BannerContent bannerTitle="Salon Service" /> */}
         <BannerContent bannerTitle={serviceType || "Service"} />
       </div>
+       <Helmet>
+              <script>
+                {`
+                  (function (c, s, q, u, a, r, e) {
+                    c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
+                    c._hjSettings = { hjid: 6369861 };
+                    r = s.getElementsByTagName('head')[0];
+                    e = s.createElement('script');
+                    e.async = true;
+                    e.src = q + c._hjSettings.hjid + u;
+                    r.appendChild(e);
+                  })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
+                `}
+              </script>
+            </Helmet>
 
       <div className="container mx-auto px-4">
         <div className="grid xl:grid-cols-[70%_30%] grid-cols-[100%] xl:space-x-5 py-5 max-xl:flex max-xl:flex-col-reverse ">

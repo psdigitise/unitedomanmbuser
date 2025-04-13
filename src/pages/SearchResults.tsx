@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { Helmet } from "react-helmet-async";
 
 // Define Zod schema for email validation
 const requestaCallbackSchema = zod.object({
@@ -268,6 +269,21 @@ export const SearchResults = () => {
       <div>
         <BannerContent bannerTitle="Home & Salon Service" />
       </div>
+       <Helmet>
+              <script>
+                {`
+                  (function (c, s, q, u, a, r, e) {
+                    c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
+                    c._hjSettings = { hjid: 6369861 };
+                    r = s.getElementsByTagName('head')[0];
+                    e = s.createElement('script');
+                    e.async = true;
+                    e.src = q + c._hjSettings.hjid + u;
+                    r.appendChild(e);
+                  })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
+                `}
+              </script>
+            </Helmet>
 
       {/* {/ Select Options /} */}
       <div className="container mx-auto px-4">
