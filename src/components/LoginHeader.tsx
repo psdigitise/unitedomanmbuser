@@ -685,7 +685,7 @@ export const LoginHeader = () => {
         </div>
       </header>
 
-      <div className="mt-[5rem] xl:mt-[6rem]">
+      <div className="mt-[8rem] xl:mt-[6rem] max-md:mt-[7rem] max-sm:mt-[6rem]">
         <div className="container mx-auto px-4">
           <div className="xl:hidden block">
             <div className="w-full rounded-[12px] bg-mindfulWhite p-4 border-[1px] border-mindfulLightGrey">
