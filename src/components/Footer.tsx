@@ -206,10 +206,10 @@ export const Footer = () => {
                     <div>
                       <p className="text-mindfulBlack">
                         <Link
-                          to="tel:+971552761575"
+                          to="tel:+919249091961"
                           className="hover:underline"
                         >
-                          +971 552761575
+                          +91 9249091961
                         </Link>
                       </p>
                     </div>
