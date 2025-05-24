@@ -37,13 +37,8 @@ export const Header = () => {
     setShowSideBar(!showSideBar);
   };
 
-
   const dispatch = useDispatch();
-
   const { phoneNumber } = useSelector((state: RootState) => state.cart);
-
-
-
   const [profileHover, setProfileHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -100,7 +95,6 @@ export const Header = () => {
   // API Function
   // Services List function API Call
 
-  
 
   return (
     <header
@@ -111,8 +105,8 @@ export const Header = () => {
         }
         }`}
     >
-     {/* Hotjar Tracking Script */}
-     <Helmet>
+      {/* Hotjar Tracking Script */}
+      <Helmet>
         <script>
           {`
             (function (c, s, q, u, a, r, e) {
