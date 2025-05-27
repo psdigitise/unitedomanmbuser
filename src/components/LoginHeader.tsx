@@ -467,6 +467,15 @@ export const LoginHeader = () => {
                     })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
                   `}
                 </script>
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
+                <script>
+                  {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-J5CB1Y1M5W');
+                  `}
+                </script>
               </Helmet>
         <div className="relative">
           <div className="container mx-auto px-4">
