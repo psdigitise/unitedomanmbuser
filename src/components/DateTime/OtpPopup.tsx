@@ -193,6 +193,9 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                         <IoCloseOutline className="text-[28px] text-white bg-main rounded-full" />
                     </button>
                 </div>
+                <div>
+                    <h5 className="text-2xl text-mindfulBlack text-center font-bold mb-4">Awaiting Confirmation</h5>
+                </div>
 
                 <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-0 max-lg:w-full">
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -262,9 +265,9 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 <button
                                     onClick={handleClose}
                                     // type="submit"
-                                    className="w-1/3  bg-white border border-black rounded-[7px] text-base text-mindfulBlack px-4 py-2 hover:bg-gray-200"  
+                                    className="w-1/3  bg-white border border-black rounded-[7px] text-base text-mindfulBlack px-4 py-2 hover:bg-gray-200"
                                 >
-                                 Cancel Booking
+                                    Cancel Booking
                                 </button>
 
                                 {/* <button

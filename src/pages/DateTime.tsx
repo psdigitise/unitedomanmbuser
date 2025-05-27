@@ -261,7 +261,8 @@ export const DateTime: React.FC<DateTimeProps> = () => {
         <section className="mt-32 max-lg:mt-5">
             {/* Banner Content */}
             <div>
-                <BannerContent bannerTitle="Select Date and Time" />
+                {/* <BannerContent bannerTitle="Select Date and Time" /> */}
+                 <BannerContent bannerTitle="Appointment Slot Selection" />
             </div>
              <Helmet>
                     <script>

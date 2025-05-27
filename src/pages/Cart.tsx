@@ -191,7 +191,8 @@ export const Cart = () => {
     <section className="mt-[15px]">
       {/* Banner Content */}
       <div>
-        <BannerContent bannerTitle="Your Cart" />
+        {/* <BannerContent bannerTitle="Your Cart" /> */}
+         <BannerContent bannerTitle="Confirm Appointment" />
       </div>
        <Helmet>
               <script>
