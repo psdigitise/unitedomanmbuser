@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useNavigate } from 'react-router-dom';
 import { IoCloseOutline } from 'react-icons/io5';
+import { CancelReasonPopup } from './CancelReasonPopup';
 // import { IoCloseOutline } from 'react-icons/io5';
 
 interface OtpPopupProps {
@@ -31,13 +32,12 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     // const [appointmentResponse, setAppointmentResponse] = useState<number | null>(null);
-
     // const [isVerified, setIsVerified] = useState<boolean>(false); // Track success response
-
     const [statusResponse, setStatusResponse] = useState(0);
     const [timer, setTimer] = useState(120);
     const [isResendEnabled, setIsResendEnabled] = useState(true);
-
+    const [showCancelReason, setShowCancelReason] = useState(false);
+    const [cancellationMessage, setCancellationMessage] = useState<string>('');
     // Getting the stored provider_id from sessionStorage
     const sessionProviderID = sessionStorage.getItem('selectedProviderId');
     const localProviderID = localStorage.getItem('selectedLocalProviderId');
@@ -60,6 +60,12 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
             try {
                 const data = await appointmentStatus(appID);
                 setStatusResponse(data.status_id);
+                if (data.status_id === 4) {
+                    setCancellationMessage(data.cancellation_message || 'Appointment was cancelled by the service provider');
+                    clearInterval(interval);
+                    setIsClosing(true);
+                    setShowCancelReason(true);
+                }
             } catch (error: any) {
                 setError(error.message || "Failed to fetch appointment.");
             }
@@ -175,102 +181,103 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
 
 
     return (
-        <div
-            // onClick={handleClose}
-            className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end z-50 transition-opacity duration-300
+        <>
+            <div
+                // onClick={handleClose}
+                className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end z-50 transition-opacity duration-300
             ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
 
-            <div
-                onClick={handlePopupClick}
-                className={`w-full bg-white px-5 py-10 transform transition-transform duration-300
+                <div
+                    onClick={handlePopupClick}
+                    className={`w-full bg-white px-5 py-10 transform transition-transform duration-300
                 ${isClosing ? 'translate-y-full' : 'translate-y-0'}`}>
 
-                {/* Close Button */}
-                <div>
-                    <button onClick={handleClose} className="absolute top-3 right-3">
-                        {/* <span className="text-red-500 text-center mx-auto">Cancel</span> */}
-                        {/* <span className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Cancel</span> */}
-                        <IoCloseOutline className="text-[28px] text-white bg-main rounded-full" />
-                    </button>
-                </div>
-                <div>
-                    <h5 className="text-2xl text-mindfulBlack text-center font-bold mb-4">Awaiting Confirmation</h5>
-                </div>
+                    {/* Close Button */}
+                    <div>
+                        <button onClick={handleClose} className="absolute top-3 right-3">
+                            {/* <span className="text-red-500 text-center mx-auto">Cancel</span> */}
+                            {/* <span className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Cancel</span> */}
+                            <IoCloseOutline className="text-[28px] text-white bg-main rounded-full" />
+                        </button>
+                    </div>
+                    <div>
+                        <h5 className="text-2xl text-mindfulBlack text-center font-bold mb-4">Awaiting Confirmation</h5>
+                    </div>
 
-                <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-0 max-lg:w-full">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="w-fit mx-auto">
-                            <p className="text-md text-mindfulBlack text-center">
-                                Your appointment ID
-                                <span className="font-semibold"> {appID} </span>
-                                is created successfully & waiting for confirmation from the "Service Provider ID & Name :
-                                <span className="font-semibold"> {localProviderID} : {providerLocalName} </span>
-                                <br />
-                                Branch Name :<span className="font-semibold"> {providerBranchName}</span>
-                                ".
-                            </p>
-
-
-                            <p className="text-md text-mindfulBlack text-center">
-                                Please enter the 4 digit OTP which you received from the "Service Provider"
-                            </p>
-
-                            {statusResponse == 1 &&
-                                <p className="text-md text-mindfulGreen text-center pt-5">Service Provider ID :
-                                    <span className="font-semibold"> {localProviderID} </span>
-                                    has accepted your appointment request</p>
-                            }
-
-                            <div className="text-center my-5 space-x-3">
-
-                                {otpInput.map((_, index) => (
-                                    <input
-                                        key={index}
-                                        type="text"
-                                        maxLength={1}
-                                        id={`otp-input-${index}`}
-                                        value={otpInput[index]}
-                                        onChange={(e) => {
-                                            handleOtpInputChange(e.target.value, index);
-                                            setValue("otp", otpInput.join(""));
-                                        }}
-                                        className={`w-10 h-10 border-2 border-mindfulLightGrey rounded-[6px] px-3 py-3 text-center focus:outline-none
-                                        ${errors.otp ? 'border-red-500' : ''}`}
-                                    />
-                                ))}
-
-                                {errors.otp && <p className="text-sm text-red-500">{errors.otp.message}</p>}
-
-                                {/* Error from the API Response */}
-                                {error && <p className="text-sm text-red-500">{error}</p>}
-
-                            </div>
-
-                            <div className="w-6/12 mx-auto max-md:w-full text-center">
-                                {/* <button className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Submit</button> */}
-                                <button
-                                    type="submit"
-                                    className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5"
-                                    disabled={loading}
-                                >
-                                    {loading ? "Submitting..." : "Submit"}
-                                </button>
-
-                                {isResendEnabled && (
-                                    <span className="text-red-500 text-center mx-auto">Auto cancelled in {timer} seconds</span>
-                                )}
-                                <p className="text-md text-mindfulBlack text-center mb-3">
-                                    If you want to cancel Appointment?
+                    <div className="w-1/2 mx-auto mb-20 max-xl:w-[75%] max-md:mb-0 max-lg:w-full">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="w-fit mx-auto">
+                                <p className="text-md text-mindfulBlack text-center">
+                                    Your appointment ID
+                                    <span className="font-semibold"> {appID} </span>
+                                    is created successfully & waiting for confirmation from the "Service Provider ID & Name :
+                                    <span className="font-semibold"> {localProviderID} : {providerLocalName} </span>
+                                    <br />
+                                    Branch Name :<span className="font-semibold"> {providerBranchName}</span>
+                                    ".
                                 </p>
-                                <button
-                                    onClick={handleClose}
-                                    // type="submit"
-                                    className="w-1/3  bg-white border border-black rounded-[7px] text-base text-mindfulBlack px-4 py-2 hover:bg-gray-200"
-                                >
-                                    Cancel Booking
-                                </button>
 
-                                {/* <button
+
+                                <p className="text-md text-mindfulBlack text-center">
+                                    Please enter the 4 digit OTP which you received from the "Service Provider"
+                                </p>
+
+                                {statusResponse == 1 &&
+                                    <p className="text-md text-mindfulGreen text-center pt-5">Service Provider ID :
+                                        <span className="font-semibold"> {localProviderID} </span>
+                                        has accepted your appointment request</p>
+                                }
+
+                                <div className="text-center my-5 space-x-3">
+
+                                    {otpInput.map((_, index) => (
+                                        <input
+                                            key={index}
+                                            type="text"
+                                            maxLength={1}
+                                            id={`otp-input-${index}`}
+                                            value={otpInput[index]}
+                                            onChange={(e) => {
+                                                handleOtpInputChange(e.target.value, index);
+                                                setValue("otp", otpInput.join(""));
+                                            }}
+                                            className={`w-10 h-10 border-2 border-mindfulLightGrey rounded-[6px] px-3 py-3 text-center focus:outline-none
+                                        ${errors.otp ? 'border-red-500' : ''}`}
+                                        />
+                                    ))}
+
+                                    {errors.otp && <p className="text-sm text-red-500">{errors.otp.message}</p>}
+
+                                    {/* Error from the API Response */}
+                                    {error && <p className="text-sm text-red-500">{error}</p>}
+
+                                </div>
+
+                                <div className="w-6/12 mx-auto max-md:w-full text-center">
+                                    {/* <button className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5">Submit</button> */}
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-main rounded-[7px] text-lg text-mindfulWhite px-4 py-2.5"
+                                        disabled={loading}
+                                    >
+                                        {loading ? "Submitting..." : "Submit"}
+                                    </button>
+
+                                    {isResendEnabled && (
+                                        <span className="text-red-500 text-center mx-auto">Auto cancelled in {timer} seconds</span>
+                                    )}
+                                    <p className="text-md text-mindfulBlack text-center mb-3">
+                                        If you want to cancel Appointment?
+                                    </p>
+                                    <button
+                                        onClick={handleClose}
+                                        // type="submit"
+                                        className="w-1/3  bg-white border border-black rounded-[7px] text-base text-mindfulBlack px-4 py-2 hover:bg-gray-200"
+                                    >
+                                        Cancel Booking
+                                    </button>
+
+                                    {/* <button
                                     type="submit"
                                     className={`w-full rounded-[7px] text-lg px-4 py-2.5
         ${appointmentResponse === 1 ? "bg-main text-mindfulWhite" : "bg-gray-400 text-gray-700 cursor-not-allowed"}`}
@@ -278,11 +285,23 @@ export const OtpPopup: React.FC<OtpPopupProps> = ({ onClose, appID }) => {
                                 >
                                     {loading ? "Submitting..." : "Submit"}
                                 </button> */}
+                                </div>
                             </div>
-                        </div>
-                    </form>
+
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+            {showCancelReason && (
+                <CancelReasonPopup
+                    closePopup={() => {
+                        setShowCancelReason(false);
+                        onClose(); // Close both popups
+                        navigate("/"); // Navigate to home
+                    }}
+                    cancellationMessage={cancellationMessage}
+                />
+            )}
+        </>
     );
 };

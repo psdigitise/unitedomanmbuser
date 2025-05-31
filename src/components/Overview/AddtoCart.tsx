@@ -120,7 +120,7 @@ export const AddtoCart = () => {
             else {
                 //NotifyError("FreeLaunce");
                 if (totalCartPrice < 600) {
-                    NotifyError("Please add more services to your cart to meet the minimum requirement . Thank you for your understanding!"); // Display error message
+                    NotifyError("Please add 600rs worth of services to proceed to the checkout."); // Display error message
                 } else {
                     navigate('/DateTime');
                 }

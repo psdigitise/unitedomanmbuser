@@ -9,7 +9,6 @@ interface CartState {
   phoneNumber: string | null;
   otpError: string | null;
   userID: number | null;
-
 }
 
 const initialState: CartState = {
