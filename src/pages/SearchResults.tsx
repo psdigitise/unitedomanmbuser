@@ -104,8 +104,8 @@ export const SearchResults = () => {
   };
 
   const storedServiceId = sessionStorage.getItem("selectedServiceId") || "0";
-  const storedLocation = sessionStorage.getItem("selectedLocation") || "Trivandrum";
-  const serviceTypeID = sessionStorage.getItem("selectedServiceType");
+  const storedLocation =
+    sessionStorage.getItem("selectedLocation") || "Trivandrum";
 
   console.log("Stored Service ID:", storedServiceId);
   console.log("Stored Location:", storedLocation);
@@ -134,7 +134,6 @@ export const SearchResults = () => {
           storedLocation,
           "20",
           catID || "",
-          serviceTypeID || "",
         );
         // const data = await fetchServiceProviders(serviceId, storedLocation, "20");
 
