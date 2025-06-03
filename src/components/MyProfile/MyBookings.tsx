@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FiDownload } from 'react-icons/fi';
+import { FiDownload, FiEdit } from 'react-icons/fi';
 import { fetchUserBookings, salesTransactionsInvoice, fetchAppointmentDetails } from '../../api/ApiConfig';
 import { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,9 +9,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NotifyError } from '../common/Toast/ToastMessage';
 import { CancelPopup } from './CancelPopup';
-
 import { useNavigate } from 'react-router-dom';
-// import { showToast } from '../common/ToastService';
+import { ReviewCompleted } from '../Overview/OverviewTabs/ReviewCompleted';
 
 interface Booking {
     id: string;
@@ -24,6 +23,7 @@ interface Booking {
     payment_amount: number;
     status_name: string;
     reason: string;
+    provider_id: string;
 }
 
 export const MyBookings = () => {
@@ -36,10 +36,14 @@ export const MyBookings = () => {
     const [selectedAppointment, setSelectedAppointment] = useState<string | null>(
         null
     );
+    const [showRatingPopup, setShowRatingPopup] = useState(false);
+    const [selectedBookingForRating, setSelectedBookingForRating] = useState<Booking | null>(null);
+    const [ratingProviderId, setRatingProviderId] = useState<string | null>(null);
 
     console.log("selectedAppointment", selectedAppointment);
 
     const loadUserBookings = async (userId: string | number | null) => {
+        setLoading(true);
         if (!userId) {
             toast.error("User ID is required");
             return;
@@ -93,7 +97,7 @@ export const MyBookings = () => {
         try {
             const response = await fetchAppointmentDetails(appointmentId);
             console.log('Appointment Details:', response);
-
+            
             // Set provider and branch IDs in session storage
             sessionStorage.setItem('selectedProviderId', response.provider_id.toString());
             sessionStorage.setItem('selectedBranchId', response.branch_id.toString());
@@ -121,6 +125,12 @@ export const MyBookings = () => {
         } catch (err: any) {
             NotifyError(err.message || 'Failed to fetch appointment details');
         }
+    };
+
+    const handleRatingClick = (booking: Booking) => {
+        setRatingProviderId(booking.provider_id);
+        setSelectedBookingForRating(booking);
+        setShowRatingPopup(true);
     };
 
     return (
@@ -187,7 +197,13 @@ export const MyBookings = () => {
                                             {booking.status_name}
 
                                         </button>
-
+                                        {booking.status_name === "Completed" && (
+                                            <FiEdit 
+                                            className="text-gray-600 text-lg cursor-pointer" 
+                                            title="Rating" 
+                                            onClick={() => handleRatingClick(booking)}
+                                        />
+                                        )}
                                     </div>
                                 </td>
 
@@ -257,6 +273,27 @@ export const MyBookings = () => {
                     />
                 )}
             </table>
+
+            {showRatingPopup && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white p-6 rounded-lg w-[600px] max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold">Rate Your Experience</h2>
+                <button 
+                    onClick={() => setShowRatingPopup(false)}
+                    className="text-gray-500 hover:text-gray-700"
+                >
+                    ✕
+                </button>
+            </div>
+            <ReviewCompleted
+                ratingProviderId={ratingProviderId}
+                onClose={() => setShowRatingPopup(false)}
+                refreshBookings={() => loadUserBookings(userID)}
+            />
+        </div>
+    </div>
+)}
         </div>
     );
 };

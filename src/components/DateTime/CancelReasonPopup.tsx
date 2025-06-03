@@ -3,7 +3,6 @@ import { IoCloseCircle } from 'react-icons/io5';
 //import { useNavigate } from 'react-router-dom';
 // import { ShimmerTable } from 'shimmer-effects-react';
 
-
 interface CancelReasonPopupProps {
     closePopup: () => void;
     cancellationMessage: string;
@@ -11,13 +10,10 @@ interface CancelReasonPopupProps {
 }
 
 export const CancelReasonPopup: React.FC<CancelReasonPopupProps> = ({ closePopup, cancellationMessage }) => {
-
     // const navigate = useNavigate();
-
     // const [loading, setLoading] = useState(false);
     // const [error, setError] = useState<string | null>(null);
      const [error,] = useState<string | null>(null);
-
     // if (loading) return <div>Loading...</div>;
     // if (loading) return <div>
     //     <div>
@@ -41,10 +37,9 @@ export const CancelReasonPopup: React.FC<CancelReasonPopupProps> = ({ closePopup
             <div>
                 <div className="fixed inset-0 bg-mindfulBlack bg-opacity-50 flex justify-center items-center z-50">
                     <div className="container mx-auto">
-
                         <div className="relative bg-white rounded-[5px] w-5/12 mx-auto px-5 py-5 max-xl:w-2/4">
                             <div className="relative mb-10 text-center">
-                                <h2 className="text-2xl text-mindfulBlack font-semibold">Your Booking Has Been Cancelled</h2>
+                                <h2 className="text-2xl text-mindfulBlack font-semibold border-b-2 border-gray-300">Your Booking Has Been Cancelled</h2>
                                 <div className="absolute inset-x-0 bottom-[-20px] mx-auto bg-mindfulgrey rounded-md w-full h-0.5">
                                 </div>
                             </div>
@@ -60,7 +55,6 @@ export const CancelReasonPopup: React.FC<CancelReasonPopupProps> = ({ closePopup
                             {/* Content */}
                             <div className="text-center">
                                 <p className="text-lg text-mindfulBlack"> {cancellationMessage}</p>
-
                                 {error && <p className="text-sm text-red-600">{error}</p>}
 
                                 {/* Buttons */}
