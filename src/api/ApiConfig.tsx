@@ -133,16 +133,18 @@ export const fetchServiceProviders = async (
     service_id: number,
     address: string,
     radius: string,
-    catID: string
+    catID: string,
+    ServiceTypeID: string
 ) => {
-    console.log("Fetching service provider with : ", { service_id, address, radius, catID });
+    console.log("Fetching service provider with : ", { service_id, address, radius, catID, ServiceTypeID });
     try {
         const response = await apiAxios.get("/api/serviceprovidertypes/", {
             params: {
                 service_id: service_id,
                 address: address,
                 radius: radius,
-                category_id: catID
+                category_id: catID,
+                service_type_id: ServiceTypeID
             }, // Use 'params' for query parameters in GET request
         });
 
@@ -152,54 +154,12 @@ export const fetchServiceProviders = async (
         // if (!response.data || response.status !== 200) {
         //     throw new Error("Failed to fetch service provider");
         // }
-
-
-
         return response.data;
-
     } catch (error: any) {
         console.error("Error fetching service provider:", error.message || error);
         throw new Error("Unable to fetch service provider. Please try again later.");
     }
 };
-
-
-
-// Search Results page -> fetch Services Providers API
-// export const fetchServiceProvidersCategory = async (
-//     // service_id: number,
-//     catID: string,
-//     address: string,
-//     radius: string,
-// ) => {
-//     console.log("Fetching service provider with : ", { catID, address, radius });
-//     try {
-//         const response = await apiAxios.get("/api/serviceprovidertypes/", {
-//             params: {
-//                 // service_id: service_id,
-//                 category_id: catID,
-//                 address: address,
-//                 radius: radius
-//             }, // Use 'params' for query parameters in GET request
-//         });
-
-//         console.log("Category ID provider response", response.data);
-
-//         // Assuming the API returns an object with a `status` field and a `data` field
-//         // if (!response.data || response.status !== 200) {
-//         //     throw new Error("Failed to fetch service provider");
-//         // }
-
-
-
-//         return response.data;
-
-//     } catch (error: any) {
-//         console.error("Error fetching service provider:", error.message || error);
-//         throw new Error("Unable to fetch service provider. Please try again later.");
-//     }
-// };
-
 
 
 // Search Results page ->  Service Provider Type API
@@ -341,37 +301,8 @@ export const fetchServiceProviderTypeFilter = async (service_id: number, address
     }
 };
 
-
-
-
-// export const fetchServiceProviders1 = async (service_type_id: number, currentLocation: string) => {
-//     try {
-//         // const response = await axios.get("http://192.168.1.8:8000/api/serviceprovidertypes/", {
-//         const response = await apiAxios.get("/api/serviceprovidertypes/", {
-//             params: {
-//                 service_id: 1,
-//                 address: currentLocation,
-//                 radius: "10",
-//                 service_type_id,
-//             }
-//         });
-
-//         if (response.status === 200) {
-//             return response.data.data; // Return the data directly
-//         } else {
-//             throw new Error("Failed to fetch service providers");
-//         }
-//     } catch (error) {
-//         console.error("Error fetching service providers:", error);
-//         throw error;
-//     }
-// };
-
-
-
 export const fetchServiceProviders1 = async (latitude: number, longitude: number, service_type_id: number) => {
     try {
-        // const response = await apiAxios.get("/api/serviceprovidertypes/", {
         const response = await apiAxios.get("/api/recommended-providers/", {
             params: {
                 //  service_id: 1,

@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import ladyIcon from "../../assets/icons/ladyIcon.png";
 import locationIcon from "../../assets/icons/locationIcon.png";
+import SalonIcon from "../../assets/icons/salonIcon.svg";
+import specialistIcon from "../../assets/icons/specialistIcon.svg";
 // import { PersonalizePopup } from "./PersonalizePopup/PersonalizePopup";
 import { fetchServicesListDropdown } from "../../api/ApiConfig";
 import { useNavigate } from "react-router-dom";
@@ -38,30 +40,24 @@ const locationSearchSchema = z
 export const HeroSection = () => {
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
   const storedReduxLocation = useSelector((state: RootState) => state.location.selectedLocation);
-
   // Services List function API Call
   const [servicesDropdown, setServicesDropdown] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
-
   // Google Location API
   const [locationSuggestions, setLocationSuggestions] = useState<google.maps.places.AutocompletePrediction[]>([]);
   const locationInputRef = useRef<HTMLInputElement>(null);
-
   // const [, setCurrentLocation] = useState<string | null>(null);
-
   // State to handle location input changes
   const [locationInput, setLocationInput] = useState<string>(storedReduxLocation || "");
-
   const [searchError, setSearchError] = useState<string | null>(null); // For service search validation
   const [locationError, setLocationError] = useState<string | null>(null); // For location search validation
-
+  const [selected, setSelected] = useState<string>(sessionStorage.getItem("selectedServiceType") || "2");
+  const [isFetchingLocation, setIsFetchingLocation] = useState(false);
 
   // ✅ Effect to update the input when geolocation is fetched
   useEffect(() => {
@@ -70,8 +66,6 @@ export const HeroSection = () => {
     }
   }, [storedReduxLocation]); // Runs when `storedReduxLocation` updates
 
-
-  // Request user's location on load
   // ✅ Fetch user location on page load
   useEffect(() => {
     if (!storedReduxLocation) {
@@ -94,6 +88,30 @@ export const HeroSection = () => {
     }
   }, [dispatch, storedReduxLocation]);
 
+  const fetchCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.permissions.query({ name: "geolocation" }).then((permissionStatus) => {
+        if (permissionStatus.state === "granted" || permissionStatus.state === "prompt") {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              fetchAddressFromCoordinates(position.coords.latitude, position.coords.longitude);
+            },
+            (error) => {
+              console.error("Geolocation error:", error);
+              NotifyError("Failed to get current location. Please enable location permissions.");
+              setIsFetchingLocation(false);
+            }
+          );
+        } else {
+          NotifyError("Location permission denied. Please enable location access in your browser settings.");
+          setIsFetchingLocation(false);
+        }
+      });
+    } else {
+      NotifyError("Geolocation is not supported by your browser.");
+    }
+  };
+
   // ✅ Function to fetch address from lat/lng
   const fetchAddressFromCoordinates = async (latitude: number, longitude: number) => {
     try {
@@ -105,10 +123,8 @@ export const HeroSection = () => {
       if (data.status === "OK" && data.results.length > 0) {
         const fetchedAddress = data.results[0].formatted_address;
         console.log("User Address (Auto-detected):", fetchedAddress);
-
         dispatch(setLocation(fetchedAddress));
         sessionStorage.setItem("selectedLocation", fetchedAddress);
-
         // Prefill input field
         if (locationInputRef.current) {
           locationInputRef.current.value = fetchedAddress;
@@ -136,7 +152,6 @@ export const HeroSection = () => {
         setLoading(false);
       }
     };
-
     loadServicesData();
   }, []);
 
@@ -150,7 +165,6 @@ export const HeroSection = () => {
     console.log("Selected service ID:", service.service_id); // Log the service ID
     console.log("Selected service name:", service.service_name); // Log the service name
     // Do something with the service ID here, such as storing or processing it
-
     // Store service ID in sessionStorage
     sessionStorage.setItem("selectedServiceId", service.service_id.toString());
     sessionStorage.setItem("selectedServiceName", service.service_name.toString());
@@ -161,7 +175,6 @@ export const HeroSection = () => {
   // const handleLocationSuggestionClick = (description: string) => {
   //   if (locationInputRef.current) {
   //     locationInputRef.current.value = description; // Set the clicked suggestion in the input
-
   //     setLocationInput(description); // Update input value
   //     setLocationSuggestions([]); // Clear suggestions after selecting
   //   }
@@ -212,9 +225,7 @@ export const HeroSection = () => {
         console.error("Google API not loaded.");
         return;
       }
-
       const google = window.google;
-
       const autocompleteService = new google.maps.places.AutocompleteService();
 
       const handleLocationInputChange = () => {
@@ -246,9 +257,7 @@ export const HeroSection = () => {
         handleLocationInputChange
       );
     };
-
     loadGoogleMapsApi();
-
     // Cleanup event listener on unmount
     return () => {
       locationInputRef.current?.removeEventListener(
@@ -258,16 +267,13 @@ export const HeroSection = () => {
     };
   }, []);
 
-
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-
     // Clear error when the user starts typing again
     if (searchError && value.trim() !== "") {
       setSearchError(null);
     }
-
     // Filter services based on the search term
     if (value.trim() === "") {
       setFilteredServices([]);
@@ -282,15 +288,12 @@ export const HeroSection = () => {
   // const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const value = e.target.value;
   //   setLocationInput(e.target.value);
-
   //   // Clear error when the user starts typing again
   //   if (locationError && value.trim() !== "") {
   //     setLocationError(null);
   //   }
-
   //   // Perform any other actions you need when location changes (like filtering suggestions)
   // };
-
 
   // Ensure input field is always synced with state
   useEffect(() => {
@@ -309,11 +312,9 @@ export const HeroSection = () => {
     }
   };
 
-
   // Validation before navigating to search results
   const handleSearchValidation = () => {
     let isValid = true;
-
     try {
       // Validate the search term
       serviceSearchSchema.parse(searchTerm);
@@ -322,7 +323,6 @@ export const HeroSection = () => {
       setSearchError((error as z.ZodError).issues[0]?.message);
       isValid = false; // Set isValid to false
     }
-
     try {
       // Validate the location input
       const locationValue = locationInputRef.current?.value || "";
@@ -340,6 +340,16 @@ export const HeroSection = () => {
     if (handleSearchValidation()) {
       navigate("/SearchResults");
     }
+  };
+
+  const handleServiceTypeChange = (type: string) => {
+    setSelected(type);
+    sessionStorage.setItem("selectedServiceType", type);
+    // Also store a human-readable version if needed
+    sessionStorage.setItem(
+      "selectedServiceTypeName",
+      type === "2" ? "Home Services" : "Salon Services"
+    );
   };
 
   if (loading) {
@@ -369,12 +379,60 @@ export const HeroSection = () => {
           {/* <div className="relative text-center bg-[#777b7c] h-36 z-0">
                         <p className="absolute top-0 z-10 opacity-100 w-full text-[91px] text-mindfulWhite">Transform with Mindful Beauty</p>
           </div> */}
+          {/* Home and Salon Services Buttons */}
+          <div className="flex justify-center space-x-3 mt-4 mr-16">
+            <div className="flex rounded-full bg-mindfulWhite ">
+              {/* Home Services */}
+              <button
+                onClick={() => handleServiceTypeChange("2")}
+                className={`flex items-center rounded-full gap-2 px-6 py-2 text-sm font-bold transition
+                ${selected === "2"
+                    ? "bg-mindfulBlue text-mindfulWhite"
+                    : "bg-mindfulWhite text-mindfulBlue"
+                  }`}
+              >
+                <div
+                  className={`p-2 rounded-full ${selected === "2" ? "bg-white" : "bg-mindfulBlue"}`}
+                >
+                  <img
+                    src={specialistIcon}
+                    alt="home services icon"
+                    className={`w-5 h-5 ${selected === "2" ? "invert": ""} `}
+                  />
+                </div>
+                Home Services
+              </button>
+
+              {/* Salon Services */}
+              <button
+                onClick={() => handleServiceTypeChange("1")}
+                className={`flex items-center rounded-full gap-2 px-6 py-2  text-sm font-bold transition
+               ${selected === "1"
+                    ? "bg-main text-mindfulWhite"
+                    : "bg-mindfulWhite text-main"
+                  }`}
+              >
+                Salon Services
+                <div
+                  className={`p-2 rounded-full ${selected === "2" ? "bg-main" : "bg-mindfulWhite "}`}
+                >
+                  <img
+                    src={SalonIcon}
+                    alt="salon icon"
+                    className={`w-4 h-4 ${selected === "2" ? "" : "invert"
+                      }`}
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
 
           {/* Search Bar */}
           <div className="w-fit mx-auto rounded-[12px] md:rounded-[40px] bg-mindfulWhite md:pl-8 px-4 md:pr-2 md:py-2 py-4 mt-[20px] max-md:w-[90%]">
             <div className="flex flex-col items-center space-y-0 md:flex-row md:items-center md:space-x-5 md:space-y-0">
               <div className="max-md:w-full">
-                <div className="relative max-md:w-full">
+                <div
+                  className="relative max-md:w-full">
                   <img
                     src={ladyIcon}
                     alt="lady Icon"
@@ -387,9 +445,9 @@ export const HeroSection = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
+
                   {/* Validation error for service search */}
                   {searchError && <p className="text-red-500">{searchError}</p>}
-
                   {/* Render the filtered services list */}
                   {filteredServices.length > 0 && (
                     <div className="absolute bg-white border border-gray-300 mt-1 w-72 max-h-48 overflow-y-auto z-10">
@@ -412,15 +470,33 @@ export const HeroSection = () => {
               </div>
 
               <div className="border-mindfulLightGrey md:border-l-2 md:border-t-0 pt-0 md:pt-0 md:pb-0 pb-[25px] max-md:w-full max-md:pb-[15px]">
-                <div className="relative ml-4 max-md:w-full max-md:ml-0">
-                  <img
-                    src={locationIcon}
-                    alt="lady Icon"
-                    className="w-[19px] h-[24px] absolute top-2.5 left-0"
-                  />
-                  {/* <input type="text" 
-                                    placeholder="Location / Pincode" 
-                                    className="w-72 bg-mindfulWhite pl-8 py-3 focus-visible:outline-none" /> */}
+                <div className=" relative ml-4 max-md:w-full max-md:ml-0">
+                  <div
+                    onClick={fetchCurrentLocation}
+                    className="absolute top-2 left-2 bg-pink-100 p-1 rounded-full">
+                    {/* <img
+                      src={locationIcon}
+                      alt="location Icon"
+                      // className=" w-[19px] h-[24px] absolute top-2.5 left-0"
+                      className=" w-[19px] h-[24px]"
+                      style={{ filter: 'invert(37%) sepia(88%) saturate(617%) hue-rotate(296deg) brightness(95%) contrast(101%)' }}
+                    /> */}
+                    {isFetchingLocation ? (
+                      <div className="w-[19px] h-[24px] flex items-center justify-center">
+                        {/* You can use a spinner here */}
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      </div>
+                    ) : (
+                      <img
+                        src={locationIcon}
+                        alt="location Icon"
+                        className="w-[19px] h-[24px]"
+                        style={{
+                          filter: 'invert(37%) sepia(88%) saturate(617%) hue-rotate(296deg) brightness(95%) contrast(101%)'
+                        }}
+                      />
+                    )}
+                  </div>
                   <input
                     type="text"
                     placeholder="Location / Pincode"
@@ -474,11 +550,9 @@ export const HeroSection = () => {
         </div>
         {/* 
                 {showLoginPopup && <LoginPopup />}
-
                 {showRegisterPopup && <RegisterPopup />}
-
                 {showVerificationCodePopup && <VerificationCodePopup />} */}
       </div>
-    </section>
+    </section >
   );
 };

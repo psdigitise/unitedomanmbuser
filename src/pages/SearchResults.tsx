@@ -4,12 +4,7 @@ import { BannerContent } from "../components/common/BannerContent";
 import virtualTryOn from "../assets/icons/virtualTryOn.png";
 import { ServiceBookingCard } from "../components/SearchResults/ServiceBookingCard";
 import serviceProviderAd from "../assets/images/serviceProviderAd.png";
-import {
-  fetchServiceProviders,
-  fetchServiceProviderType,
-  fetchServiceProviderTypeFilter,
-  requestaCallback,
-} from "../api/ApiConfig";
+import {fetchServiceProviders,fetchServiceProviderType,fetchServiceProviderTypeFilter,requestaCallback,} from "../api/ApiConfig";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 import { NotFoundContent } from "../components/common/NotFoundContent";
 import { MdPhone } from "react-icons/md";
@@ -75,18 +70,12 @@ export const SearchResults = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [notFound, setNoFound] = useState<string | null>(null);
-
   const [serviceProviderType, setServiceProviderType] = useState<ServiceProviderType[]>([]);
   // const [selectedServiceProviderType, setSelectedServiceProviderType] = useState<ServiceProviderType | null>(null);
-
   // State to track if the button is clicked
   const [openNow, setOpenNow] = useState(false);
-
-
   const userID = useSelector((state: RootState) => state.cart.userID);
   console.log("User ID taken from Redux Store: ", userID);
-
-
   // const [buttonState, setButtonState] = useState({ buttonText: "Submit", isSubmitted: false });
   const [buttonState, setButtonState] = useState<{ buttonText: string; isSubmitted: boolean }>({
     buttonText: "Call Me",
@@ -104,14 +93,11 @@ export const SearchResults = () => {
   };
 
   const storedServiceId = sessionStorage.getItem("selectedServiceId") || "0";
-  const storedLocation =
-    sessionStorage.getItem("selectedLocation") || "Trivandrum";
-
+  const storedLocation = sessionStorage.getItem("selectedLocation") || "Trivandrum";
+  const serviceTypeID = sessionStorage.getItem("selectedServiceType") || "2";
   console.log("Stored Service ID:", storedServiceId);
   console.log("Stored Location:", storedLocation);
-
   // const location = useLocation();
-
   // const catID = location.state?.catID;
 
   console.log("Category ID:", catID); // Use catID as needed
@@ -134,6 +120,7 @@ export const SearchResults = () => {
           storedLocation,
           "20",
           catID || "",
+          serviceTypeID || "2",
         );
         // const data = await fetchServiceProviders(serviceId, storedLocation, "20");
 
@@ -522,10 +509,7 @@ export const SearchResults = () => {
                         {loading ? "Submitting..." : buttonState.buttonText}
                       </button>
                     </div>
-
-
                     {error && <p className="text-red-500 text-sm mt-1 bg-mindfulWhite px-2 py-0.5 rounded-md">{error}</p>}
-
                   </div>
                 </form>
               </div>
