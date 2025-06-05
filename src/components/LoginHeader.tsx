@@ -44,12 +44,7 @@ export const LoginHeader = () => {
   // Cart Items from Redux
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const cartItemsCount = cartItems.length;
-
   console.log("checking cart items in login header", cartItems);
-
-
-
-
   const [profileHover, setProfileHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -467,7 +462,7 @@ export const LoginHeader = () => {
                     })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
                   `}
                 </script>
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
+                {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
                 <script>
                   {`
                     window.dataLayer = window.dataLayer || [];
@@ -475,7 +470,7 @@ export const LoginHeader = () => {
                     gtag('js', new Date());
                     gtag('config', 'G-J5CB1Y1M5W');
                   `}
-                </script>
+                </script> */}
               </Helmet>
         <div className="relative">
           <div className="container mx-auto px-4">

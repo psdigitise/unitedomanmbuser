@@ -120,7 +120,7 @@ export const Header = () => {
             })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
           `}
         </script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
+        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
         <script>
           {`
             window.dataLayer = window.dataLayer || [];
@@ -128,7 +128,7 @@ export const Header = () => {
             gtag('js', new Date());
             gtag('config', 'G-J5CB1Y1M5W');
           `}
-        </script>
+        </script> */}
       </Helmet>
       <div className="relative">
         <div className="container mx-auto px-4">
