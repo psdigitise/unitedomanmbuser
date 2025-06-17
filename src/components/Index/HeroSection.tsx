@@ -364,7 +364,7 @@ export const HeroSection = () => {
     <section className="bg-heroSectionBgImg w-full h-screen bg-cover bg-center">
       <div className="flex flex-col justify-end h-screen">
         {/* <img src={bannerImg} alt="banner Image" className="w-full object-cover" /> */}
-        <div className="pb-20">
+        <div className="pb-20 max-sm:pb-10">
           <div className="relative">
             <div className="xl:h-[100px] lg:h-[100px] md:h-[75px] sm:h-[80px] h-[80px] text-center bg-mindfulBlack mix-blend-overlay">
               {/* <p className="w-full text-[91px]">Transform with Mindful Beauty</p> */}
@@ -380,12 +380,12 @@ export const HeroSection = () => {
                         <p className="absolute top-0 z-10 opacity-100 w-full text-[91px] text-mindfulWhite">Transform with Mindful Beauty</p>
           </div> */}
           {/* Home and Salon Services Buttons */}
-          <div className="flex justify-center space-x-3 mt-4 mr-16">
+          <div className="flex justify-center space-x-3 mt-4 ">
             <div className="flex rounded-full bg-mindfulWhite ">
               {/* Home Services */}
               <button
                 onClick={() => handleServiceTypeChange("2")}
-                className={`flex items-center rounded-full gap-2 px-6 py-2 text-sm font-bold transition
+                className={`flex items-center rounded-full gap-2 px-6 py-2 text-sm font-bold transition max-sm:px-2 max-sm:gap-1 max-sm:font-semibold
                 ${selected === "2"
                     ? "bg-mindfulBlue text-mindfulWhite"
                     : "bg-mindfulWhite text-mindfulBlue"
@@ -406,7 +406,7 @@ export const HeroSection = () => {
               {/* Salon Services */}
               <button
                 onClick={() => handleServiceTypeChange("1")}
-                className={`flex items-center rounded-full gap-2 px-6 py-2  text-sm font-bold transition
+                className={`flex items-center rounded-full gap-2 px-6 py-2  text-sm font-bold transition max-sm:px-2 max-sm:gap-1 max-sm:font-semibold
                ${selected === "1"
                     ? "bg-main text-mindfulWhite"
                     : "bg-mindfulWhite text-main"
