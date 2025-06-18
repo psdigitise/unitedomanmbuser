@@ -149,7 +149,6 @@ export const fetchServiceProviders = async (
         });
 
         console.log("Service provider response", response.data);
-
         // Assuming the API returns an object with a `status` field and a `data` field
         // if (!response.data || response.status !== 200) {
         //     throw new Error("Failed to fetch service provider");
@@ -157,7 +156,7 @@ export const fetchServiceProviders = async (
         return response.data;
     } catch (error: any) {
         console.error("Error fetching service provider:", error.message || error);
-        throw new Error("Unable to fetch service provider. Please try again later.");
+        //throw new Error("Unable to fetch service provider. Please try again later.");
     }
 };
 

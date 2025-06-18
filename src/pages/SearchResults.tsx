@@ -94,11 +94,17 @@ export const SearchResults = () => {
 
   const storedServiceId = sessionStorage.getItem("selectedServiceId") || "0";
   const storedLocation = sessionStorage.getItem("selectedLocation") || "Trivandrum";
-  const serviceTypeID = sessionStorage.getItem("selectedServiceType") || "2";
+  
+  // Get service type ID from sessionStorage, with fallback to string value
+  const storedServiceTypeId = sessionStorage.getItem("selectedServiceTypeId");
+  const storedServiceTypeString = sessionStorage.getItem("selectedServiceType") || "2";
+  
+  // Use the ID if available, otherwise convert the string to ID
+  const serviceTypeID = storedServiceTypeId || storedServiceTypeString;
+  
   console.log("Stored Service ID:", storedServiceId);
   console.log("Stored Location:", storedLocation);
-  // const location = useLocation();
-  // const catID = location.state?.catID;
+  console.log("Service Type ID:", serviceTypeID);
 
   console.log("Category ID:", catID); // Use catID as needed
 
@@ -131,14 +137,14 @@ export const SearchResults = () => {
           console.log("Fetched service provider data log:", data.data);
         }
       } catch (error: any) {
-        setError(error.message || "Failed to fetch service providers.");
+        //setError(error.message || "Failed to fetch service providers.");
       } finally {
         setLoading(false);
       }
     };
 
     loadServiceProvider();
-  }, [storedServiceId, storedLocation, catID]); // Add dependencies so the useEffect runs if these values change
+  }, [storedServiceId, storedLocation, catID, serviceTypeID]); // Add dependencies so the useEffect runs if these values change
 
   // API call for service provider type (Salon or Freelancer)
   useEffect(() => {
@@ -164,11 +170,13 @@ export const SearchResults = () => {
     try {
       // Ensure the service ID is a number if you are passing it as such
       const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
-     // Get category ID from session if not available in state
-    const currentCatID = filtercatID || 
-    (sessionStorage.getItem("selectedCategoryID") ? 
-      parseInt(sessionStorage.getItem("selectedCategoryID")!, 10) : 
-      0);
+      
+      // Get category ID from session if not available in state
+      const currentCatID = filtercatID || 
+        (sessionStorage.getItem("selectedCategoryID") ? 
+          parseInt(sessionStorage.getItem("selectedCategoryID")!, 10) : 
+          0);
+      
       setLoading(true); // Set loading to true before API call
       const data = await fetchServiceProviderTypeFilter(
         serviceId,

@@ -85,7 +85,12 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
       const storedServiceId = sessionStorage.getItem("selectedServiceId") || "1";
       const serviceId = parseInt(storedServiceId, 10);
       sessionStorage.setItem("selectedCategoryID", catID!);
-      const serviceTypeID = sessionStorage.getItem("selectedServiceType") || "2";
+      
+      // Get service type ID from sessionStorage, with fallback to string value
+      const storedServiceTypeId = sessionStorage.getItem("selectedServiceTypeId");
+      const storedServiceTypeString = sessionStorage.getItem("selectedServiceType") || "2";
+      const serviceTypeID = storedServiceTypeId || storedServiceTypeString;
+      
       const data = await fetchServiceProviders(serviceId, location, "20", catID!, serviceTypeID);
       console.log("API response:", data);
 

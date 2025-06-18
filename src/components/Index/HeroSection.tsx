@@ -344,12 +344,19 @@ export const HeroSection = () => {
 
   const handleServiceTypeChange = (type: string) => {
     setSelected(type);
+    
+    // Create a mapping between service type strings and their IDs
+    const serviceTypeMapping = {
+      "1": { id: 1, name: "Salon Services" },
+      "2": { id: 2, name: "Home Services" }
+    };
+    
+    const selectedType = serviceTypeMapping[type as keyof typeof serviceTypeMapping];
+    
+    // Store both the ID and name in sessionStorage
     sessionStorage.setItem("selectedServiceType", type);
-    // Also store a human-readable version if needed
-    sessionStorage.setItem(
-      "selectedServiceTypeName",
-      type === "2" ? "Home Services" : "Salon Services"
-    );
+    sessionStorage.setItem("selectedServiceTypeId", selectedType.id.toString());
+    sessionStorage.setItem("selectedServiceTypeName", selectedType.name);
   };
 
   if (loading) {

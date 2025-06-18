@@ -101,8 +101,8 @@ export const AddtoCart = () => {
     // };
     const handleBookNow = () => {
         // Get the stored serviceType from sessionStorage
-        const selectedServiceType = sessionStorage.getItem('selectedServiceType');
-        console.log("Service Type Book Now:", selectedServiceType); // Log the serviceType
+        const selectedServiceTypeName = sessionStorage.getItem('selectedServiceTypeName');
+        console.log("Service Type Book Now:", selectedServiceTypeName); // Log the serviceType
         // Calculate the total cart price
         const totalCartPrice = cartItems.reduce((total, item) => {
         const itemPrice = Number(item.price) || 0;
@@ -114,7 +114,7 @@ export const AddtoCart = () => {
             navigate('/Login'); // Navigate to Login if no token
         } else if (cartItems.length > 0 && sessionProviderID) {
             // navigate('/DateTime'); // Proceed to DateTime if token exists
-            if (selectedServiceType === "Salon Service") {
+            if (selectedServiceTypeName === "Salon Services") {
                 navigate('/DateTime');
             }
             else {
