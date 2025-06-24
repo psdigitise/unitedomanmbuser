@@ -4,7 +4,7 @@ import { BannerContent } from "../components/common/BannerContent";
 import virtualTryOn from "../assets/icons/virtualTryOn.png";
 import { ServiceBookingCard } from "../components/SearchResults/ServiceBookingCard";
 import serviceProviderAd from "../assets/images/serviceProviderAd.png";
-import {fetchServiceProviders,fetchServiceProviderType,fetchServiceProviderTypeFilter,requestaCallback,} from "../api/ApiConfig";
+import { fetchServiceProviders, fetchServiceProviderType, fetchServiceProviderTypeFilter, requestaCallback, } from "../api/ApiConfig";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 import { NotFoundContent } from "../components/common/NotFoundContent";
 import { MdPhone } from "react-icons/md";
@@ -15,6 +15,7 @@ import * as zod from "zod";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Helmet } from "react-helmet-async";
+import { NotifyError } from "../components/common/Toast/ToastMessage";
 
 // Define Zod schema for email validation
 const requestaCallbackSchema = zod.object({
@@ -50,7 +51,7 @@ interface SearchResultsProps {
   image_url: string;
   review_count: string;
   average_rating: number;
-  working_hours:string
+  working_hours: string
 
   // reviews_count: string,
   // services_offered: string,
@@ -83,9 +84,9 @@ export const SearchResults = () => {
   });
   const location = useLocation();
   const [catID, setCatID] = useState<string | undefined>(location.state?.catID);
-  console.log("catID",catID)
+  console.log("catID", catID)
   const [filtercatID] = useState<number>(0);
-  console.log("filtercatID",filtercatID)
+  console.log("filtercatID", filtercatID)
 
   // Function to handle the click event
   const handleOpenNowClick = () => {
@@ -94,14 +95,14 @@ export const SearchResults = () => {
 
   const storedServiceId = sessionStorage.getItem("selectedServiceId") || "0";
   const storedLocation = sessionStorage.getItem("selectedLocation") || "Trivandrum";
-  
+
   // Get service type ID from sessionStorage, with fallback to string value
   const storedServiceTypeId = sessionStorage.getItem("selectedServiceTypeId");
-  const storedServiceTypeString = sessionStorage.getItem("selectedServiceType") || "2";
-  
+  const storedServiceTypeString = sessionStorage.getItem("selectedServiceType");
+
   // Use the ID if available, otherwise convert the string to ID
   const serviceTypeID = storedServiceTypeId || storedServiceTypeString;
-  
+
   console.log("Stored Service ID:", storedServiceId);
   console.log("Stored Location:", storedLocation);
   console.log("Service Type ID:", serviceTypeID);
@@ -119,14 +120,18 @@ export const SearchResults = () => {
           console.log("storedCatID", storedCatID)
           setCatID(storedCatID || ""); // Set to undefined if it's null
         }
-
+        if (!serviceTypeID) {
+          NotifyError("Service Type is missing. Please select a service type.");
+          setLoading(false);
+          return;
+        }
         // API call to fetch service providers
         const data = await fetchServiceProviders(
           serviceId,
           storedLocation,
           "20",
           catID || "",
-          serviceTypeID || "2",
+          serviceTypeID,
         );
         // const data = await fetchServiceProviders(serviceId, storedLocation, "20");
 
@@ -170,14 +175,15 @@ export const SearchResults = () => {
     try {
       // Ensure the service ID is a number if you are passing it as such
       const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
-      
+
       // Get category ID from session if not available in state
-      const currentCatID = filtercatID || 
-        (sessionStorage.getItem("selectedCategoryID") ? 
-          parseInt(sessionStorage.getItem("selectedCategoryID")!, 10) : 
+      const currentCatID = filtercatID ||
+        (sessionStorage.getItem("selectedCategoryID") ?
+          parseInt(sessionStorage.getItem("selectedCategoryID")!, 10) :
           0);
-      
+
       setLoading(true); // Set loading to true before API call
+
       const data = await fetchServiceProviderTypeFilter(
         serviceId,
         storedLocation,
@@ -264,9 +270,9 @@ export const SearchResults = () => {
       <div>
         <BannerContent bannerTitle="Home & Salon Service" />
       </div>
-       <Helmet>
-              <script>
-                {`
+      <Helmet>
+        <script>
+          {`
                   (function (c, s, q, u, a, r, e) {
                     c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
                     c._hjSettings = { hjid: 6369861 };
@@ -277,8 +283,8 @@ export const SearchResults = () => {
                     r.appendChild(e);
                   })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
                 `}
-              </script>
-            </Helmet>
+        </script>
+      </Helmet>
 
       {/* {/ Select Options /} */}
       <div className="container mx-auto px-4">

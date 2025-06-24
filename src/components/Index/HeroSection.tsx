@@ -56,7 +56,7 @@ export const HeroSection = () => {
   const [locationInput, setLocationInput] = useState<string>(storedReduxLocation || "");
   const [searchError, setSearchError] = useState<string | null>(null); // For service search validation
   const [locationError, setLocationError] = useState<string | null>(null); // For location search validation
-  const [selected, setSelected] = useState<string>(sessionStorage.getItem("selectedServiceType") || "2");
+  const [selected, setSelected] = useState<string>(sessionStorage.getItem("selectedServiceType") || "");
   const [isFetchingLocation, setIsFetchingLocation] = useState(false);
 
   // ✅ Effect to update the input when geolocation is fetched
@@ -337,6 +337,12 @@ export const HeroSection = () => {
 
   // Handle search submit
   const pushToSearchResults = () => {
+    const storedservicetype = sessionStorage.getItem("selectedServiceType") 
+      if (!storedservicetype) {
+            NotifyError("Service Type is missing. Please select a service type.");
+            setLoading(false);
+            return;
+          }
     if (handleSearchValidation()) {
       navigate("/SearchResults");
     }
@@ -344,15 +350,15 @@ export const HeroSection = () => {
 
   const handleServiceTypeChange = (type: string) => {
     setSelected(type);
-    
+
     // Create a mapping between service type strings and their IDs
     const serviceTypeMapping = {
       "1": { id: 1, name: "Salon Services" },
       "2": { id: 2, name: "Home Services" }
     };
-    
+
     const selectedType = serviceTypeMapping[type as keyof typeof serviceTypeMapping];
-    
+
     // Store both the ID and name in sessionStorage
     sessionStorage.setItem("selectedServiceType", type);
     sessionStorage.setItem("selectedServiceTypeId", selectedType.id.toString());
@@ -373,13 +379,15 @@ export const HeroSection = () => {
         {/* <img src={bannerImg} alt="banner Image" className="w-full object-cover" /> */}
         <div className="pb-20 max-sm:pb-10">
           <div className="relative">
-            <div className="xl:h-[100px] lg:h-[100px] md:h-[75px] sm:h-[80px] h-[80px] text-center bg-mindfulBlack mix-blend-overlay">
+            {/* <div className="xl:h-[100px] lg:h-[100px] md:h-[75px] sm:h-[80px] h-[80px] text-center bg-mindfulBlack mix-blend-overlay"> */}
+            <div className="xl:h-[80px] lg:h-[80px] md:h-[65px] sm:h-[70px] h-[70px] text-center bg-mindfulBlack mix-blend-overlay">
               {/* <p className="w-full text-[91px]">Transform with Mindful Beauty</p> */}
             </div>
 
             <div className="absolute top-1 left-0 right-0 text-center max-lg:top-4 max-md:top-5 max-sm:top-2">
-              <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[70px] lg:text-[65px] md:text-[40px] sm:text-[38px] text-[32px] text-mindfulWhite">
-                Transform with Mindful Beauty
+              {/* <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[70px] lg:text-[65px] md:text-[40px] sm:text-[38px] text-[32px] text-mindfulWhite"> */}
+              <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[50px] lg:text-[45px] md:text-[35px] sm:text-[30px] text-[24px] text-mindfulWhite">
+                Where would you like to get your beauty service
               </h1>
             </div>
           </div>
@@ -395,38 +403,44 @@ export const HeroSection = () => {
                 className={`flex items-center rounded-full gap-2 px-6 py-2 text-sm font-bold transition max-sm:px-2 max-sm:gap-1 max-sm:font-semibold
                 ${selected === "2"
                     ? "bg-mindfulBlue text-mindfulWhite"
-                    : "bg-mindfulWhite text-mindfulBlue"
+                    : "bg-mindfulWhite text-mindfulBlack"
                   }`}
               >
                 <div
-                  className={`p-2 rounded-full ${selected === "2" ? "bg-white" : "bg-mindfulBlue"}`}
+                  className={`p-2 rounded-full border 
+          ${selected === "2" ? "border-transparent" : "border-black"} ${selected === "2" ? "bg-mindfulWhite" : "bg-mindfulWhite"}`}
                 >
                   <img
                     src={specialistIcon}
                     alt="home services icon"
-                    className={`w-5 h-5 ${selected === "2" ? "invert": ""} `}
+                    className={`w-4 h-4 ${selected === "2" ? "invert" : "invert"
+                      }`}
                   />
                 </div>
                 Home Services
               </button>
 
+              {selected === "" && (
+                <div className="w-[1px] h-13 bg-gray-300"></div>
+              )}
               {/* Salon Services */}
               <button
                 onClick={() => handleServiceTypeChange("1")}
                 className={`flex items-center rounded-full gap-2 px-6 py-2  text-sm font-bold transition max-sm:px-2 max-sm:gap-1 max-sm:font-semibold
                ${selected === "1"
                     ? "bg-main text-mindfulWhite"
-                    : "bg-mindfulWhite text-main"
+                    : "bg-mindfulWhite text-mindfulBlack"
                   }`}
               >
                 Salon Services
                 <div
-                  className={`p-2 rounded-full ${selected === "2" ? "bg-main" : "bg-mindfulWhite "}`}
+                  className={`p-2 rounded-full border 
+          ${selected === "1" ? "border-transparent" : "border-black"} ${selected === "1" ? "bg-mindfulWhite" : "bg-mindfulWhite "}`}
                 >
                   <img
                     src={SalonIcon}
                     alt="salon icon"
-                    className={`w-4 h-4 ${selected === "2" ? "" : "invert"
+                    className={`w-4 h-4 ${selected === "1" ? "invert" : "invert"
                       }`}
                   />
                 </div>

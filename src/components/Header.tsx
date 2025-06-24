@@ -53,7 +53,7 @@ export const Header = () => {
     dispatch(clearCart()); // Clear the cart
     dispatch(logout()); // Logout and clear token
     navigate("/");
-    // sessionStorage.clear();
+    sessionStorage.clear();
 
     // Flush pending storage writes before purging
     await persistor.flush();

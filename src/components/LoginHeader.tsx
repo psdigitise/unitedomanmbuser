@@ -15,6 +15,9 @@ import { BiSolidUser } from "react-icons/bi";
 import { clearCart, logout } from "../redux/cartSlice";
 import { NotifyError } from './common/Toast/ToastMessage';
 import { Helmet } from "react-helmet-async";
+import Specialisticon from "../assets/icons/specialistIcon.svg"
+import SalonIcon from "../assets/icons/salonIcon.svg"
+import { RiArrowDropDownLine } from "react-icons/ri";
 // import { useSelector } from "react-redux";
 // import { RootState } from '../redux/store'; // Import RootState (from your store setup)
 
@@ -46,6 +49,20 @@ export const LoginHeader = () => {
   const cartItemsCount = cartItems.length;
   console.log("checking cart items in login header", cartItems);
   const [profileHover, setProfileHover] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>(sessionStorage.getItem("selectedServiceType") || "");
+  console.log("selectedService", selectedService)
+
+
+  //const storedservicetypes= sessionStorage.getItem("selectedServiceType")
+  // Add useEffect to sync with sessionStorage
+  const storedServiceType = sessionStorage.getItem("selectedServiceType");
+  console.log("storedServiceType", storedServiceType);
+
+  useEffect(() => {
+    if (storedServiceType) {
+      setSelectedService(storedServiceType);
+    }
+  }, []); // Empty dependency array means this runs once on mount
 
   const handleMouseEnter = () => {
     setProfileHover(true);
@@ -56,10 +73,10 @@ export const LoginHeader = () => {
   };
 
   const handleLogout = async () => {
-    dispatch(clearCart()); // Clear the cart
+    dispatch(clearCart()); // Cslear the cart
     dispatch(logout()); // Logout and clear token
     navigate("/");
-    // sessionStorage.clear();
+    sessionStorage.clear();
 
     // Flush pending storage writes before purging
     await persistor.flush();
@@ -144,6 +161,9 @@ export const LoginHeader = () => {
   const [locationSuggestionsRes, setLocationSuggestionsRes] = useState<google.maps.places.AutocompletePrediction[]>([]);
   const locationInputRef = useRef<HTMLInputElement>(null);
   const locationInputRefRes = useRef<HTMLInputElement>(null);
+  // Add these to the top of the component
+  const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // API for services list dropdown
   // useEffect(() => {
@@ -231,6 +251,11 @@ export const LoginHeader = () => {
   // The function that handles the search button click
   const handleSearchClick = () => {
     // Do something with the selected service here, such as storing or processing it
+     if (!storedServiceType) {
+        NotifyError("Service Type is missing. Please select a service type.");
+        setLoading(false);
+        return;
+      }
     navigate("/SearchResults", { replace: true });
     navigate(0); // Refresh the page
   };
@@ -430,6 +455,43 @@ export const LoginHeader = () => {
     }
   };
 
+  // Select the icon based on the selected service
+  const getServiceIcon = () => {
+    if (selectedService === '1') return SalonIcon;
+    if (selectedService === '2') return Specialisticon;
+    return Specialisticon; // Default icon
+  };
+
+  // Add click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsServiceDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleServiceOptionClick = (value: string, _name: string) => {
+    setSelectedService(value);
+    setIsServiceDropdownOpen(false);
+
+    // Update session storage
+    const serviceTypeMapping = {
+      "1": { id: 1, name: "Salon Services" },
+      "2": { id: 2, name: "Home Services" }
+    };
+
+    const selectedType = serviceTypeMapping[value as keyof typeof serviceTypeMapping];
+    sessionStorage.setItem("selectedServiceType", value);
+    sessionStorage.setItem("selectedServiceTypeId", selectedType.id.toString());
+    sessionStorage.setItem("selectedServiceTypeName", selectedType.name);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -448,9 +510,9 @@ export const LoginHeader = () => {
           }
         }`}
       >
-         <Helmet>
-                <script>
-                  {`
+        <Helmet>
+          <script>
+            {`
                     (function (c, s, q, u, a, r, e) {
                       c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
                       c._hjSettings = { hjid: 6369861 };
@@ -461,8 +523,8 @@ export const LoginHeader = () => {
                       r.appendChild(e);
                     })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
                   `}
-                </script>
-                {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
+          </script>
+          {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CB1Y1M5W"></script>
                 <script>
                   {`
                     window.dataLayer = window.dataLayer || [];
@@ -471,12 +533,12 @@ export const LoginHeader = () => {
                     gtag('config', 'G-J5CB1Y1M5W');
                   `}
                 </script> */}
-              </Helmet>
+        </Helmet>
         <div className="relative">
           <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center py-3">
+            <div className="flex  flex-col md:flex-row justify-between items-center py-3">
               {/* Mindful Beauty Logo */}
-              <div className="">
+              <div className="mb-4 md:mb-0">
                 <Link to="/">
                   <div>
                     <img
@@ -488,95 +550,148 @@ export const LoginHeader = () => {
                 </Link>
               </div>
 
-              {/* Search Bar */}
-              <div className="flex items-center space-x-4 w-full justify-end">
-                <div className="w-fit mx-auto rounded-[40px] bg-mindfulWhite pl-8 pr-2 py-2 border-[1px] border-mindfulLightGrey xl:block hidden">
-                  <div className="flex items-center space-x-5">
-                    <div>
-                      <div className="relative">
-                        <img
-                          src={ladyIcon}
-                          alt="lady Icon"
-                          className="w-[27px] h-[30px] absolute top-2 left-0"
-                        />
-                        <input
-                          type="text"
-                          placeholder="What are looking for?"
-                          className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none lg:w-[15rem] xl:w-72"
-                          value={searchTerm}
-                          onChange={handleSearchChange}
-                        />
-                        {/* Render the filtered services list */}
-                        {filteredServices.length > 0 && (
-                          <div className="absolute bg-white border border-gray-300 mt-1 w-72 max-h-48 overflow-y-auto z-10 lg:w-[15rem] xl:w-72">
-                            {filteredServices.map((service) => (
-                              <div
-                                key={service.service_id}
-                                className="p-2 hover:bg-gray-100 cursor-pointer"
-                                onClick={() => {
-                                  setSearchTerm(service.service_name); // Set the clicked service as the search term
-                                  setFilteredServices([]); // Hide the dropdown after selection
-                                  handleServicesSuggestionClick(service); // Pass the full service object
-                                }}
-                              >
-                                {service.service_name}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+              <div className="flex justify-center items-center space-x-4 mt-4 ">
+                {/* Service Dropdown */}
+                <div className="rounded-full  bg-mindfulWhite p-3 border-[1px] border-mindfulLightGrey w-full relative" ref={dropdownRef}>
+                  <div className="relative  max-2xl:w-[200px] w-full">
+                    <div
+                      className={`w-[30px] h-[30px] rounded-full flex items-center justify-center absolute top-2 left-3 -mt-1 -ml-1
+                      ${selectedService === '1' ? 'bg-main' : selectedService === '2' ? 'bg-mindfulBlue' : 'bg-gray-200'}`}
+                    >
+                      <img
+                        src={getServiceIcon()}
+                        alt="Service Icon"
+                        className="w-[16px] h-[16px]"
+                      />
                     </div>
+                    <button
+                      className={`w-full bg-mindfulWhite py-2 focus-visible:outline-none pl-10 text-left flex items-center justify-between ${selectedService === '1' ? 'text-main font-semibold' :
+                        selectedService === '2' ? 'text-mindfulBlue font-semibold' : 'text-gray-500'
+                        }`}
+                      onClick={() => setIsServiceDropdownOpen(!isServiceDropdownOpen)}
+                    >
+                      <span>
+                        {selectedService === '1' ? 'Salon Services' :
+                          selectedService === '2' ? 'Home Services' : 'Select Services'}
+                      </span>
+                      <RiArrowDropDownLine
+                        className={`text-xl transition-transform duration-200 ${isServiceDropdownOpen ? 'transform rotate-180' : ''
+                          }`}
+                      />
+                    </button>
+                    {isServiceDropdownOpen && (
+                      <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-1 left-0">
+                        <li
+                          className={`p-3 cursor-pointer transition-colors duration-200 
+                     ${selectedService === '2' ? 'bg-gray-100' : ''}
+                     hover:bg-gray-100`}
+                          onClick={() => handleServiceOptionClick('2', 'Home Services')}
+                        >
+                          Home Services
+                        </li>
+                        <li
+                          className={`p-3 cursor-pointer transition-colors duration-200 
+                     ${selectedService === '1' ? 'bg-gray-100' : ''}
+                     hover:bg-gray-100`}
+                          onClick={() => handleServiceOptionClick('1', 'Salon Services')}
+                        >
+                          Salon Services
+                        </li>
+                      </ul>
+                    )}
+                  </div>
+                </div>
 
-                    <div className="border-l-2 border-mindfulLightGrey">
-                      <div className="relative ml-4">
-                        <img
-                          src={locationIcon}
-                          alt="lady Icon"
-                          className="w-[19px] h-[24px] absolute top-2.5 left-0"
-                        />
-                        {/* <input type="text" 
+                {/* Search Bar */}
+                <div className="flex items-start space-x-4 w-full justify-start">
+                  <div className="w-fit mx-auto rounded-[40px] bg-mindfulWhite pl-8 pr-2 py-2 border-[1px] border-mindfulLightGrey xl:block hidden">
+                    <div className="flex items-center space-x-5">
+                      <div>
+                        <div className="relative">
+                          <img
+                            src={ladyIcon}
+                            alt="lady Icon"
+                            className="w-[27px] h-[30px] absolute top-2 left-0"
+                          />
+                          <input
+                            type="text"
+                            placeholder="What are looking for?"
+                            className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none lg:w-[15rem] xl:w-72"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                          />
+                          {/* Render the filtered services list */}
+                          {filteredServices.length > 0 && (
+                            <div className="absolute bg-white border border-gray-300 mt-1 w-72 max-h-48 overflow-y-auto z-10 lg:w-[15rem] xl:w-72">
+                              {filteredServices.map((service) => (
+                                <div
+                                  key={service.service_id}
+                                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                                  onClick={() => {
+                                    setSearchTerm(service.service_name); // Set the clicked service as the search term
+                                    setFilteredServices([]); // Hide the dropdown after selection
+                                    handleServicesSuggestionClick(service); // Pass the full service object
+                                  }}
+                                >
+                                  {service.service_name}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="border-l-2 border-mindfulLightGrey">
+                        <div className="relative ml-4">
+                          <img
+                            src={locationIcon}
+                            alt="lady Icon"
+                            className="w-[19px] h-[24px] absolute top-2.5 left-0"
+                          />
+                          {/* <input type="text" 
                                     placeholder="Location / Pincode" 
                                     className="w-72 bg-mindfulWhite pl-8 py-3 focus-visible:outline-none" /> */}
-                        <input
-                          type="text"
-                          placeholder="Location / Pincode"
-                          className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none lg:w-[15rem] xl:w-72"
-                          ref={locationInputRefRes}
-                        />
-                        {/* Render the location suggestions list */}
-                        {locationSuggestionsRes.length > 0 && (
-                          <ul className="absolute bg-white border border-gray-300 mt-1 w-72 lg:w-[15rem] xl:w-72 max-h-48 overflow-y-auto">
-                            {locationSuggestionsRes.map((suggestion) => (
-                              <li
-                                key={suggestion.place_id}
-                                className="p-2 hover:bg-gray-200 cursor-pointer"
-                                onClick={() =>
-                                  handleLocationSuggestionClickRes(
-                                    suggestion.description
-                                  )
-                                }
-                              >
-                                {suggestion.description}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                          <input
+                            type="text"
+                            placeholder="Location / Pincode"
+                            className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none lg:w-[15rem] xl:w-72"
+                            ref={locationInputRefRes}
+                          />
+                          {/* Render the location suggestions list */}
+                          {locationSuggestionsRes.length > 0 && (
+                            <ul className="absolute bg-white border border-gray-300 mt-1 w-72 lg:w-[15rem] xl:w-72 max-h-48 overflow-y-auto">
+                              {locationSuggestionsRes.map((suggestion) => (
+                                <li
+                                  key={suggestion.place_id}
+                                  className="p-2 hover:bg-gray-200 cursor-pointer"
+                                  onClick={() =>
+                                    handleLocationSuggestionClickRes(
+                                      suggestion.description
+                                    )
+                                  }
+                                >
+                                  {suggestion.description}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    <button
-                      // onClick={handlePersonalizePopup}
-                      onClick={handleSearchClickRes}
-                      type="button"
-                      className="bg-main rounded-[33px] text-mindfulWhite px-8 py-3"
-                    >
-                      Search
-                      {/* {personalizePopup && (
+                      <button
+                        // onClick={handlePersonalizePopup}
+                        onClick={handleSearchClickRes}
+                        type="button"
+                        className="bg-main rounded-[33px] text-mindfulWhite px-8 py-3"
+                      >
+                        Search
+                        {/* {personalizePopup && (
                                         <div ref={popupRef} onClick={(e) => e.stopPropagation()}>
                                             <PersonalizePopup closePopup={closePersonalizePopup} />
                                         </div>
                                     )} */}
-                    </button>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
