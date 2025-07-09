@@ -1051,7 +1051,6 @@ export const fetchAppointmentDetails = async (appointmentId: string) => {
     }
 };
 
-// Service Providers Pre Bridal API
 export const fetchServiceProvidersPreBridal = async (location: string) => {
     try {
         const response = await apiAxios.get(`/api/nearby-prebridal-packages/?address=${location}`);

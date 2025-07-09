@@ -109,12 +109,8 @@ export const FeaturedServicesCard: React.FC<FeaturedServicesCardProps> = ({
         sessionStorage.removeItem("selectedServiceName");
         navigate("/SearchResults", { state: { catID } });
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        NotifyError(error.message || "Error fetching category data");
-      } else {
-        NotifyError("An unknown error occurred");
-      }
+    } catch (error: any) {
+      NotifyError(error.message || "Error fetching category data");
     } finally {
       setLoading(false);
     }

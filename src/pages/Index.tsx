@@ -8,7 +8,6 @@ import { FeedBack } from '../components/Index/FeedBack'
 import { Faq } from '../components/Index/Faq'
 import { RegAsAProfessional } from '../components/Index/RegAsAProfessional'
 import { Helmet } from 'react-helmet-async'
-import { ExclusiveBridalPackages } from '../components/Index/ExclusiveBridalPackages'
 // import { Blog } from '../components/Index/Blog'
 
 export const Index = () => {
@@ -52,7 +51,6 @@ export const Index = () => {
             <HeroSection />
             <MottoSection />
             <FeaturedServices category_name={''} status={''} image={''} />
-            <ExclusiveBridalPackages category_name={''} status={''} image={''} />
             <RecommendedBest />
             <BookingFlow />
             <FeedBack />
