@@ -4,7 +4,7 @@ import { BannerContent } from "../components/common/BannerContent";
 import virtualTryOn from "../assets/icons/virtualTryOn.png";
 import { ServiceBookingCard } from "../components/SearchResults/ServiceBookingCard";
 import serviceProviderAd from "../assets/images/serviceProviderAd.png";
-import { fetchServiceProviders, fetchServiceProviderType, fetchServiceProviderTypeFilter, requestaCallback, } from "../api/ApiConfig";
+import { fetchServiceProviders, fetchServiceProvidersPreBridal, fetchServiceProviderType, fetchServiceProviderTypeFilter, requestaCallback, } from "../api/ApiConfig";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 import { NotFoundContent } from "../components/common/NotFoundContent";
 import { MdPhone } from "react-icons/md";
@@ -84,6 +84,7 @@ export const SearchResults = () => {
   });
   const location = useLocation();
   const [catID, setCatID] = useState<string | undefined>(location.state?.catID);
+  const [cardCaption] = useState<string | undefined>(location.state?.cardCaption);
   console.log("catID", catID)
   const [filtercatID] = useState<number>(0);
   console.log("filtercatID", filtercatID)
@@ -114,6 +115,16 @@ export const SearchResults = () => {
     const loadServiceProvider = async () => {
       try {
         // Ensure the service ID is a number if you are passing it as such
+        if ( cardCaption === "Pre - Bridal" ) {
+          console.log("Fetching service providers pre bridal", cardCaption);
+          const data = await fetchServiceProvidersPreBridal(storedLocation);
+          console.log("API response:", data);
+          if (data.status === "success") {
+            setServiceProvider(data.data);
+          } else {
+            setNoFound(data.message);
+          }
+        } else {
         const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
         if (!catID) {
           const storedCatID = sessionStorage.getItem("selectedCategoryID");
@@ -141,6 +152,7 @@ export const SearchResults = () => {
           setServiceProvider(data.data); // Assuming the API returns the data in data.data
           console.log("Fetched service provider data log:", data.data);
         }
+      }
       } catch (error: any) {
         //setError(error.message || "Failed to fetch service providers.");
       } finally {
@@ -149,7 +161,7 @@ export const SearchResults = () => {
     };
 
     loadServiceProvider();
-  }, [storedServiceId, storedLocation, catID, serviceTypeID]); // Add dependencies so the useEffect runs if these values change
+  }, [storedServiceId, storedLocation, catID, serviceTypeID, cardCaption]); // Add dependencies so the useEffect runs if these values change
 
   // API call for service provider type (Salon or Freelancer)
   useEffect(() => {

@@ -1050,3 +1050,19 @@ export const fetchAppointmentDetails = async (appointmentId: string) => {
         throw new Error(error.response?.data?.message || "Unable to fetch appointment details. Please try again later.");
     }
 };
+
+export const fetchServiceProvidersPreBridal = async (location: string) => {
+    try {
+        const response = await apiAxios.get(`/api/nearby-prebridal-packages/?address=${location}`);
+        console.log("Service providers pre bridal response", response.data);
+
+        if (!response.data || response.status !== 200) {
+            throw new Error("Failed to fetch service providers pre bridal");
+        }
+
+        return response.data;
+    } catch (error: any) {
+        console.error("Error fetching service providers pre bridal:", error.message || error);
+        throw new Error("Unable to fetch service providers pre bridal. Please try again later.");
+    }
+}
