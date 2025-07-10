@@ -4,7 +4,7 @@ import { BannerContent } from "../components/common/BannerContent";
 import virtualTryOn from "../assets/icons/virtualTryOn.png";
 import { ServiceBookingCard } from "../components/SearchResults/ServiceBookingCard";
 import serviceProviderAd from "../assets/images/serviceProviderAd.png";
-import { fetchServiceProviders, fetchServiceProvidersPreBridal, fetchServiceProviderType, fetchServiceProviderTypeFilter, requestaCallback, } from "../api/ApiConfig";
+import { fetchServiceProviders, fetchServiceProviderType, fetchServiceProviderTypeFilter, requestaCallback, } from "../api/ApiConfig";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 import { NotFoundContent } from "../components/common/NotFoundContent";
 import { MdPhone } from "react-icons/md";
@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Helmet } from "react-helmet-async";
 import { NotifyError } from "../components/common/Toast/ToastMessage";
+import { fetchServiceProvidersPreBridal } from "../api/ApiConfig"; 
 
 // Define Zod schema for email validation
 const requestaCallbackSchema = zod.object({
@@ -84,8 +85,8 @@ export const SearchResults = () => {
   });
   const location = useLocation();
   const [catID, setCatID] = useState<string | undefined>(location.state?.catID);
-  const [cardCaption] = useState<string | undefined>(location.state?.cardCaption);
   console.log("catID", catID)
+  const [cardCaption] = useState<string | undefined>(location.state?.cardCaption);
   const [filtercatID] = useState<number>(0);
   console.log("filtercatID", filtercatID)
 
@@ -114,8 +115,7 @@ export const SearchResults = () => {
     // Getting Service Provider
     const loadServiceProvider = async () => {
       try {
-        // Ensure the service ID is a number if you are passing it as such
-        if ( cardCaption === "Pre - Bridal" ) {
+        if ( cardCaption === "Pre-Bridal Makeup" ) {
           console.log("Fetching service providers pre bridal", cardCaption);
           const data = await fetchServiceProvidersPreBridal(storedLocation);
           console.log("API response:", data);
@@ -125,6 +125,7 @@ export const SearchResults = () => {
             setNoFound(data.message);
           }
         } else {
+        // Ensure the service ID is a number if you are passing it as such
         const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
         if (!catID) {
           const storedCatID = sessionStorage.getItem("selectedCategoryID");
@@ -161,7 +162,7 @@ export const SearchResults = () => {
     };
 
     loadServiceProvider();
-  }, [storedServiceId, storedLocation, catID, serviceTypeID, cardCaption]); // Add dependencies so the useEffect runs if these values change
+  }, [storedServiceId, storedLocation, catID, serviceTypeID]); // Add dependencies so the useEffect runs if these values change
 
   // API call for service provider type (Salon or Freelancer)
   useEffect(() => {
