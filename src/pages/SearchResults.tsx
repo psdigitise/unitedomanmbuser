@@ -16,7 +16,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Helmet } from "react-helmet-async";
 import { NotifyError } from "../components/common/Toast/ToastMessage";
-import { fetchServiceProvidersPreBridal } from "../api/ApiConfig"; 
+import { fetchServiceProvidersPreBridal } from "../api/ApiConfig";
+import VtoMobile from "../assets/icons/vto-mobile1x.png";
 
 // Define Zod schema for email validation
 const requestaCallbackSchema = zod.object({
@@ -89,6 +90,13 @@ export const SearchResults = () => {
   const [cardCaption] = useState<string | undefined>(location.state?.cardCaption);
   const [filtercatID] = useState<number>(0);
   console.log("filtercatID", filtercatID)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 640);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Function to handle the click event
   const handleOpenNowClick = () => {
@@ -361,26 +369,36 @@ export const SearchResults = () => {
           </div>
 
           {/* {/ Virtual Try-On /} */}
-          <div>
-            <a
-              href="https://try.mindfulbeauty.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="flex items-center">
-                <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
-                  <img
-                    src={virtualTryOn}
-                    alt="virtual try-on image"
-                    className="p-0.5"
-                  />
+          {isMobile ? (
+            <div className="flex items-center">
+              <img
+                src={VtoMobile}
+                alt="Mindful Beauty Logo"
+                className="h-10 w-auto"
+              />
+            </div>
+          ) : (
+            <div>
+              <a
+                href="https://try.mindfulbeauty.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="flex items-center">
+                  <div className="w-[45px] h-[45px] bg-mindfulYellow px-2 py-2 rounded-full flex items-center sm:translate-x-7">
+                    <img
+                      src={virtualTryOn}
+                      alt="virtual try-on image"
+                      className="p-0.5"
+                    />
+                  </div>
+                  <button className="bg-main text-mindfulWhite rounded-[20px] pl-10 pr-4 py-2 sm:flex items-center hidden">
+                    Virtual Try-on
+                  </button>
                 </div>
-                <button className="bg-main text-mindfulWhite rounded-[20px] pl-10 pr-4 py-2 sm:flex items-center hidden">
-                  Virtual Try-on
-                </button>
-              </div>
-            </a>
-          </div>
+              </a>
+            </div>
+          )}
         </div>
 
         {/* {/ Service Booking Card /} */}
