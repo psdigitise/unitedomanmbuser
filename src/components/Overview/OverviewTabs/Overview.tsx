@@ -14,7 +14,15 @@ interface OverviewProps {
   // Add props here
   business_summary: string;
   gender_type: string;
-  Working_hours: string;
+  Working_hours: {
+    Mon: string;
+    Tue: string;
+    Wed: string;
+    Thu: string;
+    Fri: string;
+    Sat: string;
+    Sun: string;
+  };
   latitude: number;
   longitude: number;
 }
@@ -135,27 +143,36 @@ export const Overview = () => {
       </div> */}
 
       {/* Gender & Timings */}
-      <div className="flex justify-start gap-10 items-center pb-10 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:pb-5">
+      <div className="flex justify-start gap-10 items-start pb-10 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:pb-5">
         {/* Gender */}
-        <div>
-          <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px] max-sm:mb-1">
-            Gender
-          </h5>
-          <p>
-            {/* Women */}
+        <div className="bg-mindfulWhite p-4 rounded-lg shadow-sm">
+          <div className="flex items-center gap-2 mb-2">
+            <img src="/src/assets/icons/femaleIcon.png" alt="Gender" className="w-5 h-5" />
+            <h5 className="text-[22px] text-mindfulBlack font-semibold max-sm:text-[20px]">
+              Gender
+            </h5>
+          </div>
+          <p className="text-lg">
             {gender_type}
           </p>
         </div>
 
         {/* Timings */}
-        <div>
-          <h5 className="text-[22px] text-mindfulBlack font-semibold mb-2 max-sm:text-[20px] max-sm:mb-1">
-            Timings
-          </h5>
-          <p>
-            {/* Mon - Sun: 8:00 am to 8:00 pm */}
-            {Working_hours}
-          </p>
+        <div className="bg-mindfulWhite p-4 rounded-lg shadow-sm flex-1">
+          <div className="flex items-center gap-2 mb-2">
+            <img src="/src/assets/icons/timerIcon.svg" alt="Timings" className="w-5 h-5" />
+            <h5 className="text-[22px] text-mindfulBlack font-semibold max-sm:text-[20px]">
+              Timings
+            </h5>
+          </div>
+          <div className="grid grid-cols-1 gap-2">
+            {Object.entries(Working_hours).map(([day, time]) => (
+              <p key={day} className="flex items-center text-lg">
+                <span className="w-12 font-semibold">{day}:</span>
+                <span className="ml-2">{time.replace(',', ' to ')}</span>
+              </p>
+            ))}
+          </div>
         </div>
       </div>
 
