@@ -536,7 +536,7 @@ export const LoginHeader = () => {
         </Helmet>
         <div className="relative">
           <div className="container mx-auto px-4">
-            <div className="flex  flex-row md:flex-row justify-between items-center py-3 max-sm:flex-row max-sm:flex-wrap">
+            <div className="flex  flex-row md:flex-row justify-between items-center py-3 max-sm:flex-row max-sm:flex-wrap max-md:flex-wrap">
               {/* Mindful Beauty Logo */}
               <div className="mb-4 md:mb-0 max-sm:order-1">
                 <Link to="/">
@@ -544,7 +544,7 @@ export const LoginHeader = () => {
                     <img
                       src={mindfulBeautyNew}
                       alt="mindfulBeauty logo"
-                      className="w-fit header-logo max-sm:w-24"
+                      className="w-fit header-logo max-sm:w-24 "
                     />
                   </div>
                 </Link>
@@ -763,7 +763,7 @@ export const LoginHeader = () => {
 
               </div>
               {/* Hamburger Button */}
-              <div className="max-sm:order-2">
+              <div className="max-sm:order-2 max-md:ml-36">
                 <label className="hamburger">
                   <input
                     type="checkbox"
@@ -805,7 +805,7 @@ export const LoginHeader = () => {
         </div>
       </header>
 
-      <div className="mt-[8rem] xl:mt-[6rem] max-md:mt-[7rem] max-sm:mt-[14rem]">
+      <div className="mt-[8rem] xl:mt-[6rem] max-md:mt-[7rem] max-sm:mt-[12rem]">
         <div className="container mx-auto px-4">
           <div className="xl:hidden block">
             <div className="w-full rounded-[12px] bg-mindfulWhite p-4 border-[1px] border-mindfulLightGrey">
