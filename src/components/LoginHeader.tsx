@@ -251,11 +251,11 @@ export const LoginHeader = () => {
   // The function that handles the search button click
   const handleSearchClick = () => {
     // Do something with the selected service here, such as storing or processing it
-     if (!storedServiceType) {
-        NotifyError("Service Type is missing. Please select a service type.");
-        setLoading(false);
-        return;
-      }
+    if (!storedServiceType) {
+      NotifyError("Service Type is missing. Please select a service type.");
+      setLoading(false);
+      return;
+    }
     navigate("/SearchResults", { replace: true });
     navigate(0); // Refresh the page
   };
@@ -536,9 +536,9 @@ export const LoginHeader = () => {
         </Helmet>
         <div className="relative">
           <div className="container mx-auto px-4">
-            <div className="flex  flex-col md:flex-row justify-between items-center py-3">
+            <div className="flex  flex-row md:flex-row justify-between items-center py-3 max-sm:flex-row max-sm:flex-wrap">
               {/* Mindful Beauty Logo */}
-              <div className="mb-4 md:mb-0">
+              <div className="mb-4 md:mb-0 max-sm:order-1">
                 <Link to="/">
                   <div>
                     <img
@@ -550,27 +550,27 @@ export const LoginHeader = () => {
                 </Link>
               </div>
 
-              <div className="flex justify-center items-center space-x-4 mt-4 ">
+              <div className="flex max-xs:flex-wrap justify-center items-center space-x-4 xs:space-x-2 max-xs:space-x-1  mt-4 max-sm:order-3 max-sm:mx-auto">
                 {/* Service Dropdown */}
-                <div className="rounded-full  bg-mindfulWhite p-3 border-[1px] border-mindfulLightGrey w-full relative" ref={dropdownRef}>
-                  <div className="relative  max-2xl:w-[200px] w-full">
+                <div className="rounded-full  bg-mindfulWhite p-3 border-[1px] border-mindfulLightGrey w-full relative  max-sm:p-2 max-sm:rounded-full max-sm:ml-0" ref={dropdownRef}>
+                  <div className="relative  max-2xl:w-[200px] w-full  max-sm:w-[150px] max-xs:w-[130px]">
                     <div
-                      className={`w-[30px] h-[30px] rounded-full flex items-center justify-center absolute top-2 left-3 -mt-1 -ml-1
+                      className={`w-[30px] h-[30px] max-sm:w-[20px] max-sm:h-[20px] max-xs:h-[15px] max-xs:w-[15px] rounded-full flex items-center justify-center absolute top-2 left-3 -mt-1 -ml-1
                       ${selectedService === '1' ? 'bg-main' : selectedService === '2' ? 'bg-mindfulBlue' : 'bg-gray-200'}`}
                     >
                       <img
                         src={getServiceIcon()}
                         alt="Service Icon"
-                        className="w-[16px] h-[16px]"
+                        className="w-[16px] h-[16px] max-sm:w-[14px] max-sm:h-[14px]"
                       />
                     </div>
                     <button
                       className={`w-full bg-mindfulWhite py-2 focus-visible:outline-none pl-10 text-left flex items-center justify-between ${selectedService === '1' ? 'text-main font-semibold' :
                         selectedService === '2' ? 'text-mindfulBlue font-semibold' : 'text-gray-500'
-                        }`}
+                        } max-sm:text-sm max-sm:py-1 max-sm:pl-8 max-xs:py-2`}
                       onClick={() => setIsServiceDropdownOpen(!isServiceDropdownOpen)}
                     >
-                      <span>
+                      <span className="max-sm:text-xs">
                         {selectedService === '1' ? 'Salon Services' :
                           selectedService === '2' ? 'Home Services' : 'Select Services'}
                       </span>
@@ -582,7 +582,7 @@ export const LoginHeader = () => {
                     {isServiceDropdownOpen && (
                       <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-1 left-0">
                         <li
-                          className={`p-3 cursor-pointer transition-colors duration-200 
+                          className={`p-3 max-sm:text-sm cursor-pointer transition-colors duration-200 
                      ${selectedService === '2' ? 'bg-gray-100' : ''}
                      hover:bg-gray-100`}
                           onClick={() => handleServiceOptionClick('2', 'Home Services')}
@@ -590,7 +590,7 @@ export const LoginHeader = () => {
                           Home Services
                         </li>
                         <li
-                          className={`p-3 cursor-pointer transition-colors duration-200 
+                          className={`p-3 max-sm:text-sm cursor-pointer transition-colors duration-200 
                      ${selectedService === '1' ? 'bg-gray-100' : ''}
                      hover:bg-gray-100`}
                           onClick={() => handleServiceOptionClick('1', 'Salon Services')}
@@ -604,7 +604,7 @@ export const LoginHeader = () => {
 
                 {/* Search Bar */}
                 <div className="flex items-start space-x-4 w-full justify-start">
-                  <div className="w-fit mx-auto rounded-[40px] bg-mindfulWhite pl-8 pr-2 py-2 border-[1px] border-mindfulLightGrey xl:block hidden">
+                  <div className="w-fit mx-auto rounded-[40px] bg-mindfulWhite pl-8 pr-2 py-2 border-[1px] border-mindfulLightGrey xl:block hidden mt-10 sm:mt-0">
                     <div className="flex items-center space-x-5">
                       <div>
                         <div className="relative">
@@ -706,7 +706,7 @@ export const LoginHeader = () => {
                 {cartItemsCount > 0 && (
                   <div
                     onClick={handleCartIcon}
-                    className="relative bg-main rounded-full w-10 h-10 flex items-center justify-center mr-5 cursor-pointer"
+                    className="relative bg-main rounded-full w-10 h-10 flex items-center justify-center shrink-0 cursor-pointer"
                   >
                     <HiOutlineShoppingCart className="text-[20px] text-mindfulWhite" />
                     <div className="absolute top-0 right-[-10px] bg-mindfulYellow rounded-full w-5 h-5 flex items-center justify-center">
@@ -760,24 +760,25 @@ export const LoginHeader = () => {
 
 
 
-                {/* Hamburger Button */}
-                <div>
-                  <label className="hamburger">
-                    <input
-                      type="checkbox"
-                      checked={showSideBar}
-                      readOnly
-                      onClick={() => toggleHamButton()}
-                    />
-                    <svg viewBox="0 0 32 32">
-                      <path
-                        className="line line-top-bottom"
-                        d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
-                      ></path>
-                      <path className="line" d="M7 16 27 16"></path>
-                    </svg>
-                  </label>
-                </div>
+
+              </div>
+              {/* Hamburger Button */}
+              <div className="max-sm:order-2">
+                <label className="hamburger">
+                  <input
+                    type="checkbox"
+                    checked={showSideBar}
+                    readOnly
+                    onClick={() => toggleHamButton()}
+                  />
+                  <svg viewBox="0 0 32 32">
+                    <path
+                      className="line line-top-bottom"
+                      d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+                    ></path>
+                    <path className="line" d="M7 16 27 16"></path>
+                  </svg>
+                </label>
               </div>
             </div>
 
@@ -804,7 +805,7 @@ export const LoginHeader = () => {
         </div>
       </header>
 
-      <div className="mt-[8rem] xl:mt-[6rem] max-md:mt-[7rem] max-sm:mt-[6rem]">
+      <div className="mt-[8rem] xl:mt-[6rem] max-md:mt-[7rem] max-sm:mt-[14rem]">
         <div className="container mx-auto px-4">
           <div className="xl:hidden block">
             <div className="w-full rounded-[12px] bg-mindfulWhite p-4 border-[1px] border-mindfulLightGrey">

@@ -123,7 +123,7 @@ export const SearchResults = () => {
     // Getting Service Provider
     const loadServiceProvider = async () => {
       try {
-        if ( cardCaption === "Pre-Bridal Makeup" ) {
+        if (cardCaption === "Pre-Bridal Makeup") {
           console.log("Fetching service providers pre bridal", cardCaption);
           const data = await fetchServiceProvidersPreBridal(storedLocation);
           console.log("API response:", data);
@@ -133,35 +133,35 @@ export const SearchResults = () => {
             setNoFound(data.message);
           }
         } else {
-        // Ensure the service ID is a number if you are passing it as such
-        const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
-        if (!catID) {
-          const storedCatID = sessionStorage.getItem("selectedCategoryID");
-          console.log("storedCatID", storedCatID)
-          setCatID(storedCatID || ""); // Set to undefined if it's null
-        }
-        if (!serviceTypeID) {
-          NotifyError("Service Type is missing. Please select a service type.");
-          setLoading(false);
-          return;
-        }
-        // API call to fetch service providers
-        const data = await fetchServiceProviders(
-          serviceId,
-          storedLocation,
-          "20",
-          catID || "",
-          serviceTypeID,
-        );
-        // const data = await fetchServiceProviders(serviceId, storedLocation, "20");
+          // Ensure the service ID is a number if you are passing it as such
+          const serviceId = storedServiceId ? parseInt(storedServiceId, 10) : 0;
+          if (!catID) {
+            const storedCatID = sessionStorage.getItem("selectedCategoryID");
+            console.log("storedCatID", storedCatID)
+            setCatID(storedCatID || ""); // Set to undefined if it's null
+          }
+          if (!serviceTypeID) {
+            NotifyError("Service Type is missing. Please select a service type.");
+            setLoading(false);
+            return;
+          }
+          // API call to fetch service providers
+          const data = await fetchServiceProviders(
+            serviceId,
+            storedLocation,
+            "20",
+            catID || "",
+            serviceTypeID,
+          );
+          // const data = await fetchServiceProviders(serviceId, storedLocation, "20");
 
-        if (data.status === "failure") {
-          setNoFound(data.message);
-        } else {
-          setServiceProvider(data.data); // Assuming the API returns the data in data.data
-          console.log("Fetched service provider data log:", data.data);
+          if (data.status === "failure") {
+            setNoFound(data.message);
+          } else {
+            setServiceProvider(data.data); // Assuming the API returns the data in data.data
+            console.log("Fetched service provider data log:", data.data);
+          }
         }
-      }
       } catch (error: any) {
         //setError(error.message || "Failed to fetch service providers.");
       } finally {
