@@ -82,8 +82,13 @@ p {
 }
 
 .header-logo {
-  width: 120px;
+  width: 120px !important;
 }
+/* 
+img{
+  max-width: -webkit-fill-available !important ;
+} */
+
 .footer-logo {
   width: 100px;
 }
@@ -206,6 +211,13 @@ h2 {
     right: 60px;
   }
 }
+
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .header-logo {
+    max-width: 200px !important;
+  }
+}
+
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

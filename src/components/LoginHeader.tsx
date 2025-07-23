@@ -544,7 +544,9 @@ export const LoginHeader = () => {
                     <img
                       src={mindfulBeautyNew}
                       alt="mindfulBeauty logo"
-                      className="w-fit header-logo max-sm:w-24 "
+                      className="w-fit header-logo max-sm:w-24 max-lg:w-40"
+                        // className="w-[160px] xl:w-[220px] 2xl:w-[240px] logo-1440"
+
                     />
                   </div>
                 </Link>
