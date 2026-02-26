@@ -12,6 +12,7 @@ import { NotifyError } from '../common/Toast/ToastMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setLocation } from "../../redux/locationSlice";
+import homebg from "../../assets/omonimgs/homebg.png";
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { LoginPopup } from "./Popups/LoginPopup";
@@ -337,12 +338,12 @@ export const HeroSection = () => {
 
   // Handle search submit
   const pushToSearchResults = () => {
-    const storedservicetype = sessionStorage.getItem("selectedServiceType") 
-      if (!storedservicetype) {
-            NotifyError("Service Type is missing. Please select a service type.");
-            setLoading(false);
-            return;
-          }
+    const storedservicetype = sessionStorage.getItem("selectedServiceType")
+    if (!storedservicetype) {
+      NotifyError("Service Type is missing. Please select a service type.");
+      setLoading(false);
+      return;
+    }
     if (handleSearchValidation()) {
       navigate("/SearchResults");
     }
@@ -374,197 +375,95 @@ export const HeroSection = () => {
   // }
 
   return (
-    <section className="bg-heroSectionBgImg w-full h-screen bg-cover bg-center">
-      <div className="flex flex-col justify-end h-screen">
+    <section className=" w-full h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${homebg})` }}
+    >
+      <div className="flex flex-col justify-center h-screen">
         {/* <img src={bannerImg} alt="banner Image" className="w-full object-cover" /> */}
         <div className="pb-20 max-sm:pb-10">
-          <div className="relative">
-            {/* <div className="xl:h-[100px] lg:h-[100px] md:h-[75px] sm:h-[80px] h-[80px] text-center bg-mindfulBlack mix-blend-overlay"> */}
-            <div className="xl:h-[80px] lg:h-[80px] md:h-[65px] sm:h-[70px] h-[70px] text-center bg-mindfulBlack mix-blend-overlay">
-              {/* <p className="w-full text-[91px]">Transform with Mindful Beauty</p> */}
-            </div>
-
-            <div className="absolute top-1 left-0 right-0 text-center max-lg:top-4 max-md:top-5 max-sm:top-2">
-              {/* <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[70px] lg:text-[65px] md:text-[40px] sm:text-[38px] text-[32px] text-mindfulWhite"> */}
-              <h1 className="font-Montserrat font-light leading-custom-line-height w-full xl:text-[50px] lg:text-[45px] md:text-[35px] sm:text-[30px] text-[24px] text-mindfulWhite">
-                Where would you like to get your beauty service
-              </h1>
-            </div>
-          </div>
-          {/* <div className="relative text-center bg-[#777b7c] h-36 z-0">
-                        <p className="absolute top-0 z-10 opacity-100 w-full text-[91px] text-mindfulWhite">Transform with Mindful Beauty</p>
-          </div> */}
-          {/* Home and Salon Services Buttons */}
-          <div className="flex justify-center space-x-3 mt-4 ">
-            <div className="flex rounded-full bg-mindfulWhite ">
-              {/* Home Services */}
-              <button
-                onClick={() => handleServiceTypeChange("2")}
-                className={`flex items-center rounded-full gap-2 px-6 py-2 text-sm font-bold transition max-sm:px-2 max-sm:gap-1 max-sm:font-semibold
-                ${selected === "2"
-                    ? "bg-mindfulBlue text-mindfulWhite"
-                    : "bg-mindfulWhite text-mindfulBlack"
-                  }`}
-              >
-                <div
-                  className={`p-2 rounded-full border 
-          ${selected === "2" ? "border-transparent" : "border-black"} ${selected === "2" ? "bg-mindfulWhite" : "bg-mindfulWhite"}`}
-                >
-                  <img
-                    src={specialistIcon}
-                    alt="home services icon"
-                    className={`w-4 h-4 ${selected === "2" ? "invert" : "invert"
-                      }`}
-                  />
-                </div>
-                Home Services
-              </button>
-
-              {selected === "" && (
-                <div className="w-[1px] h-13 bg-gray-300"></div>
-              )}
-              {/* Salon Services */}
-              <button
-                onClick={() => handleServiceTypeChange("1")}
-                className={`flex items-center rounded-full gap-2 px-6 py-2  text-sm font-bold transition max-sm:px-2 max-sm:gap-1 max-sm:font-semibold
-               ${selected === "1"
-                    ? "bg-main text-mindfulWhite"
-                    : "bg-mindfulWhite text-mindfulBlack"
-                  }`}
-              >
-                Salon Services
-                <div
-                  className={`p-2 rounded-full border 
-          ${selected === "1" ? "border-transparent" : "border-black"} ${selected === "1" ? "bg-mindfulWhite" : "bg-mindfulWhite "}`}
-                >
-                  <img
-                    src={SalonIcon}
-                    alt="salon icon"
-                    className={`w-4 h-4 ${selected === "1" ? "invert" : "invert"
-                      }`}
-                  />
-                </div>
-              </button>
-            </div>
+          <div className="text-center mb-10 px-4">
+            <h1 className="text-2xl md:text-4xl font-normal text-gray-800 tracking-tight">
+              Discover Businesses Across Oman
+            </h1>
+            <p className="text-gray-500 mt-4 text-lg md:text-xl">
+              Trusted listings. Verified partners. Real opportunities.
+            </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="w-fit mx-auto rounded-[12px] md:rounded-[40px] bg-mindfulWhite md:pl-8 px-4 md:pr-2 md:py-2 py-4 mt-[20px] max-md:w-[90%]">
-            <div className="flex flex-col items-center space-y-0 md:flex-row md:items-center md:space-x-5 md:space-y-0">
-              <div className="max-md:w-full">
-                <div
-                  className="relative max-md:w-full">
-                  <img
-                    src={ladyIcon}
-                    alt="lady Icon"
-                    className="w-[27px] h-[30px] absolute top-2 left-0"
-                  />
+          {/* Search Bar Container */}
+          <div className="w-full max-w-4xl mx-auto mt-8 px-4">
+            <div className="flex flex-col md:flex-row items-center bg-white/80 backdrop-blur-md p-2 rounded-2xl shadow-lg gap-2">
+
+              {/* Service Search Input */}
+              <div className="relative flex-1 w-full">
+                <div className="flex items-center bg-white rounded-xl px-4 py-3 border border-gray-200">
+                  <span className="text-gray-400 mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                  </span>
                   <input
                     type="text"
-                    placeholder="What are looking for?"
-                    className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none md:border-b-0 border-b-2 md:mb-[0] mb-[10px] max-lg:w-[220px] max-md:w-full"
+                    placeholder="Search services"
+                    className="w-full bg-transparent focus:outline-none text-gray-700"
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
-
-                  {/* Validation error for service search */}
-                  {searchError && <p className="text-red-500">{searchError}</p>}
-                  {/* Render the filtered services list */}
-                  {filteredServices.length > 0 && (
-                    <div className="absolute bg-white border border-gray-300 mt-1 w-72 max-h-48 overflow-y-auto z-10">
-                      {filteredServices.map((service) => (
-                        <div
-                          key={service.service_id}
-                          className="p-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => {
-                            setSearchTerm(service.service_name); // Set the clicked service as the search term
-                            setFilteredServices([]); // Hide the dropdown after selection
-                            handleServicesSuggestionClick(service); // Pass the full service object
-                          }}
-                        >
-                          {service.service_name}
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
+
+                {/* Services Dropdown */}
+                {filteredServices.length > 0 && (
+                  <div className="absolute w-full bg-white border border-gray-100 mt-2 rounded-xl shadow-xl z-50 overflow-hidden">
+                    {filteredServices.map((service) => (
+                      <div
+                        key={service.service_id}
+                        className="px-4 py-3 hover:bg-blue-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
+                        onClick={() => handleServicesSuggestionClick(service)}
+                      >
+                        {service.service_name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div className="border-mindfulLightGrey md:border-l-2 md:border-t-0 pt-0 md:pt-0 md:pb-0 pb-[25px] max-md:w-full max-md:pb-[15px]">
-                <div className=" relative ml-4 max-md:w-full max-md:ml-0">
-                  <div
-                    onClick={fetchCurrentLocation}
-                    className="absolute top-2 left-2 bg-pink-100 p-1 rounded-full">
-                    {/* <img
-                      src={locationIcon}
-                      alt="location Icon"
-                      // className=" w-[19px] h-[24px] absolute top-2.5 left-0"
-                      className=" w-[19px] h-[24px]"
-                      style={{ filter: 'invert(37%) sepia(88%) saturate(617%) hue-rotate(296deg) brightness(95%) contrast(101%)' }}
-                    /> */}
-                    {isFetchingLocation ? (
-                      <div className="w-[19px] h-[24px] flex items-center justify-center">
-                        {/* You can use a spinner here */}
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      </div>
-                    ) : (
-                      <img
-                        src={locationIcon}
-                        alt="location Icon"
-                        className="w-[19px] h-[24px]"
-                        style={{
-                          filter: 'invert(37%) sepia(88%) saturate(617%) hue-rotate(296deg) brightness(95%) contrast(101%)'
-                        }}
-                      />
-                    )}
-                  </div>
+              {/* Location Input */}
+              <div className="relative flex-1 w-full">
+                <div className="flex items-center bg-white rounded-xl px-4 py-3 border border-gray-200">
+                  <span className="text-gray-400 mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  </span>
                   <input
                     type="text"
-                    placeholder="Location / Pincode"
-                    className="w-72 bg-mindfulWhite pl-10 py-3 focus-visible:outline-none md:border-b-0 border-b-2 max-lg:w-[220px] max-md:w-full"
-                    ref={locationInputRef}           // ✅ Required for Google Autocomplete
-                    defaultValue={locationInput} // ✅ Allows backspace to work properly             // ✅ Uses updated state
-                    onChange={handleLocationChange}     // ✅ Allows user typing
+                    placeholder="Muscat" // Updated placeholder to match image style
+                    className="w-full bg-transparent focus:outline-none text-gray-700"
+                    ref={locationInputRef}
+                    defaultValue={locationInput}
+                    onChange={handleLocationChange}
                   />
-
-                  {/* Validation error for location */}
-                  {locationError && (
-                    <p className="text-red-500">{locationError}</p>
-                  )}
-
-                  {/* Render the location suggestions list */}
-                  {locationSuggestions.length > 0 && (
-                    <ul className="absolute bg-white border border-gray-300 mt-1 w-72 max-h-48 overflow-y-auto z-10">
-                      {locationSuggestions.map((suggestion) => (
-                        <li
-                          key={suggestion.place_id}
-                          className="p-2 hover:bg-gray-200 cursor-pointer"
-                          onClick={() =>
-                            handleLocationSuggestionClick(
-                              suggestion.description
-                            )
-                          }
-                        >
-                          {suggestion.description}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </div>
+
+                {/* Location Dropdown */}
+                {locationSuggestions.length > 0 && (
+                  <ul className="absolute w-full bg-white border border-gray-100 mt-2 rounded-xl shadow-xl z-50 overflow-hidden">
+                    {locationSuggestions.map((suggestion) => (
+                      <li
+                        key={suggestion.place_id}
+                        className="px-4 py-3 hover:bg-blue-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
+                        onClick={() => handleLocationSuggestionClick(suggestion.description)}
+                      >
+                        {suggestion.description}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
+              {/* Search Button */}
               <button
-                // onClick={handlePersonalizePopup}
                 onClick={pushToSearchResults}
-                type="submit"
-                className="bg-main rounded-[33px] text-mindfulWhite px-8 py-3"
+                className="w-full md:w-auto bg-[#4e73df] hover:bg-[#3e5fbc] text-white px-10 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md"
               >
                 Search
-                {/* {personalizePopup && (
-                                    <div ref={popupRef} onClick={(e) => e.stopPropagation()}>
-                                        <PersonalizePopup closePopup={closePersonalizePopup} />
-                                    </div>
-                                )} */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </button>
             </div>
           </div>

@@ -13,30 +13,30 @@ import { ExclusiveBridalPackages } from '../components/Index/ExclusiveBridalPack
 
 export const Index = () => {
 
-    // Request user location when the component mounts
-    // useEffect(() => {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(
-    //             (position) => {
-    //                 console.log('Location access granted:', position);
-    //             },
-    //             (error) => {
-    //                 console.log('Error in getting location:', error);
-    //             }
-    //         );
-    //     } else {
-    //         console.log("Geolocation is not supported by this browser.");
-    //     }
-    // }, []);
+  // Request user location when the component mounts
+  // useEffect(() => {
+  //     if (navigator.geolocation) {
+  //         navigator.geolocation.getCurrentPosition(
+  //             (position) => {
+  //                 console.log('Location access granted:', position);
+  //             },
+  //             (error) => {
+  //                 console.log('Error in getting location:', error);
+  //             }
+  //         );
+  //     } else {
+  //         console.log("Geolocation is not supported by this browser.");
+  //     }
+  // }, []);
 
-    // Request user's location on load
+  // Request user's location on load
 
 
-    return (
-        <div>
-             <Helmet>
-                    <script>
-                      {`
+  return (
+    <div>
+      <Helmet>
+        <script>
+          {`
                         (function (c, s, q, u, a, r, e) {
                           c.hj = c.hj || function () { (c.hj.q = c.hj.q || []).push(arguments) };
                           c._hjSettings = { hjid: 6369861 };
@@ -47,18 +47,18 @@ export const Index = () => {
                           r.appendChild(e);
                         })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6369861);
                       `}
-                    </script>
-                  </Helmet>
-            <HeroSection />
-            <MottoSection />
-            <FeaturedServices category_name={''} status={''} image={''} />
-            <ExclusiveBridalPackages category_name={''} status={''} image={''} />
-            <RecommendedBest />
-            <BookingFlow />
-            <FeedBack />
-            <Faq />
-            {/* <Blog /> */}
-            <RegAsAProfessional />
-        </div>
-    )
+        </script>
+      </Helmet>
+      <HeroSection />
+      {/* <MottoSection /> */}
+      <FeaturedServices />
+      <ExclusiveBridalPackages category_name={''} status={''} image={''} />
+      <RecommendedBest />
+      <BookingFlow />
+      <FeedBack />
+      <Faq />
+      {/* <Blog /> */}
+      <RegAsAProfessional />
+    </div>
+  )
 }

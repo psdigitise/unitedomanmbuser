@@ -39,6 +39,8 @@ export default {
         mindfulLightGrey: "#CBCBCB",
         mindfulMildGrey: "#F7F7F7",
         mindfulLightPink: "#FFF5F9",
+        omonWhite: "#C3CCF6",
+        omonmain: "#4935C5",
       },
     },
   },
