@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import mindfulBeauty from "../assets/icons/mindfulBeautyLogo.png";
-import mindfulBeautyNew from "../assets/omonimgs/logo.png";
+import mindfulBeautyNew from "../assets/omonimgs/logonew1.png";
 import { SideBar } from "./SideBar";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -97,10 +97,7 @@ export const Header = () => {
 
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 transition-all duration-300  z-[45] bg-omonWhite backdrop-blur-lg bg-opacity-100 shadow-md"
-    >
-      {/* Hotjar and Google Analytics Tracking Scripts */}
+    <header className="fixed top-0 left-0 right-0 transition-all duration-300 z-[45] bg-white border-b border-gray-100 shadow-sm">
       <Helmet>
         <script>
           {`
@@ -125,103 +122,56 @@ export const Header = () => {
           `}
         </script> */}
       </Helmet>
-      <div className="relative">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center ">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
 
-            {/* 1. Logo (Left Side) */}
-            <div className="flex-shrink-0">
-              <Link to="/">
-                <img
-                  src={mindfulBeautyNew}
-                  alt="logo"
-                  className="w-48 max-sm:w-32"
-                />
-              </Link>
-            </div>
-
-            {/* 2. Navigation Menus (Center - Hidden on Mobile) */}
-            <nav className="hidden lg:flex flex-1 justify-center">
-              <ul className="flex items-center space-x-10">
-                <li>
-                  <Link to="/" className="text-mindfulBlack font-semibold hover:text-omonmain border-b-2 border-omonmain pb-1 transition-all">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/categories" className="text-gray-500 font-medium hover:text-omonmain transition-colors">
-                    Categories
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/add-listing" className="text-gray-500 font-medium hover:text-omonmain transition-colors">
-                    Add Listing
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/pricing" className="text-gray-500 font-medium hover:text-omonmain transition-colors">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="text-gray-500 font-medium hover:text-omonmain transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-
-            {/* 3. Action Icons (Right Side) */}
-            <div className="flex items-center space-x-4">
-
-              {/* Login & Add Business (Desktop Only) */}
-              {!token && (
-                <div className="hidden lg:flex items-center space-x-5 mr-4">
-                  <button className="text-gray-600 font-semibold hover:text-main transition-colors">
-                    Login
-                  </button>
-                  <button className="bg-blue-600 text-white px-5 py-2.5 rounded-lg flex items-center font-medium shadow-md hover:bg-blue-700 transition-all">
-                    <span className="mr-1.5 text-lg">+</span> Add Business
-                  </button>
-                </div>
-              )}
-
-              {/* Cart Icon */}
-              {cartItemsCount > 0 && (
-                <div onClick={handleCartIcon} className="relative bg-main rounded-full w-10 h-10 flex items-center justify-center cursor-pointer">
-                  <HiOutlineShoppingCart className="text-[20px] text-mindfulWhite" />
-                  <div className="absolute top-0 right-[-8px] bg-mindfulYellow rounded-full w-5 h-5 flex items-center justify-center">
-                    <span className="text-xs font-bold text-black">{cartItemsCount}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* User Profile */}
-              {token && phoneNumber && (
-                <div className="relative cursor-pointer" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                  <div className="bg-mindfulWhite border border-mindfulBlue rounded-full w-10 h-10 flex items-center justify-center">
-                    <BiSolidUser className="text-[20px] text-mindfulBlue" />
-                  </div>
-                  {/* ... Dropdown Code ... */}
-                </div>
-              )}
-
-              {/* Hamburger (Mobile Only) */}
-              <div className="lg:hidden ml-2">
-                <label className="hamburger">
-                  <input type="checkbox" checked={showSideBar} readOnly onClick={toggleHamButton} />
-                  <svg viewBox="0 0 32 32">
-                    <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22" />
-                    <path className="line" d="M7 16 27 16" />
-                  </svg>
-                </label>
-              </div>
-            </div>
-
+          {/* 1. Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/">
+              <img src={mindfulBeautyNew} alt="UniteOman" className="w-48 max-sm:w-32" />
+            </Link>
           </div>
-        </div>
 
-        {/* Overlay */}
+          {/* 2. Navigation - Styled like the screenshot */}
+          <nav className="hidden lg:flex flex-1 justify-center">
+            <ul className="flex items-center space-x-8">
+              <li>
+                <Link to="/" className="text-mindfulBlack font-semibold hover:text-[#b38b4d] border-b-2 border-[#b38b4d] pb-1 transition-all">Home</Link>
+              </li>
+              <li>
+                <Link to="/categories" className="text-mindfulBlack font-medium hover:text-[#b38b4d] transition-colors">Categories</Link>
+              </li>
+              <li>
+                <Link to="/pricing" className="text-mindfulBlack font-medium hover:text-[#b38b4d] transition-colors">Pricing</Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-mindfulBlack font-medium hover:text-[#b38b4d] transition-colors">Contact</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* 3. Actions - Login and List Your Business */}
+          <div className="flex items-center space-x-6">
+            <button className="hidden lg:block text-[#6b7280] font-medium hover:text-[#1a233a]">
+              Log in
+            </button>
+            <button className="bg-[#1a233a] text-white px-6 py-2.5 rounded-full font-medium hover:bg-[#2a3654] transition-all">
+              List Your Business
+            </button>
+
+            {/* Updated Hamburger Icon */}
+            <div className="lg:hidden ml-2">
+              <label className="hamburger">
+                <input type="checkbox" checked={showSideBar} readOnly onClick={toggleHamButton} />
+                <svg viewBox="0 0 32 32">
+                  <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22" />
+                  <path className="line" d="M7 16 27 16" />
+                </svg>
+              </label>
+            </div>
+          </div>
+
+        </div>
         {showSideBar && (
           <div
             className={`fixed inset-0 h-dvh bg-black bg-opacity-50 transition-opacity duration-300 z-10

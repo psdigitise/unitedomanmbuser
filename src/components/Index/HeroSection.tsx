@@ -12,7 +12,8 @@ import { NotifyError } from '../common/Toast/ToastMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setLocation } from "../../redux/locationSlice";
-import homebg from "../../assets/omonimgs/homebg.png";
+import homebg from "../../assets/omonimgs/herobgnew.png";
+import { IoChevronDownOutline } from "react-icons/io5";
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { LoginPopup } from "./Popups/LoginPopup";
@@ -375,104 +376,125 @@ export const HeroSection = () => {
   // }
 
   return (
-    <section className=" w-full h-screen bg-cover bg-center"
+    <section
+      className="relative w-full h-screen bg-cover bg-center flex items-center justify-center overflow-hidden"
       style={{ backgroundImage: `url(${homebg})` }}
     >
-      <div className="flex flex-col justify-center h-screen">
-        {/* <img src={bannerImg} alt="banner Image" className="w-full object-cover" /> */}
-        <div className="pb-20 max-sm:pb-10">
-          <div className="text-center mb-10 px-4">
-            <h1 className="text-2xl md:text-4xl font-normal text-gray-800 tracking-tight">
-              Discover Businesses Across Oman
-            </h1>
-            <p className="text-gray-500 mt-4 text-lg md:text-xl">
-              Trusted listings. Verified partners. Real opportunities.
-            </p>
-          </div>
+      {/* Optional: Add a light overlay if the background image is too dark */}
+      <div className="absolute inset-0 bg-white/10"></div>
 
-          {/* Search Bar Container */}
-          <div className="w-full max-w-4xl mx-auto mt-8 px-4">
-            <div className="flex flex-col md:flex-row items-center bg-white/80 backdrop-blur-md p-2 rounded-2xl shadow-lg gap-2">
+      <div className="relative z-10 w-full max-w-5xl px-4 text-center">
+        {/* 1. Main Heading */}
+        <h1 className="text-3xl md:text-5xl font-bold text-[#1a233a] mb-4">
+          Oman's <span className="text-[#b38b4d]">Smart</span> Business Marketplace
+        </h1>
 
-              {/* Service Search Input */}
-              <div className="relative flex-1 w-full">
-                <div className="flex items-center bg-white rounded-xl px-4 py-3 border border-gray-200">
-                  <span className="text-gray-400 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Search services"
-                    className="w-full bg-transparent focus:outline-none text-gray-700"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                  />
-                </div>
+        <p className="text-[#4b5563] text-lg md:text-xl mb-12">
+          Find verified businesses across industries and cities.
+        </p>
 
-                {/* Services Dropdown */}
-                {filteredServices.length > 0 && (
-                  <div className="absolute w-full bg-white border border-gray-100 mt-2 rounded-xl shadow-xl z-50 overflow-hidden">
-                    {filteredServices.map((service) => (
-                      <div
-                        key={service.service_id}
-                        className="px-4 py-3 hover:bg-blue-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
-                        onClick={() => handleServicesSuggestionClick(service)}
-                      >
-                        {service.service_name}
-                      </div>
-                    ))}
-                  </div>
-                )}
+        {/* 2. The Search "Pill" Container */}
+        <div className="w-full max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center bg-white p-1.5 rounded-xl shadow-2xl border border-gray-100">
+
+            {/* Service Search */}
+            <div className="relative flex-[1.5] w-full group">
+              <div className="flex items-center px-6 py-4">
+                <span className="text-gray-400 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  placeholder="Search services..."
+                  className="w-full bg-transparent focus:outline-none text-[#1a233a] text-lg placeholder-gray-400"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
               </div>
+              {/* Divider Line (Desktop only) */}
+              <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 h-8 w-px bg-gray-200"></div>
 
-              {/* Location Input */}
-              <div className="relative flex-1 w-full">
-                <div className="flex items-center bg-white rounded-xl px-4 py-3 border border-gray-200">
-                  <span className="text-gray-400 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Muscat" // Updated placeholder to match image style
-                    className="w-full bg-transparent focus:outline-none text-gray-700"
-                    ref={locationInputRef}
-                    defaultValue={locationInput}
-                    onChange={handleLocationChange}
-                  />
+              {/* Services Dropdown */}
+              {filteredServices.length > 0 && (
+                <div className="absolute left-4 w-[95%] bg-white mt-4 rounded-xl shadow-2xl z-50 py-2 border border-gray-100 text-left">
+                  {filteredServices.map((service) => (
+                    <div
+                      key={service.service_id}
+                      className="px-6 py-3 hover:bg-gray-50 cursor-pointer transition-colors text-[#1a233a] font-medium"
+                      onClick={() => handleServicesSuggestionClick(service)}
+                    >
+                      {service.service_name}
+                    </div>
+                  ))}
                 </div>
-
-                {/* Location Dropdown */}
-                {locationSuggestions.length > 0 && (
-                  <ul className="absolute w-full bg-white border border-gray-100 mt-2 rounded-xl shadow-xl z-50 overflow-hidden">
-                    {locationSuggestions.map((suggestion) => (
-                      <li
-                        key={suggestion.place_id}
-                        className="px-4 py-3 hover:bg-blue-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
-                        onClick={() => handleLocationSuggestionClick(suggestion.description)}
-                      >
-                        {suggestion.description}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              {/* Search Button */}
-              <button
-                onClick={pushToSearchResults}
-                className="w-full md:w-auto bg-[#4e73df] hover:bg-[#3e5fbc] text-white px-10 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md"
-              >
-                Search
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-              </button>
+              )}
             </div>
+
+            {/* Location Search */}
+            <div className="relative flex-1 w-full">
+              <div className="flex items-center px-6 py-4">
+                <span className="text-gray-400 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  placeholder="Muscat"
+                  className="w-full bg-transparent focus:outline-none text-[#1a233a] text-lg placeholder-gray-400"
+                  ref={locationInputRef}
+                  defaultValue={locationInput}
+                  onChange={handleLocationChange}
+                />
+                <IoChevronDownOutline className="ml-2 text-gray-400" />
+              </div>
+
+              {/* Location Dropdown */}
+              {locationSuggestions.length > 0 && (
+                <ul className="absolute left-4 w-[95%] bg-white mt-4 rounded-xl shadow-2xl z-50 py-2 border border-gray-100 text-left">
+                  {locationSuggestions.map((suggestion) => (
+                    <li
+                      key={suggestion.place_id}
+                      className="px-6 py-3 hover:bg-gray-50 cursor-pointer transition-colors text-[#1a233a]"
+                      onClick={() => handleLocationSuggestionClick(suggestion.description)}
+                    >
+                      {suggestion.description}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Search Button */}
+            <button
+              onClick={pushToSearchResults}
+              className="w-full md:w-auto bg-[#1a233a] hover:bg-[#253252] text-white px-10 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all active:scale-95 m-1"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              Search
+            </button>
           </div>
         </div>
-        {/* 
-                {showLoginPopup && <LoginPopup />}
-                {showRegisterPopup && <RegisterPopup />}
-                {showVerificationCodePopup && <VerificationCodePopup />} */}
+
+        {/* 3. Verified Statistics Line */}
+        <div className="mt-8 flex items-center justify-center gap-6 text-[#1a233a] font-semibold text-sm md:text-base">
+          <div className="flex items-center">
+            <svg className="w-5 h-5 text-[#b38b4d] mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            10,000+ Businesses Listed
+          </div>
+          <div className="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+          <div className="flex items-center">
+            100% Verified
+          </div>
+        </div>
       </div>
-    </section >
+    </section>
   );
 };

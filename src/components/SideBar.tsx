@@ -5,292 +5,153 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
-import { persistor, RootState } from '../redux/store';  // Import RootState to type state access
-import { clearCart, logout } from '../redux/cartSlice'; // Import logout action
+import { persistor, RootState } from '../redux/store';
+import { clearCart, logout } from '../redux/cartSlice';
 import { NavLink, useNavigate } from "react-router-dom";
 import { toggleLoginPopup } from '../redux/loginSlice';
 import { toggleRegisterPopup } from '../redux/registerSlice';
 
 interface SideBarProps {
-    closeSidebar: () => void;
+  closeSidebar: () => void;
 }
 
 export const SideBar: React.FC<SideBarProps> = ({ closeSidebar }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const { token, phoneNumber } = useSelector((state: RootState) => state.cart);
 
-    const { token, phoneNumber } = useSelector((state: RootState) => state.cart);
+  const handleLogout = async () => {
+    dispatch(clearCart());
+    dispatch(logout());
+    closeSidebar();
+    navigate("/");
+    await persistor.flush();
+    await persistor.purge();
+  }
 
-    const handleLogout = async () => {
-        dispatch(clearCart()); // Clear the cart
-        dispatch(logout()); // Logout and clear token
-        closeSidebar();
-        navigate("/");
-        // sessionStorage.clear();
+  const handleLoginClick = () => {
+    dispatch(toggleLoginPopup());
+    closeSidebar();
+  };
 
-        // Flush pending storage writes before purging
-        await persistor.flush();
+  const handleRegisterClick = () => {
+    dispatch(toggleRegisterPopup());
+    closeSidebar();
+  };
 
-        // Purge persisted state (this will remove Redux Persist data, i.e., localStorage data)
-        await persistor.purge();  // This clears the persisted Redux state from localStorage
-    }
+  const [isHighThinkingDropdownOpen, setHighThinkingIsDropdownOpen] = useState(false);
+  const [isTalentDropdownOpen, setIsTalentDropdownOpen] = useState(false);
 
-    // Handle SignIn popup
-    const handleLoginClick = () => {
-        dispatch(toggleLoginPopup()); // Dispatch the action to toggle the popup
-        closeSidebar(); // Optionally close the sidebar
-    };
+  // Reusable style for menu items
+  const menuLiStyle = "border-b border-gray-100 text-[18px] text-[#1a233a] font-medium py-4 cursor-pointer hover:text-[#b38b4d] transition-colors flex items-center justify-between";
+  const dropdownLiStyle = "text-[16px] text-gray-500 font-medium py-3 px-4 hover:text-[#b38b4d] hover:bg-gray-50 transition-all border-l-2 border-transparent hover:border-[#b38b4d]";
 
-    // Handle Register popup
-    const handleRegisterClick = () => {
-        dispatch(toggleRegisterPopup()); // Dispatch the action to toggle the popup
-        closeSidebar(); // Optionally close the sidebar
-    };
-
-    // State to track the visibility of the dropdown
-    const [isHighThinkingDropdownOpen, setHighThinkingIsDropdownOpen] = useState(false);
-    const [isTalentDropdownOpen, setIsTalentDropdownOpen] = useState(false);
-
-    // Handlers for "High Thinking" dropdown
-    const handleHighThinkingMouseEnter = () => setHighThinkingIsDropdownOpen(true);
-    const handleHighThinkingMouseLeave = () => setHighThinkingIsDropdownOpen(false);
-
-    // Handlers for "Talent" dropdown
-    const handleTalentMouseEnter = () => setIsTalentDropdownOpen(true);
-    const handleTalentMouseLeave = () => setIsTalentDropdownOpen(false);
-
-    return (
-        <div className="">
-            <div className="relative w-80 h-screen bg-mindfulWhite px-10 py-10">
-
-                {/* Close Button */}
-                <div className="absolute top-5 right-5 transition-transform duration-300 hover:rotate-90">
-                    <IoClose onClick={closeSidebar} className="text-[35px] text-mindfulGrey cursor-pointer hover:text-main " />
-                </div>
-
-                {/* Welcome Message */}
-                <div>
-                    <h5 className="text-sm text-mindfulBlack font-semibold">
-                        {token && phoneNumber ? `Hello, User ${phoneNumber}` : "Hello, Guest"}
-                    </h5>
-                </div>
-
-                {/* Login & Register */}
-                {/* Conditional Login & Logout Display */}
-                {!token ? (
-                    <div className="flex items-center py-3 space-x-2">
-                        <div className="flex items-center">
-                            <FiLock className="text-sm text-main mr-2" />
-                            <h5 onClick={handleLoginClick} className="text-sm text-mindfulBlack font-semibold cursor-pointer hover:text-main">Login</h5>
-                        </div>
-
-                        <div>
-                            <h5 className="text-2xl font-semibold">&#183;</h5>
-                        </div>
-
-                        <div className="flex items-center">
-                            <FaRegUser className="text-sm text-main mr-2" />
-                            <h5 onClick={handleRegisterClick} className="text-sm text-mindfulBlack font-semibold cursor-pointer hover:text-main">Register</h5>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="flex items-center py-3">
-                        <TiPower className="text-2xl text-main mr-2" />
-                        <h5 onClick={handleLogout} className="text-sm text-mindfulBlack font-semibold cursor-pointer hover:text-main">Logout</h5>
-                    </div>
-                )}
-
-
-                {/* // <div className="flex items-center py-3 space-x-2">
-                //     <div className="flex items-center">
-                //         <FiLock className="text-sm text-main mr-2" />
-                //         <h5 className="text-sm text-mindfulBlack font-semibold cursor-pointer hover:text-main">Login</h5>
-                //     </div>
-
-                //     <div>
-                //         <h5 className="font-semibold">&#183;</h5>
-                //     </div>
-
-                //     <div className="flex items-center">
-                //         <FaRegUser className="text-sm text-main mr-2" />
-                //         <h5 className="text-sm text-mindfulBlack font-semibold cursor-pointer hover:text-main">Register</h5>
-                //     </div>
-                // </div> */}
-
-                {/* Menus */}
-                <div>
-                    <ul>
-                        <NavLink
-                            to="/"
-                            className="active-nav"
-                            aria-current="page"
-                        >
-                            <li onClick={closeSidebar} className="border-y border-mindfulLightGrey text-[20px] font-semibold py-3">Home</li>
-                        </NavLink>
-
-                        {/* High Thinking Dropdown */}
-                        <li
-                            onMouseEnter={handleHighThinkingMouseEnter}
-                            onMouseLeave={handleHighThinkingMouseLeave}
-                            className="border-y border-mindfulLightGrey text-[20px] text-mindfulBlack font-semibold py-3 cursor-pointer hover:text-main">
-                            <div className="flex items-center">
-                                High Thinking
-
-                                {/* Chevron icon with rotation on hover */}
-                                <IoChevronDownOutline
-                                    className={`ml-2 text-[18px] text-mindfulBlack transition-transform duration-300 ${isHighThinkingDropdownOpen ? 'rotate-180' : ''}`}
-                                />
-                            </div>
-
-                            {/* Dropdown - Only visible when isDropdownOpen is true */}
-                            {isHighThinkingDropdownOpen && (
-                                <div className={`ml-3 mt-2 w-60 bg-mindfulWhite shadow-md rounded-lg transition-all duration-300 ease-out 
-                                    ${isHighThinkingDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
-                                    }`}>
-                                    <ul className="list-none p-0">
-                                        <NavLink
-                                            to="/Mindset"
-                                            className="active-nav"
-                                            aria-current="page"
-                                        >
-                                            <li
-                                                onClick={closeSidebar}
-                                                className="border-y border-mindfulLightGrey text-[18px] text-mindfulBlack font-semibold px-2 py-2 cursor-pointer hover:text-main">
-                                                Mindset
-                                            </li>
-                                        </NavLink>
-
-                                        <NavLink
-                                            to="/OurBrand"
-                                            className="active-nav"
-                                            aria-current="page"
-                                        >
-                                            <li
-                                                onClick={closeSidebar}
-                                                className="border-y border-mindfulLightGrey text-[18px] text-mindfulBlack font-semibold px-2 py-2 cursor-pointer hover:text-main">
-                                                Our Brand
-                                            </li>
-                                        </NavLink>
-
-                                        <NavLink
-                                            to="/OurCommitment"
-                                            className="active-nav"
-                                            aria-current="page"
-                                        >
-                                            <li
-                                                onClick={closeSidebar}
-                                                className="border-y border-mindfulLightGrey text-[18px] text-mindfulBlack font-semibold px-2 py-2 cursor-pointer hover:text-main">
-                                                Our Commitment
-                                            </li>
-                                        </NavLink>
-
-                                        <NavLink
-                                            to="/OurImpact"
-                                            className="active-nav"
-                                            aria-current="page"
-                                        >
-                                            <li
-                                                onClick={closeSidebar}
-                                                className="border-y border-mindfulLightGrey text-[18px] text-mindfulBlack font-semibold px-2 py-2 cursor-pointer hover:text-main">
-                                                Our Impact
-                                            </li>
-                                        </NavLink>
-
-                                    </ul>
-                                </div>
-                            )}
-                        </li>
-
-                        {/* <div>
-                            <li className="border-y border-mindfulLightGrey text-[20px] text-mindfulBlack font-semibold py-3 cursor-pointer hover:text-main">Our Team </li>
-                            <li className="border-y border-mindfulLightGrey text-[20px] text-mindfulBlack font-semibold py-3 cursor-pointer hover:text-main">Our Services</li>
-                        </div> */}
-
-                        <li
-                            onMouseEnter={handleTalentMouseEnter}
-                            onMouseLeave={handleTalentMouseLeave}
-                            className="border-y border-mindfulLightGrey text-[20px] text-mindfulBlack font-semibold py-3 cursor-pointer hover:text-main">
-                            <div className="flex items-center">
-                                High Talent
-
-                                {/* Chevron icon with rotation on hover */}
-                                <IoChevronDownOutline
-                                    className={`ml-2 text-[18px] text-mindfulBlack transition-transform duration-300 ${isTalentDropdownOpen ? 'rotate-180' : ''}`}
-                                />
-                            </div>
-
-                            {isTalentDropdownOpen && (
-                                <div className={`ml-3 mt-2 w-60 bg-mindfulWhite shadow-md rounded-lg transition-all duration-300 ease-out 
-                                    ${isTalentDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
-                                    }`}>
-                                    <ul className="list-none p-0">
-
-                                        <NavLink
-                                            to="/OurTeam"
-                                            className="active-nav"
-                                            aria-current="page"
-                                        >
-                                            <li
-                                                onClick={closeSidebar}
-                                                className="border-y border-mindfulLightGrey text-[18px] text-mindfulBlack font-semibold px-2 py-2 cursor-pointer hover:text-main">
-                                                Our Team
-                                            </li>
-                                        </NavLink>
-
-                                        <NavLink
-                                            to="/OurServices"
-                                            className="active-nav"
-                                            aria-current="page"
-                                        >
-                                            <li
-                                                onClick={closeSidebar}
-                                                className="border-y border-mindfulLightGrey text-[18px] text-mindfulBlack font-semibold px-2 py-2 cursor-pointer hover:text-main">
-                                                Our Services
-                                            </li>
-                                        </NavLink>
-
-                                    </ul>
-
-                                </div>
-                            )}
-                        </li>
-
-                        <NavLink
-                            to="/OurTechnology"
-                            className="active-nav"
-                            aria-current="page"
-                        >
-                            <li onClick={closeSidebar} className="border-y border-mindfulLightGrey text-[20px] font-semibold py-3">High Technology</li>
-                        </NavLink>
-
-                        <NavLink
-                            to="/AiAvatar"
-                            className="active-nav"
-                            aria-current="page"
-                        >
-                            <li onClick={closeSidebar} className="border-y border-mindfulLightGrey text-[20px] font-semibold py-3">AI Avatar</li>
-                        </NavLink>
-
-                        <NavLink
-                            to="/AboutUs"
-                            className="active-nav"
-                            aria-current="page"
-                        >
-                            <li onClick={closeSidebar} className="border-y border-mindfulLightGrey text-[20px] font-semibold py-3">About Us</li>
-                        </NavLink>
-
-                        <NavLink
-                            to="/Contact"
-                            className="active-nav"
-                            aria-current="page"
-                        >
-                            <li onClick={closeSidebar} className="border-t border-mindfulLightGrey text-[20px] font-semibold py-3">Contact</li>
-                        </NavLink>
-
-                    </ul>
-                </div>
-            </div>
+  return (
+    <div className="h-full bg-white shadow-2xl border-l border-gray-100">
+      <div className="relative w-80 h-screen flex flex-col px-8 py-10">
+        
+        {/* Close Button */}
+        <div className="absolute top-6 right-6">
+          <button 
+            onClick={closeSidebar} 
+            className="p-2 rounded-full hover:bg-gray-100 transition-all text-gray-400 hover:text-[#1a233a]"
+          >
+            <IoClose className="text-[28px]" />
+          </button>
         </div>
-    )
+
+        {/* Welcome & Auth Section */}
+        <div className="mb-8 pt-4">
+          <h5 className="text-[22px] text-[#1a233a] font-bold mb-2">
+            {token && phoneNumber ? `Welcome back!` : "Welcome, Guest"}
+          </h5>
+          <p className="text-sm text-gray-500 mb-6">
+            {token && phoneNumber ? `User: ${phoneNumber}` : "Log in to manage your listings"}
+          </p>
+
+          {!token ? (
+            <div className="flex flex-col gap-3">
+              <button 
+                onClick={handleLoginClick}
+                className="w-full py-3 border border-[#1a233a] text-[#1a233a] rounded-lg font-semibold flex items-center justify-center hover:bg-gray-50 transition-all"
+              >
+                <FiLock className="mr-2" /> Login
+              </button>
+              <button 
+                onClick={handleRegisterClick}
+                className="w-full py-3 bg-[#1a233a] text-white rounded-lg font-semibold flex items-center justify-center hover:bg-[#2a3654] transition-all shadow-md"
+              >
+                <FaRegUser className="mr-2" /> Register
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={handleLogout}
+              className="flex items-center text-red-500 font-semibold hover:text-red-600 transition-colors"
+            >
+              <TiPower className="text-xl mr-2" /> Logout
+            </button>
+          )}
+        </div>
+
+        {/* Navigation Menus */}
+        <div className="overflow-y-auto flex-1 pr-2 custom-scrollbar">
+          <ul className="flex flex-col">
+            <NavLink to="/" onClick={closeSidebar}>
+              <li className={menuLiStyle}>Home</li>
+            </NavLink>
+
+            {/* High Thinking Dropdown */}
+            <li className="group">
+              <div 
+                className={menuLiStyle} 
+                onClick={() => setHighThinkingIsDropdownOpen(!isHighThinkingDropdownOpen)}
+              >
+                High Thinking
+                <IoChevronDownOutline className={`transition-transform duration-300 ${isHighThinkingDropdownOpen ? 'rotate-180 text-[#b38b4d]' : ''}`} />
+              </div>
+              
+              {isHighThinkingDropdownOpen && (
+                <ul className="bg-gray-50 rounded-lg my-2 overflow-hidden animate-fadeIn">
+                  <NavLink to="/Mindset" onClick={closeSidebar}><li className={dropdownLiStyle}>Mindset</li></NavLink>
+                  <NavLink to="/OurBrand" onClick={closeSidebar}><li className={dropdownLiStyle}>Our Brand</li></NavLink>
+                  <NavLink to="/OurCommitment" onClick={closeSidebar}><li className={dropdownLiStyle}>Our Commitment</li></NavLink>
+                  <NavLink to="/OurImpact" onClick={closeSidebar}><li className={dropdownLiStyle}>Our Impact</li></NavLink>
+                </ul>
+              )}
+            </li>
+
+            {/* High Talent Dropdown */}
+            <li className="group">
+              <div 
+                className={menuLiStyle} 
+                onClick={() => setIsTalentDropdownOpen(!isTalentDropdownOpen)}
+              >
+                High Talent
+                <IoChevronDownOutline className={`transition-transform duration-300 ${isTalentDropdownOpen ? 'rotate-180 text-[#b38b4d]' : ''}`} />
+              </div>
+
+              {isTalentDropdownOpen && (
+                <ul className="bg-gray-50 rounded-lg my-2 overflow-hidden animate-fadeIn">
+                  <NavLink to="/OurTeam" onClick={closeSidebar}><li className={dropdownLiStyle}>Our Team</li></NavLink>
+                  <NavLink to="/OurServices" onClick={closeSidebar}><li className={dropdownLiStyle}>Our Services</li></NavLink>
+                </ul>
+              )}
+            </li>
+
+            <NavLink to="/OurTechnology" onClick={closeSidebar}><li className={menuLiStyle}>High Technology</li></NavLink>
+            <NavLink to="/AiAvatar" onClick={closeSidebar}><li className={menuLiStyle}>AI Avatar</li></NavLink>
+            <NavLink to="/AboutUs" onClick={closeSidebar}><li className={menuLiStyle}>About Us</li></NavLink>
+            <NavLink to="/Contact" onClick={closeSidebar}><li className="text-[18px] text-[#1a233a] font-medium py-4 hover:text-[#b38b4d] transition-colors">Contact</li></NavLink>
+          </ul>
+        </div>
+
+        {/* Branding Footer */}
+        <div className="mt-auto pt-6 border-t border-gray-100 text-center">
+            <p className="text-xs text-gray-400 font-medium tracking-widest uppercase">Unite Oman Marketplace</p>
+        </div>
+      </div>
+    </div>
+  )
 }

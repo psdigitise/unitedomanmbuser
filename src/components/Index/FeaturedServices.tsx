@@ -7,15 +7,18 @@ import restaurantImg from "../../assets/omonimgs/restaurants.png";
 import realEstateImg from "../../assets/omonimgs/realestate.png";
 import itImg from "../../assets/omonimgs/IT.png";
 import educationImg from "../../assets/omonimgs/education.png";
+import { HiScale } from "react-icons/hi";
+import { GiGraduateCap } from "react-icons/gi";
 
 const CATEGORIES = [
   { name: "Construction & Contractors", count: "248+", subtext: "Verified Businesses", image: constructionImg, icon: "👷", type: "large-dark" },
   { name: "Healthcare & Clinics", count: "132+", subtext: "Verified Businesses", image: healthcareImg, icon: "🩺", type: "large-blue" },
-  { name: "Legal & Consultancy", count: "96+", subtext: "Verified Businesses", image: legalImg, icon: "⚖️", type: "small-light" },
+  { name: "Legal & Consultancy", count: "96+", subtext: "Verified Businesses", image: legalImg, icon: <HiScale />, type: "small-light" },
   { name: "Restaurants & Cafes", count: "310+", subtext: "Verified Businesses", image: restaurantImg, icon: "🍴", type: "small-dark" },
   { name: "Real Estate", count: "204+", subtext: "Verified Properties", image: realEstateImg, icon: "🏢", type: "small-blue" },
   { name: "IT & Software", count: "88+", subtext: "Tech Companies", image: itImg, icon: "💻", type: "small-dark-blue" },
-  { name: "Education & Training", count: "67+", subtext: "Learning Centers", image: educationImg, icon: "🎓", type: "small-light" },
+  { name: "Education & Training", count: "67+", subtext: "Learning Centers", image: educationImg, icon: <GiGraduateCap />
+, type: "small-light" },
 ];
 
 export const FeaturedServices: React.FC = () => {
