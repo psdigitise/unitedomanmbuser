@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef } from "react";
-import ladyIcon from "../../assets/icons/ladyIcon.png";
-import locationIcon from "../../assets/icons/locationIcon.png";
-import SalonIcon from "../../assets/icons/salonIcon.svg";
-import specialistIcon from "../../assets/icons/specialistIcon.svg";
+// import ladyIcon from "../../assets/icons/ladyIcon.png";
+// import locationIcon from "../../assets/icons/locationIcon.png";
+// import SalonIcon from "../../assets/icons/salonIcon.svg";
+// import specialistIcon from "../../assets/icons/specialistIcon.svg";
 // import { PersonalizePopup } from "./PersonalizePopup/PersonalizePopup";
 import { fetchServicesListDropdown } from "../../api/ApiConfig";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +12,9 @@ import { NotifyError } from '../common/Toast/ToastMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setLocation } from "../../redux/locationSlice";
-import homebg from "../../assets/omonimgs/herobgnew.png";
+//import homebg from "../../assets/omonimgs/herobgnew.png";
 import { IoChevronDownOutline } from "react-icons/io5";
+import transparentbg from "../../assets/omonvideos/herobgnew2.mp4"
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { LoginPopup } from "./Popups/LoginPopup";
@@ -57,9 +58,9 @@ export const HeroSection = () => {
   // State to handle location input changes
   const [locationInput, setLocationInput] = useState<string>(storedReduxLocation || "");
   const [searchError, setSearchError] = useState<string | null>(null); // For service search validation
-  const [locationError, setLocationError] = useState<string | null>(null); // For location search validation
-  const [selected, setSelected] = useState<string>(sessionStorage.getItem("selectedServiceType") || "");
-  const [isFetchingLocation, setIsFetchingLocation] = useState(false);
+  const [, setLocationError] = useState<string | null>(null); // For location search validation
+  // const [, setSelected] = useState<string>(sessionStorage.getItem("selectedServiceType") || "");
+  // const [, setIsFetchingLocation] = useState(false);
 
   // ✅ Effect to update the input when geolocation is fetched
   useEffect(() => {
@@ -90,29 +91,29 @@ export const HeroSection = () => {
     }
   }, [dispatch, storedReduxLocation]);
 
-  const fetchCurrentLocation = () => {
-    if (navigator.geolocation) {
-      navigator.permissions.query({ name: "geolocation" }).then((permissionStatus) => {
-        if (permissionStatus.state === "granted" || permissionStatus.state === "prompt") {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              fetchAddressFromCoordinates(position.coords.latitude, position.coords.longitude);
-            },
-            (error) => {
-              console.error("Geolocation error:", error);
-              NotifyError("Failed to get current location. Please enable location permissions.");
-              setIsFetchingLocation(false);
-            }
-          );
-        } else {
-          NotifyError("Location permission denied. Please enable location access in your browser settings.");
-          setIsFetchingLocation(false);
-        }
-      });
-    } else {
-      NotifyError("Geolocation is not supported by your browser.");
-    }
-  };
+  // const fetchCurrentLocation = () => {
+  //   if (navigator.geolocation) {
+  //     navigator.permissions.query({ name: "geolocation" }).then((permissionStatus) => {
+  //       if (permissionStatus.state === "granted" || permissionStatus.state === "prompt") {
+  //         navigator.geolocation.getCurrentPosition(
+  //           (position) => {
+  //             fetchAddressFromCoordinates(position.coords.latitude, position.coords.longitude);
+  //           },
+  //           (error) => {
+  //             console.error("Geolocation error:", error);
+  //             NotifyError("Failed to get current location. Please enable location permissions.");
+  //             setIsFetchingLocation(false);
+  //           }
+  //         );
+  //       } else {
+  //         NotifyError("Location permission denied. Please enable location access in your browser settings.");
+  //         setIsFetchingLocation(false);
+  //       }
+  //     });
+  //   } else {
+  //     NotifyError("Geolocation is not supported by your browser.");
+  //   }
+  // };
 
   // ✅ Function to fetch address from lat/lng
   const fetchAddressFromCoordinates = async (latitude: number, longitude: number) => {
@@ -350,22 +351,22 @@ export const HeroSection = () => {
     }
   };
 
-  const handleServiceTypeChange = (type: string) => {
-    setSelected(type);
+  // const handleServiceTypeChange = (type: string) => {
+  //   setSelected(type);
 
-    // Create a mapping between service type strings and their IDs
-    const serviceTypeMapping = {
-      "1": { id: 1, name: "Salon Services" },
-      "2": { id: 2, name: "Home Services" }
-    };
+  //   // Create a mapping between service type strings and their IDs
+  //   const serviceTypeMapping = {
+  //     "1": { id: 1, name: "Salon Services" },
+  //     "2": { id: 2, name: "Home Services" }
+  //   };
 
-    const selectedType = serviceTypeMapping[type as keyof typeof serviceTypeMapping];
+  //   const selectedType = serviceTypeMapping[type as keyof typeof serviceTypeMapping];
 
-    // Store both the ID and name in sessionStorage
-    sessionStorage.setItem("selectedServiceType", type);
-    sessionStorage.setItem("selectedServiceTypeId", selectedType.id.toString());
-    sessionStorage.setItem("selectedServiceTypeName", selectedType.name);
-  };
+  //   // Store both the ID and name in sessionStorage
+  //   sessionStorage.setItem("selectedServiceType", type);
+  //   sessionStorage.setItem("selectedServiceTypeId", selectedType.id.toString());
+  //   sessionStorage.setItem("selectedServiceTypeName", selectedType.name);
+  // };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -376,10 +377,35 @@ export const HeroSection = () => {
   // }
 
   return (
-    <section
-      className="relative w-full h-screen bg-cover bg-center flex items-center justify-center overflow-hidden"
-      style={{ backgroundImage: `url(${homebg})` }}
-    >
+    // <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
+    //   {/* --- Background Video Implementation --- */}
+    //   <video
+    //     autoPlay
+    //     loop
+    //     muted
+    //     playsInline
+    //     className="absolute inset-0 w-full h-full object-cover z-0"
+    //   >
+    //     <source src={herobg} type="video/mp4" />
+    //   </video>
+
+    // <section
+    //   className="relative w-full h-screen bg-cover bg-center flex items-center justify-center overflow-hidden"
+    //   style={{ backgroundImage: `url(${homebg})` }}
+    // >
+
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-white">
+      {/* --- Background Video Implementation --- */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src={transparentbg} type="video/mp4" />
+        {/* Your browser does not support the video tag. */}
+      </video>
       {/* Optional: Add a light overlay if the background image is too dark */}
       <div className="absolute inset-0 bg-white/10"></div>
 

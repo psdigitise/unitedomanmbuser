@@ -1,366 +1,126 @@
-import { useState, useEffect } from "react";
-// import mindfulBeautyLogoFooter from "../assets/icons/mindfulBeautyLogoFooter.png";
-import mindfulBeautyLogoNewSmallFooter from "../assets/icons/mindfulBeautyLogoNewSmallFooter.png";
-import { MdOutlineLocationOn } from "react-icons/md";
-import { MdPhone } from "react-icons/md";
-import { MdMailOutline } from "react-icons/md";
-import instagram from "../assets/icons/instagram.png";
-import facebook from "../assets/icons/facebook.png";
-import linkedIn from "../assets/icons/linkedIn.png";
-import x from "../assets/icons/x.png";
-import { HiArrowSmRight } from "react-icons/hi";
+//import React from "react";
 import { Link } from "react-router-dom";
-import { subscribeNewsLetter, fetchCities } from "../api/ApiConfig";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as zod from "zod";
-
-// Define Zod schema for email validation
-const emailSchema = zod.object({
-  email: zod.string().email("Please enter a valid email"),
-});
-
-// Define the type based on the schema
-type EmailFormData = zod.infer<typeof emailSchema>;
+import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import footrbg from "../assets/omonimgs/footerbg.png"
 
 export const Footer = () => {
+  const currentYear = new Date().getFullYear();
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [cities, setCities] = useState<string[]>([]);
-  const [citiesError, setCitiesError] = useState<string | null>(null);
-
-  // Consolidated state for button text and submission status
-  const [buttonState, setButtonState] = useState({ buttonText: "Submit", isSubmitted: false });
-
-  // React Hook Form setup with Zod validation
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<EmailFormData>({
-    resolver: zodResolver(emailSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
-
-  useEffect(() => {
-    const loadCities = async () => {
-      try {
-        const citiesData = await fetchCities();
-        // Filter out single letter cities and sort alphabetically
-        console.log("Cities data", citiesData);
-        const filteredCities = citiesData
-          .filter((city: string) => city.length > 1)
-          .sort((a: string, b: string) => a.localeCompare(b));
-        setCities(filteredCities);
-      } catch (error) {
-        console.error("Error loading cities:", error);
-        setCitiesError("Failed to load cities");
-      }
-    };
-
-    loadCities();
-  }, []);
-
-  const onSubmit = async (data: EmailFormData) => {
-
-    setLoading(true); // Start loading state
-    setError(null);   // Clear any previous errors
-    setButtonState({ ...buttonState, isSubmitted: false }); // Reset submission state
-
-
-    try {
-      const response = await subscribeNewsLetter(data.email);
-      console.log("Email submitted successfully:", response);
-
-
-      // Update button text and color on success
-      setButtonState({ buttonText: "Email Submitted Successfully", isSubmitted: true });
-
-      // Reset the form after successful submission
-      reset(); // Clears all form fields including rating and comment
-
-      // Reset button text and color after 3 seconds
-      setTimeout(() => {
-        setButtonState({ buttonText: "Submit", isSubmitted: false });
-      }, 3000);
-
-    } catch (error: any) {
-      setError(error.message || "Error submitting the email. Please try again.")
-    } finally {
-      setLoading(false); // End loading state
-    }
-  };
-
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>{error}</div>;
-
-  const Year = () => {
-    let date = new Date();
-    let newYear = date.getFullYear();
-    return newYear;
-  };
   return (
-    <footer>
-      <div className="container mx-auto border-t-[1px] border-mindfulGrey px-4">
-        {/* Footer Menu */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-[40px]">
-          <div>
-            <div className="mb-4">
-              <img
-                src={mindfulBeautyLogoNewSmallFooter}
-                alt="mindfulBeautyLogoFooter"
-                className="footer-logo"
-              />
-            </div>
+    <footer
+      className="relative text-slate-300 py-16 overflow-hidden font-sans bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${footrbg})` }}
+    >
+      {/* Background Golden Waves - Mimicking the uploaded image style */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
+        <div className="absolute top-[-10%] left-[-5%] w-[110%] h-[40%] bg-[radial-gradient(ellipse_at_center,_rgba(197,160,89,0.15)_0%,_transparent_70%)]" />
+        <div className="absolute top-[20%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c5a059]/30 to-transparent shadow-[0_0_15px_#c5a059]" />
+        <div className="absolute bottom-[20%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c5a059]/30 to-transparent shadow-[0_0_15px_#c5a059]" />
+      </div>
 
-            <p className="leading-relaxed text-mindfulBlack">
-              Mindful Beauty offers a magical journey where Augmented
-              Intelligence and skilled artisans create unique bridal looks that
-              reflect each bride's desires. Their innovative approach blends
-              beauty and technology, ensuring personalized care and artistry for
-              an unforgettable experience.
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+
+          {/* Brand Section */}
+          <div className="col-span-1">
+            <div className="flex items-center gap-2 mb-6">
+              {/* Replace with your actual Logo SVG or Image */}
+              <div className="w-8 h-8 bg-[#c5a059] rounded-tr-xl rounded-bl-xl shadow-[0_0_10px_#c5a059]" />
+              <h2 className="text-2xl font-bold text-white tracking-tight">
+                Unite<span className="text-[#c5a059]">Oman</span>
+              </h2>
+            </div>
+            <p className="text-sm leading-relaxed mb-6 opacity-80">
+              Connecting verified businesses across Oman.
             </p>
-          </div>
+            <p className="text-xs font-medium mb-6">Made in Oman 🇴🇲</p>
 
-          <div className="md:mx-auto">
-            <h3 className="text-[18px] text-mindfulBlack font-bold mb-4">
-              Quick links
-            </h3>
-
-            <div>
-              <ul className="">
-                <Link to="/AboutUs">
-                  <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
-                    {/* <a href="#" className="hover:underline"> */}
-                    About Us
-                    {/* </a> */}
-                  </li>
-                </Link>
-
-                <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
-                  {/* <a href="#" className="hover:underline"> */}
-                  Reviews
-                  {/* </a> */}
-                </li>
-
-                {/* <li className="text-[16px] text-mindfulBlack mb-2 hover:underline"> */}
-                {/* <a href="#" className="hover:underline"> */}
-                {/* Blog */}
-                {/* </a> */}
-                {/* </li> */}
-
-                <Link to="/Contact">
-                  <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
-                    {/* <a href="#" className="hover:underline"> */}
-                    Contact us
-                    {/* </a> */}
-                  </li>
-                </Link>
-
-                {/* <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
-                  <a href="#" className="hover:underline">
-                    Register as a professional
-                  </a>
-                </li> */}
-                <li className="text-[16px] text-mindfulBlack mb-2 hover:underline">
-                  <a
-                    href="https://calm-sand-0e7a0520f.4.azurestaticapps.net"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    Register as a professional
-                  </a>
-                </li>
-              </ul>
+            {/* Social Icons */}
+            <div className="flex gap-4">
+              {[FaFacebookF, FaTwitter, FaLinkedinIn].map((Icon, i) => (
+                <a key={i} href="#" className="w-8 h-8 rounded border border-slate-500 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition-all">
+                  <Icon size={14} />
+                </a>
+              ))}
             </div>
           </div>
 
-          <div className="w-fit md:mx-auto">
-            <h3 className="text-[18px] text-mindfulBlack font-bold mb-4">
-              Contact Us
-            </h3>
-
-            <div>
-              <ul>
-                <li className="mb-5">
-                  <div className="flex items-start space-x-2">
-                    <div>
-                      <MdOutlineLocationOn className="text-[22px] text-main" />
-                    </div>
-                    <div>
-                      <h3 className="text-mindfulBlack font-semibold">
-                        Mindful Beauty
-                      </h3>
-                      <p className="text-mindfulBlack">
-                        Chitteth Building, PC Road, Vytilla, Kochi - 681019
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-                <li className="mb-5">
-                  <div className="w-fit flex items-center space-x-2 cursor-pointer">
-                    <div>
-                      <MdPhone className="text-[22px] text-main" />
-                    </div>
-                    <div>
-                      <p className="text-mindfulBlack">
-                        <Link
-                          to="tel:+919249091961"
-                          className="hover:underline"
-                        >
-                          +91 9249091961
-                        </Link>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-                <li className="mb-5">
-                  <div className="w-fit flex items-center space-x-2 cursor-pointer">
-                    <div>
-                      <MdMailOutline className="text-[22px] text-main" />
-                    </div>
-                    <div>
-                      <p className="text-mindfulBlack">
-                        <Link
-                          to="mailto:partnership@mindfulbeauty.ai"
-                          className="hover:underline"
-                        >
-                          partnership@mindfulbeauty.ai
-                        </Link>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-                <li>
-                  <h3 className="text-[18px] text-mindfulBlack font-bold mb-2">
-                    Follow Us
-                  </h3>
-
-                  <div>
-                    <ul className="flex items-center space-x-2">
-                      <li className="cursor-pointer">
-                        <Link
-                          to="https://www.instagram.com/mindfulbeautyai"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img src={instagram} alt="instagram" />
-                        </Link>
-                      </li>
-                      <li className="cursor-pointer">
-                        <Link
-                          to="https://www.facebook.com/mindfulbeautyin"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img src={facebook} alt="facebook" />
-                        </Link>
-                      </li>
-                      <li className="cursor-pointer">
-                        <Link
-                          to="https://www.linkedin.com/in/mindfulbeautyai"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img src={linkedIn} alt="linkedIn" />
-                        </Link>
-                      </li>
-                      <li className="cursor-pointer">
-                        <Link
-                          to="https://twitter.com/MindfulBeautyai"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img src={x} alt="x" />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
+          {/* Explore Links */}
           <div>
-            <h3 className="text-[18px] text-mindfulBlack font-bold mb-2">
-              Signup for Newsletter
+            <h3 className="text-white font-bold mb-6 relative inline-block">
+              Explore
+              <div className="absolute -bottom-1 left-0 w-1/2 h-[1px] bg-[#c5a059]" />
             </h3>
-            <p className="mb-4">
-              Join a community dedicated to transforming beauty and celebrating
-              individual journeys to the altar.
-            </p>
-            <form onSubmit={handleSubmit(onSubmit)} method="post">
-              <div className="mb-4">
-                <input
-                  type="text"
-                  placeholder="Enter your email"
-                  // className="w-full rounded-[6px] border-[1px] border-mindfulLightGrey px-4 py-2 focus-visible:outline-none"
-                  className={`w-full rounded-[6px] border-[1px] 
-                    ${errors.email ? "border-red-500" : "border-mindfulLightGrey"}
-                     px-4 py-2 focus-visible:outline-none`}
-                  {...register("email")}
-                />
-
-                {errors.email && (<p className="text-red-500 text-sm mt-1">{errors.email.message}</p>)}
-              </div>
-
-              <button
-                type="submit"
-                className={`${buttonState.isSubmitted ? "bg-green-500" : "bg-main"}
-                 text-mindfulWhite rounded-[20px] px-4 py-2 flex items-center`}
-                disabled={loading}
-              >
-                {/* Submit */}
-                {loading ? "Submitting..." : buttonState.buttonText} {/* Use buttonText state */}
-
-                <HiArrowSmRight className="text-[22px] text-mindfulWhite ml-1" />
-              </button>
-
-              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
-            </form>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/categories" className="hover:text-[#c5a059] transition-colors">Categories</Link></li>
+              <li><Link to="/featured" className="hover:text-[#c5a059] transition-colors">Featured Businesses</Link></li>
+              <li><Link to="/how-it-works" className="hover:text-[#c5a059] transition-colors">How It Works</Link></li>
+              <li><Link to="/testimonials" className="hover:text-[#c5a059] transition-colors">Testimonials</Link></li>
+              <li><Link to="/pricing" className="hover:text-[#c5a059] transition-colors">Pricing</Link></li>
+            </ul>
           </div>
+
+          {/* Company Links */}
+          <div>
+            <h3 className="text-white font-bold mb-6 relative inline-block">
+              Company
+              <div className="absolute -bottom-1 left-0 w-1/2 h-[1px] bg-[#c5a059]" />
+            </h3>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/about" className="hover:text-[#c5a059] transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="hover:text-[#c5a059] transition-colors">Contact</Link></li>
+              <li><Link to="/add-listing" className="hover:text-[#c5a059] transition-colors">Add Listing</Link></li>
+              <li><Link to="/login" className="hover:text-[#c5a059] transition-colors">Login</Link></li>
+              <li><Link to="/privacy" className="hover:text-[#c5a059] transition-colors">Privacy Policy</Link></li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-white font-bold mb-6 relative inline-block">
+              Contact
+              <div className="absolute -bottom-1 left-0 w-1/2 h-[1px] bg-[#c5a059]" />
+            </h3>
+            <ul className="space-y-4 text-sm">
+              <li className="opacity-80">Muscat, Oman</li>
+              <li>
+                <span className="block text-xs text-slate-500 uppercase font-bold">Email:</span>
+                <a href="mailto:info@uniteoman.com" className="text-white hover:text-[#c5a059]">info@uniteoman.com</a>
+              </li>
+              <li>
+                <span className="block text-xs text-slate-500 uppercase font-bold">Phone:</span>
+                <a href="tel:+968XXXXXX" className="text-white">+968 XXXXXX</a>
+              </li>
+            </ul>
+          </div>
+
         </div>
 
-        {/* Location */}
-        <div className="text-mindfulBlack text-center border-y border-mindfulGrey py-8 max-sm:py-0 max-md:border-t-0">
-          <p className="text-[15px] text-mindfulBlack max-md:hidden ">
-            {citiesError ? (
-              "Unable to load cities"
-            ) : cities.length > 0 ? (
-              cities
-                .filter((city: string) => city.length > 1)
-                .sort((a: string, b: string) => a.localeCompare(b))
-                .map((city: string) => city.trim())
-                .filter((city: string) => city !== "")
-                .join(" | ")
-            ) : (
-              "Loading cities..."
-            )}
-          </p>
-        </div>
-
-        {/* Copyrights & Terms & Privacy */}
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 py-[20px] sm:text-center md:text-center lg:text-left xl:text-left 2xl:text-left text-center">
-          <div>
-            <p className="text-[14px] text-mindfulBlack">
-              &copy; {Year()} Mindful Beauty | All rights reserved.
-            </p>
+        {/* Bottom Bar */}
+        {/* <div className="pt-8 border-t border-slate-700/50 flex flex-col md:flex-row justify-between items-center text-[13px] opacity-60">
+          <p>© {currentYear} UniteOman. All rights reserved.</p>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <Link to="/terms" className="hover:text-white">Terms</Link>
+            <Link to="/privacy" className="hover:text-white">Privacy</Link>
+            <Link to="/cookies" className="hover:text-white">Cookies</Link>
           </div>
-          <div>
-            <p className="text-[14px] text-mindfulBlack lg:text-right">
-              <Link to="/TermsAndConditons" className="hover:underline">
-                {" "}
-                Terms & Conditions{" "}
-              </Link>
-              |{" "}
-              <Link to="/PrivacyPolicy" className="hover:underline">
-                Privacy Policy
-              </Link>{" "}
-            </p>
+        </div> */}
+        {/* Bottom Bar - Aligned to match the image */}
+        <div className="pt-8 border-t border-slate-700/40 flex flex-col md:flex-row justify-between items-center text-[13px] opacity-70">
+
+          {/* Empty div to push content to the right on desktop, or keep it centered */}
+          <div className="hidden md:block flex-1"></div>
+
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
+            <p>© {currentYear} UniteOman. All rights reserved.</p>
+
+            <div className="flex gap-4 items-center">
+              <Link to="/terms" className="hover:text-[#c5a059] transition-colors">Terms</Link>
+              <span className="opacity-30">•</span>
+              <Link to="/privacy" className="hover:text-[#c5a059] transition-colors">Privacy</Link>
+              <span className="opacity-30">•</span>
+              <Link to="/cookies" className="hover:text-[#c5a059] transition-colors">Cookies</Link>
+            </div>
           </div>
         </div>
       </div>

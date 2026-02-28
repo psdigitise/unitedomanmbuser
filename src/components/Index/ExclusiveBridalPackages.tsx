@@ -1,185 +1,147 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../redux/store";
-import { NotifyError, NotifyInfo } from "../common/Toast/ToastMessage";
-import { setLocation } from "../../redux/locationSlice";
-import bridalbg from "../../assets/images/home-bridal-bg.png";
-import bridalMakeup from "../../assets/images/home-bridal-makeup.png";
-import preBridalMakeup from "../../assets/images/home-pre-bridal-makeup.png";
-// import { fetchServiceProviders } from "../../api/ApiConfig";
+import pluslogo from "../../assets/omonimgs/pluslogo.jpg";
+import alogo from "../../assets/omonimgs/Alogo.jpg";
+import sarahlogo from "../../assets/omonimgs/saharimg.jpg";
+import featuredbg from "../../assets/omonvideos/featuredbg.mp4"
+// import { RootState } from "../../redux/store";
+// import { NotifyError, NotifyInfo } from "../common/Toast/ToastMessage";
+// import { setLocation } from "../../redux/locationSlice";
+import { Star, Check, ArrowRight } from "lucide-react";
 
-interface FeaturedServicesProps {
-  category_id?: string;
-  category_name: string;
-  status: string;
-  image: string;
-}
-
-export const ExclusiveBridalPackages: React.FC<FeaturedServicesProps> = () => {
-  const dispatch = useDispatch();
+export const FeaturedBusinesses: React.FC = () => {
+  //const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const [ setLoading] = React.useState<boolean>(false);
   const [loadingCard, setLoadingCard] = React.useState<string | null>(null);
 
-  const storedReduxLocation = useSelector(
-    (state: RootState) => state.location.selectedLocation
-  );
+  const businesses = [
+    {
+      id: "1",
+      name: "Muscat Clinic",
+      verified: true,
+      category: "Healthcare & Medical",
+      location: "Muscat",
+      rating: "4.9 / 5.0",
+      reviews: "Based on 190 reviews",
+      logo: pluslogo,
+    },
+    {
+      id: "2",
+      name: "Al Noor Construction LLC",
+      verified: true,
+      category: "Construction & Contractors",
+      location: "Muscat",
+      rating: "4.8 / 5.0",
+      reviews: "Based on 132 reviews",
+      logo: alogo,
+    },
+    {
+      id: "3",
+      name: "Sahar Real Estate",
+      verified: true,
+      category: "Real Estate",
+      location: "Salalah",
+      rating: "4.7 / 5.0",
+      reviews: "Based on 124 reviews",
+      logo: sarahlogo,
+    },
+  ];
 
-  const handleImgClicknew = async (cardCaption: string) => {
-    setLoadingCard(cardCaption); // Show loading only on clicked card
-
-    if (storedReduxLocation) {
-      console.log("Using Redux location:", storedReduxLocation);
-      fetchLocationAndProceed(cardCaption);
-      return;
-    }
-
-    if (!navigator.geolocation) {
-      NotifyError("Geolocation is not supported by this browser.");
+  const handleAction = async (businessName: string) => {
+    setLoadingCard(businessName);
+    setTimeout(() => {
       setLoadingCard(null);
-      return;
-    }
-
-    try {
-      const permissionStatus = await navigator.permissions.query({
-        name: "geolocation",
-      });
-
-      if (permissionStatus.state === "granted") {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const userLocation = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
-          dispatch(setLocation(userLocation));
-          fetchLocationAndProceed(cardCaption);
-        });
-      } else if (permissionStatus.state === "denied") {
-        NotifyInfo("Kindly enable location in your browser or choose your preferred location.");
-        setLoadingCard(null);
-      } else {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const userLocation = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
-            dispatch(setLocation(userLocation));
-            fetchLocationAndProceed(cardCaption);
-          },
-          (error) => {
-            console.error("Location Error:", error);
-            NotifyError("Failed to get location.");
-            setLoadingCard(null);
-          },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-        );
-      }
-    } catch (error) {
-      console.error("Permission Check Error:", error);
-      NotifyError("An error occurred while checking location permissions.");
-      setLoadingCard(null);
-    }
-  };
-
-  const fetchLocationAndProceed = async (
-    // userLocation: string,
-    cardCaption: string
-  ) => {
-    const catID = "4";
-    // const storedLocation = sessionStorage.getItem("selectedLocation") || "Trivandrum";
-    const storedServiceTypeId = sessionStorage.getItem("selectedServiceTypeId");
-    const storedServiceTypeString = sessionStorage.getItem("selectedServiceType");
-    const serviceTypeID = storedServiceTypeId || storedServiceTypeString;
-
-    if (!serviceTypeID) {
-      NotifyError("Service Type is missing. Please select a service type.");
-      setLoadingCard(null);
-      return;
-    }
-
-    // setLoading(true);
-    try {
-
-      if (cardCaption === "Pre-Bridal Makeup") {
-        navigate("/SearchResults", { state: { cardCaption } });
-      } else {
-        navigate("/SearchResults", { state: { catID } });
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        NotifyError(error.message || "Error fetching category data");
-      } else {
-        NotifyError("An unknown error occurred");
-      }
-    } finally {
-      // setLoading(false);
-      setLoadingCard(null); // Reset loading state
-    }
+      navigate("/SearchResults", { state: { businessName } });
+    }, 500);
   };
 
   return (
-    <section
-      className="lg:pb-[60px] md:pb-[40px] pb-[30px]"
-      style={{
-        backgroundImage: `url(${bridalbg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "40vh",
-      }}
-    >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 text-center">
-          <h2
-            className="font-Montserrat text-[35px] text-mindfulBlack font-bold mb-[20px] max-lg:text-[30px] max-md:text-[25px] max-md:mb-[15px] max-sm:text-[20px]"
-            style={{ marginTop: "30px" }}
-          >
-            Exclusive Bridal Packages
+    <section className="relative py-20 bg-[#aebde5] overflow-hidden">
+      {/* Background Video Implementation */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
+      >
+        <source src={featuredbg} type="video/mp4" />
+      </video>
+      {/* Background with abstract soft curves to match image */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-60 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+      <div className="container relative z-10 mx-auto px-4 max-w-7xl">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <h2 className="text-[32px] md:text-[40px] font-bold text-[#2d3a6d] font-Montserrat">
+            Featured Businesses <br />
+            Across <span className="text-[#c08c4c]">Oman</span>
           </h2>
+          <div className="w-20 h-0.5 bg-gray-200 mx-auto my-4 opacity-0"></div> {/* Spacer */}
+          <p className="text-gray-600 text-[18px]">Discover trusted and verified companies.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-          {/* Bridal Makeup Card */}
-          <div
-            className="relative rounded-lg overflow-hidden aspect-[3/2] cursor-pointer"
-            onClick={() => handleImgClicknew("Bridal Makeup")}
-          >
-            {loadingCard === "Bridal Makeup" ? (
-              <div className="flex items-center justify-center h-[300px] bg-gray-100">
-                <p className="text-gray-700">Loading...</p>
-              </div>
-            ) : (
-              <>
-                <img
-                  src={bridalMakeup}
-                  alt="Bridal Makeup"
-                  className="w-full h-[300px] object-cover"
-                />
-                <h3 className="absolute bottom-4 left-4 text-white text-xl font-semibold">
-                  Bridal Makeup
-                </h3>
-              </>
-            )}
-          </div>
+        {/* Outer Frosted Container */}
+        <div className="bg-white/40 backdrop-blur-[15px] p-6 md:p-10 rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] border border-white/60 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {businesses.map((biz) => (
+              <div
+                key={biz.id}
+                className="bg-white rounded-[20px] p-8 border border-gray-100 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
+              >
+                {/* Header Row: Logo and Text */}
+                <div className="flex gap-4 items-start mb-6">
+                  <div className="w-14 h-14 flex-shrink-0">
+                    <img src={biz.logo} alt={biz.name} className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <h3 className="text-[19px] font-bold text-[#1e293b] leading-tight mb-1">{biz.name}</h3>
+                    <div className="flex items-center text-[#22c55e] text-[13px] font-medium">
+                      <Check className="w-3.5 h-3.5 mr-1 stroke-[3px]" /> Verified
+                    </div>
+                  </div>
+                </div>
 
-          {/* Pre-Bridal Makeup Card */}
-          <div
-            className="relative rounded-lg overflow-hidden aspect-[3/2] cursor-pointer"
-            onClick={() => handleImgClicknew("Pre-Bridal Makeup")}
-          >
-            {loadingCard === "Pre-Bridal Makeup" ? (
-              <div className="flex items-center justify-center h-[300px] bg-gray-100">
-                <p className="text-gray-700">Loading...</p>
+                {/* Info Block */}
+                <div className="text-[#64748b] text-[15px] mb-4 space-y-1">
+                  <p>{biz.category}</p>
+                  <p>• {biz.location}</p>
+                </div>
+
+                {/* Thin Dotted/Solid Line Divider */}
+                <div className="w-full border-t border-gray-100 mb-5"></div>
+
+                {/* Rating Block */}
+                <div className="mb-8 mt-auto">
+                  <div className="flex items-center gap-1 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={15} className="fill-[#eab308] text-[#eab308]" />
+                    ))}
+                    <span className="ml-2 font-semibold text-[#1e293b] text-[15px]">{biz.rating}</span>
+                  </div>
+                  <p className="text-[#94a3b8] text-[14px]">{biz.reviews}</p>
+                </div>
+
+                {/* Button: Matching Gradient and Arrow */}
+                <button
+                  onClick={() => handleAction(biz.name)}
+                  className="w-full bg-gradient-to-r from-[#2d3a6d] to-[#3b4b8a] hover:from-[#1e293b] hover:to-[#2d3a6d] text-white py-3.5 rounded-xl flex items-center justify-center transition-all text-[15px] font-semibold group shadow-lg shadow-blue-900/10"
+                >
+                  {loadingCard === biz.name ? "Loading..." : "View Profile"}
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
-            ) : (
-              <>
-                <img
-                  src={preBridalMakeup}
-                  alt="Pre-Bridal Makeup"
-                  className="w-full h-[300px] object-cover"
-                />
-                <h3 className="absolute bottom-4 left-4 text-white text-xl font-semibold">
-                  Pre-Bridal Makeup
-                </h3>
-              </>
-            )}
+            ))}
           </div>
+        </div>
+
+        {/* Explore All Button - Styled to match the bottom button in image */}
+        <div className="flex justify-center mt-12">
+          <button className="bg-[#212b50] hover:bg-[#151b33] text-white px-10 py-3.5 rounded-xl font-semibold flex items-center transition-all group">
+            Explore All Businesses
+            <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </div>
     </section>

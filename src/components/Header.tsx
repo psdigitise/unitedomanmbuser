@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // import mindfulBeauty from "../assets/icons/mindfulBeautyLogo.png";
 import mindfulBeautyNew from "../assets/omonimgs/logonew1.png";
 import { SideBar } from "./SideBar";
-import { Link, useNavigate } from "react-router-dom";
-import { HiOutlineShoppingCart } from "react-icons/hi";
-import { useDispatch, useSelector } from "react-redux";
-import { persistor, RootState } from "../redux/store";
-import { clearCart, logout } from "../redux/cartSlice";
-import { BiSolidUser } from "react-icons/bi";
+import { Link } from "react-router-dom";
+//import { HiOutlineShoppingCart } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import {RootState } from "../redux/store";
+//import { clearCart, logout } from "../redux/cartSlice";
+//import { BiSolidUser } from "react-icons/bi";
 import { Helmet } from "react-helmet-async";
 
 export const Header = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   // Navbar State Declaration
   // const [isScrolled, setIsScrolled] = useState(false);
 
@@ -37,30 +37,30 @@ export const Header = () => {
     setShowSideBar(!showSideBar);
   };
 
-  const dispatch = useDispatch();
-  const { phoneNumber } = useSelector((state: RootState) => state.cart);
-  const [profileHover, setProfileHover] = useState(false);
+  //const dispatch = useDispatch();
+  // const { phoneNumber } = useSelector((state: RootState) => state.cart);
+  // const [profileHover, setProfileHover] = useState(false);
 
-  const handleMouseEnter = () => {
-    setProfileHover(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setProfileHover(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setProfileHover(false);
-  };
+  // const handleMouseLeave = () => {
+  //   setProfileHover(false);
+  // };
 
-  const handleLogout = async () => {
-    dispatch(clearCart()); // Clear the cart
-    dispatch(logout()); // Logout and clear token
-    navigate("/");
-    sessionStorage.clear();
+  // const handleLogout = async () => {
+  //   dispatch(clearCart()); // Clear the cart
+  //   dispatch(logout()); // Logout and clear token
+  //   navigate("/");
+  //   sessionStorage.clear();
 
-    // Flush pending storage writes before purging
-    await persistor.flush();
+  //   // Flush pending storage writes before purging
+  //   await persistor.flush();
 
-    // Purge persisted state (this will remove Redux Persist data, i.e., localStorage data)
-    await persistor.purge();  // This clears the persisted Redux state from localStorage
-  }
+  //   // Purge persisted state (this will remove Redux Persist data, i.e., localStorage data)
+  //   await persistor.purge();  // This clears the persisted Redux state from localStorage
+  // }
 
   // Taken from Redux
   const { token } = useSelector((state: RootState) => state.cart); // Token from Redux
@@ -76,21 +76,21 @@ export const Header = () => {
   const localBranchID = localStorage.getItem("selectedLocalBranchId");
   console.log("localProviderID and localBranchID from local storage", localProviderID, localBranchID);
 
-  const handleCartIcon = () => {
-    if (!token) {
-      navigate("/Login"); // Navigate to Login if no token
-    } else {
-      // navigate("/DateTime"); // Proceed to DateTime if token exists
+  // const handleCartIcon = () => {
+  //   if (!token) {
+  //     navigate("/Login"); // Navigate to Login if no token
+  //   } else {
+  //     // navigate("/DateTime"); // Proceed to DateTime if token exists
 
-      // Navigate to Overview with provider_id query parameter
-      // navigate(`/Overview?provider_id=${sessionProviderID}&branch_id=${sessionBranchID}`);
-      navigate(`/Overview?provider_id=${localProviderID}&branch_id=${localBranchID}`);
-    }
-  };
+  //     // Navigate to Overview with provider_id query parameter
+  //     // navigate(`/Overview?provider_id=${sessionProviderID}&branch_id=${sessionBranchID}`);
+  //     navigate(`/Overview?provider_id=${localProviderID}&branch_id=${localBranchID}`);
+  //   }
+  // };
 
   // Cart Items from Redux
-  const cartItems = useSelector((state: RootState) => state.cart.items);
-  const cartItemsCount = cartItems.length;
+ // const cartItems = useSelector((state: RootState) => state.cart.items);
+  //const cartItemsCount = cartItems.length;
 
   // API Function
   // Services List function API Call

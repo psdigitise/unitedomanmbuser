@@ -1,14 +1,16 @@
 // import { useState, useEffect } from 'react'
 import { HeroSection } from '../components/Index/HeroSection'
-import { MottoSection } from '../components/Index/MottoSection'
+// import { MottoSection } from '../components/Index/MottoSection'
 import { FeaturedServices } from '../components/Index/FeaturedServices'
-import { RecommendedBest } from '../components/Index/RecommendedBest'
-import { BookingFlow } from '../components/Index/BookingFlow'
-import { FeedBack } from '../components/Index/FeedBack'
-import { Faq } from '../components/Index/Faq'
-import { RegAsAProfessional } from '../components/Index/RegAsAProfessional'
+import {  WhyChooseSection } from '../components/Index/RecommendedBest'
+import { SuccessStoriesSection } from '../components/Index/BookingFlow'
+// import { FeedBack } from '../components/Index/FeedBack'
+// import { Faq } from '../components/Index/Faq'
+// import { RegAsAProfessional } from '../components/Index/RegAsAProfessional'
+import { FeaturedBusinesses } from '../components/Index/ExclusiveBridalPackages'
 import { Helmet } from 'react-helmet-async'
-import { ExclusiveBridalPackages } from '../components/Index/ExclusiveBridalPackages'
+// import { FlowCard } from '../components/Index/BookingFlow/FlowCard'
+
 // import { Blog } from '../components/Index/Blog'
 
 export const Index = () => {
@@ -52,13 +54,18 @@ export const Index = () => {
       <HeroSection />
       {/* <MottoSection /> */}
       <FeaturedServices />
-      <ExclusiveBridalPackages category_name={''} status={''} image={''} />
-      <RecommendedBest />
-      <BookingFlow />
-      <FeedBack />
-      <Faq />
+      {/* <FeaturedBusinesses category_name={''} status={''} image={''} /> */}
+      <FeaturedBusinesses />
+      {/* <RecommendedBest /> */}
+      <WhyChooseSection />
+      {/* <FlowCard cardImage={''} cardCount={''} cardTitle={''} cardDesc={''}/> */}
+      {/* <BookingFlow /> */}
+      <SuccessStoriesSection />
+
+      {/* <FeedBack />
+      <Faq /> */}
       {/* <Blog /> */}
-      <RegAsAProfessional />
+      {/* <RegAsAProfessional /> */}
     </div>
   )
 }

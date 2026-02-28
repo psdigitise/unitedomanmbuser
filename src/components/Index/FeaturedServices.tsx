@@ -7,18 +7,100 @@ import restaurantImg from "../../assets/omonimgs/restaurants.png";
 import realEstateImg from "../../assets/omonimgs/realestate.png";
 import itImg from "../../assets/omonimgs/IT.png";
 import educationImg from "../../assets/omonimgs/education.png";
-import { HiScale } from "react-icons/hi";
-import { GiGraduateCap } from "react-icons/gi";
+import restaurantslogo from "../../assets/omonimgs/restaurantslogo.png";
+import constructorslogo from "../../assets/omonimgs/constructorslogo.png";
+// import healthlogo from "../../assets/omonimgs/healthlogo.png";
+// import { HiScale } from "react-icons/hi";
+import { GiGraduateCap, GiScales } from "react-icons/gi";
+import { PiStethoscopeBold } from "react-icons/pi";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { RiComputerLine } from "react-icons/ri";
 
 const CATEGORIES = [
-  { name: "Construction & Contractors", count: "248+", subtext: "Verified Businesses", image: constructionImg, icon: "👷", type: "large-dark" },
-  { name: "Healthcare & Clinics", count: "132+", subtext: "Verified Businesses", image: healthcareImg, icon: "🩺", type: "large-blue" },
-  { name: "Legal & Consultancy", count: "96+", subtext: "Verified Businesses", image: legalImg, icon: <HiScale />, type: "small-light" },
-  { name: "Restaurants & Cafes", count: "310+", subtext: "Verified Businesses", image: restaurantImg, icon: "🍴", type: "small-dark" },
-  { name: "Real Estate", count: "204+", subtext: "Verified Properties", image: realEstateImg, icon: "🏢", type: "small-blue" },
-  { name: "IT & Software", count: "88+", subtext: "Tech Companies", image: itImg, icon: "💻", type: "small-dark-blue" },
-  { name: "Education & Training", count: "67+", subtext: "Learning Centers", image: educationImg, icon: <GiGraduateCap />
-, type: "small-light" },
+  {
+    name: "Construction & Contractors",
+    count: "248+",
+    subtext: "Verified Businesses",
+    image: constructionImg,
+    // We'll apply the yellow color directly to the icon component
+    // icon: <GiBilledCap className="text-[#ba8316] text-3xl" />,
+    icon: <img src={constructorslogo} alt="Constructor Logo" className="w-8 h-8 object-contain" />,
+    type: "large-dark",
+    // Specific styles to match your uploaded image
+    customStyle: {
+      bg: "rgba(255, 215, 0, 0.1)", // Light yellow transparent background
+      border: "rgba(255, 215, 0, 0.4)", // Golden border
+      shadow: "0 0 15px rgba(255, 215, 0, 0.3)" // Outer glow
+    }
+  },
+  {
+    name: "Healthcare & Clinics",
+    count: "132+",
+    subtext: "Verified Businesses",
+    image: healthcareImg,
+    // If you have a custom logo for healthcare, import and use it here like constructorslogo
+    icon: <PiStethoscopeBold className="w-8 h-8 object-contain" />,
+    type: "large-blue",
+    customStyle: {
+      bg: "rgba(186, 230, 253, 0.15)", // Light icy blue background
+      border: "rgba(125, 211, 252, 0.5)", // Bright blue border
+      shadow: "0 0 20px rgba(56, 189, 248, 0.4)", // Soft blue outer glow
+
+    }
+  },
+  { name: "Legal & Consultancy", count: "96+", subtext: "Verified Businesses", image: legalImg, icon: <GiScales className="w-5 h-5 object-contain" />, type: "small-light" },
+
+  {
+    name: "Restaurants & Cafes",
+    count: "310+",
+    subtext: "Verified Businesses",
+    image: restaurantImg,
+    icon: <img src={restaurantslogo} alt="Restaurant Logo" className="w-8 h-8 object-contain" />,
+    type: "small-dark",
+    customIconBg: "#7D4211"
+  },
+  {
+    name: "Real Estate",
+    count: "204+",
+    subtext: "Verified Properties",
+    image: realEstateImg,
+    icon: <HiOutlineBuildingOffice2 className="w-5 h-5 object-contain" />,
+    type: "small-blue",
+    glowStyle: {
+      bg: "rgba(67, 85, 230, 0.25)", // Indigo-Blue background
+      border: "rgba(67, 85, 230, 0.6)", // Stronger blue border
+      shadow: "0 0 20px rgba(67, 85, 230, 0.4)", // Blue glow
+      iconColor: "#ffffff"
+    }
+  },
+  {
+    name: "IT & Software",
+    count: "88+",
+    subtext: "Tech Companies",
+    image: itImg,
+    icon: <RiComputerLine className="w-5 h-5 object-contain" />,
+    type: "small-dark-blue",
+    glowStyle: {
+      bg: "rgba(30, 64, 175, 0.35)", // Deep Navy-Blue background
+      border: "rgba(59, 130, 246, 0.7)", // Bright Electric Blue border
+      shadow: "0 0 25px rgba(30, 64, 175, 0.5)", // Stronger tech glow
+      iconColor: "#60a5fa"
+    }
+  },
+  {
+    name: "Education & Training",
+    count: "67+",
+    subtext: "Learning Centers",
+    image: educationImg,
+    icon: <GiGraduateCap className="w-5 h-5 text-white object-contain" />,
+    type: "small-light",
+    glowStyle: {
+      bg: "rgba(37, 99, 235, 0.2)", // Pure Blue background
+      border: "rgba(37, 99, 235, 0.5)", // Academic Blue border
+      shadow: "0 0 20px rgba(37, 99, 235, 0.3)", // Soft blue glow
+      iconColor: "#2563eb"
+    }
+  },
 ];
 
 export const FeaturedServices: React.FC = () => {
@@ -93,8 +175,54 @@ export const FeaturedServices: React.FC = () => {
 
                 {/* Content */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md border shadow-lg ${isLightText ? 'bg-white/20 border-white/30 text-white' : 'bg-white border-gray-100 text-[#c18d4d]'}`}>
-                    {cat.icon}
+                  {/* Icon Container */}
+                  <div
+                    className={`rounded-full flex items-center justify-center transition-all duration-300 border backdrop-blur-md shadow-lg 
+    ${cat.name === "Construction & Contractors" && "Healthcare & Clinics" ? "w-14 h-14" : "w-10 h-10"} 
+    ${isLightText ? 'bg-white/20 border-white/30 text-white' : 'bg-white border-gray-100 text-[#c18d4d]'}`}
+                    style={{
+                      ...(cat.name === "Construction & Contractors" ? {
+                        backgroundColor: "rgba(255, 215, 0, 0.15)", // Subtle yellow glow bg
+                        borderColor: "rgba(255, 215, 0, 0.5)",      // Golden border
+                        boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)", // The "Glow" effect
+                      } : {}),
+                      ...(cat.name === "Healthcare & Clinics" ? {
+                        backgroundColor: "rgba(173, 216, 230, 0.15)",
+                        borderColor: "rgba(173, 216, 230, 0.5)",
+                        boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
+                      } : {}),
+                      ...(cat.name === "Legal & Consultancy" ? {
+                        background: "linear-gradient(135deg, #4d2b12 0%, #2b180a 100%)", // Deep bronze/chocolate gradient
+                        borderColor: "rgba(193, 141, 77, 0.4)", // Muted gold border
+                        boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(193, 141, 77, 0.2)",
+                      } : {}),
+                      ...(cat.name === "Restaurants & Cafes" ? {
+                        backgroundColor: "#814512",                  // Your navy blue
+                        borderColor: "transparent",
+                      } : {}),
+                      ...(cat.name === "Real Estate" ? {
+                        background: "linear-gradient(135deg, #4355e6 0%, #2a36b3 100%)", // Vibrant Royal Blue
+                        borderColor: "rgba(255, 255, 255, 0.3)",
+                        boxShadow: "0 8px 20px rgba(67, 85, 230, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1)",
+                      } : {}),
+                      ...(cat.name === "IT & Software" ? {
+                        background: "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)", // Deep Tech Blue
+                        borderColor: "rgba(96, 165, 250, 0.5)", // Bright Electric Blue border
+                        boxShadow: "0 0 25px rgba(30, 64, 175, 0.6), inset 0 0 15px rgba(96, 165, 250, 0.2)",
+                      } : {}),
+                      ...(cat.name === "Education & Training" ? {
+                        background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)", // Academic Blue
+                        borderColor: "rgba(191, 219, 254, 0.4)",
+                        boxShadow: "0 6px 15px rgba(37, 99, 235, 0.3), inset 0 0 8px rgba(255, 255, 255, 0.15)",
+                      } : {})
+                    }}
+                  >
+                    {/* Apply yellow color and larger size specifically to the Construction icon */}
+                    {cat.name === "Construction & Contractors"
+                      ? React.cloneElement(cat.icon as React.ReactElement, {
+                        className: "text-[#ba8316] text-3xl"
+                      })
+                      : cat.icon}
                   </div>
 
                   <div className="mb-5 space-y-4">
