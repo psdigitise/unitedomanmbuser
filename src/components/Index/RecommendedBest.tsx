@@ -3,6 +3,7 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 import SearchIcon from "../../assets/omonimgs/searchicon-removebg.png";
 import verifyicon from "../../assets/omonimgs/verifyicon-removebg.png";
 import callicon from "../../assets/omonimgs/callicon-removebg.png";
+import listbusinessbgnew3 from "../../assets/omonvideos/listbusinessbgnew3.mp4"
 
 /* --- SHARED DECORATIVE COMPONENT --- */
 const GoldLineWithDotLeft = ({ width = "w-40", hasDot = true }) => (
@@ -43,33 +44,21 @@ const GoldLineWithDotRight = ({ width = "w-40", hasDot = true }) => (
 
 export const WhyChooseSection = () => {
   return (
-    <section className="relative py-16 bg-blue-100 overflow-hidden font-sans">
-      {/* --- PREMIUM BACKGROUND LAYER --- */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,_rgba(248,250,252,1)_0%,_rgba(255,255,255,1)_70%)] opacity-80"></div>
-
-        {/* Golden "Shining" Flowing Lines */}
-        <div className="absolute -top-10 -right-20 w-[600px] h-[400px] opacity-70 rotate-12">
-          <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100 250C250 200 400 350 550 280" stroke="url(#goldGradient)" strokeWidth="0.8" opacity="0.6" />
-            <path d="M120 270C270 220 420 370 570 300" stroke="url(#goldGradient)" strokeWidth="0.5" opacity="0.4" />
-            <path d="M80 230C230 180 380 330 530 260" stroke="url(#goldGradient)" strokeWidth="1" opacity="0.8" />
-            <defs>
-              <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#d4af37" stopOpacity="0" />
-                <stop offset="50%" stopColor="#f9d976" />
-                <stop offset="100%" stopColor="#d4af37" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-
-        <div className="absolute -bottom-20 -left-20 w-[600px] h-[400px] opacity-50 -rotate-12">
-          <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M-50 200C100 250 250 100 450 150" stroke="url(#goldGradient)" strokeWidth="0.8" />
-            <path d="M-30 220C120 270 270 120 470 170" stroke="url(#goldGradient)" strokeWidth="0.5" />
-          </svg>
-        </div>
+    <section className="relative py-16 overflow-hidden font-sans">
+      {/* --- VIDEO BACKGROUND LAYER --- */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src={listbusinessbgnew3} type="video/mp4" />
+          {/* Your browser does not support the video tag. */}
+        </video>
+        {/* --- PREMIUM BACKGROUND LAYER --- */}
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -192,7 +181,7 @@ const FeatureCard = ({ title, desc, iconType }: { title: string; desc: string; i
   return (
     <div className="group bg-white p-1 rounded-[32px] text-center shadow-[0_15px_50px_rgba(0,0,0,0.03)] border border-slate-50 flex flex-col items-center hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-all duration-300 h-full">
       <div className="mb-3">{getIcon()}</div>
-<h4 className="text-[20px] font-extrabold text-[#1e293b] mb-1 leading-tight">{title}</h4>
+      <h4 className="text-[20px] font-extrabold text-[#1e293b] mb-1 leading-tight">{title}</h4>
       {/* Top small divider */}
       <div className="w-10 h-[2.5px] bg-[#c5a059] mb-4"></div>
 

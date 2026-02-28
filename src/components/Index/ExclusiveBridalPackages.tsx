@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import pluslogo from "../../assets/omonimgs/pluslogo.jpg";
 import alogo from "../../assets/omonimgs/Alogo.jpg";
 import sarahlogo from "../../assets/omonimgs/saharimg.jpg";
-import featuredbg from "../../assets/omonvideos/featuredbg.mp4"
+import featuredbg from "../../assets/omonvideos/featuredbgnew3.mp4"
 // import { RootState } from "../../redux/store";
 // import { NotifyError, NotifyInfo } from "../common/Toast/ToastMessage";
 // import { setLocation } from "../../redux/locationSlice";

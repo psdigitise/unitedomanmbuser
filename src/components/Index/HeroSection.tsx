@@ -12,9 +12,9 @@ import { NotifyError } from '../common/Toast/ToastMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setLocation } from "../../redux/locationSlice";
-//import homebg from "../../assets/omonimgs/herobgnew.png";
+import homebg from "../../assets/omonimgs/herobgnew3.png";
 import { IoChevronDownOutline } from "react-icons/io5";
-import transparentbg from "../../assets/omonvideos/herobgnew2.mp4"
+import transparentbg from "../../assets/omonvideos/herobgnew3.mp4"
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { LoginPopup } from "./Popups/LoginPopup";
@@ -395,7 +395,7 @@ export const HeroSection = () => {
     // >
 
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-white">
-      {/* --- Background Video Implementation --- */}
+      
       <video
         autoPlay
         loop
@@ -404,7 +404,7 @@ export const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src={transparentbg} type="video/mp4" />
-        {/* Your browser does not support the video tag. */}
+       
       </video>
       {/* Optional: Add a light overlay if the background image is too dark */}
       <div className="absolute inset-0 bg-white/10"></div>

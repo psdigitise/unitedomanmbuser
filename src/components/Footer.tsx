@@ -2,15 +2,28 @@
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import footrbg from "../assets/omonimgs/footerbg.png"
+import footerbgnew3 from "../assets/omonvideos/bgfooternew3.mp4"
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className="relative text-slate-300 py-16 overflow-hidden font-sans bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${footrbg})` }}
-    >
+    <footer className="relative text-slate-300 py-16 font-sans bg-[#0a0f1a] min-h-[400px]">
+      {/* --- FULL VIDEO BACKGROUND --- */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          // "object-cover" + "w-full h-full" makes it cover the entire area
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover"
+        >
+          <source src={footerbgnew3} type="video/mp4" />
+        </video>
+
+        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+      </div>
       {/* Background Golden Waves - Mimicking the uploaded image style */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
         <div className="absolute top-[-10%] left-[-5%] w-[110%] h-[40%] bg-[radial-gradient(ellipse_at_center,_rgba(197,160,89,0.15)_0%,_transparent_70%)]" />
@@ -106,22 +119,29 @@ export const Footer = () => {
           </div>
         </div> */}
         {/* Bottom Bar - Aligned to match the image */}
-        <div className="pt-8 border-t border-slate-700/40 flex flex-col md:flex-row justify-between items-center text-[13px] opacity-70">
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-slate-700/40 relative text-[13px] opacity-70">
 
-          {/* Empty div to push content to the right on desktop, or keep it centered */}
-          <div className="hidden md:block flex-1"></div>
+          {/* Center Copyright */}
+          <p className="text-center">
+            © {currentYear} UniteOman. All rights reserved.
+          </p>
 
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
-            <p>© {currentYear} UniteOman. All rights reserved.</p>
-
-            <div className="flex gap-4 items-center">
-              <Link to="/terms" className="hover:text-[#c5a059] transition-colors">Terms</Link>
-              <span className="opacity-30">•</span>
-              <Link to="/privacy" className="hover:text-[#c5a059] transition-colors">Privacy</Link>
-              <span className="opacity-30">•</span>
-              <Link to="/cookies" className="hover:text-[#c5a059] transition-colors">Cookies</Link>
-            </div>
+          {/* Right Side Links */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:flex gap-4 items-center">
+            <Link to="/terms" className="hover:text-[#c5a059] transition-colors">
+              Terms
+            </Link>
+            <span className="opacity-30">•</span>
+            <Link to="/privacy" className="hover:text-[#c5a059] transition-colors">
+              Privacy
+            </Link>
+            <span className="opacity-30">•</span>
+            <Link to="/cookies" className="hover:text-[#c5a059] transition-colors">
+              Cookies
+            </Link>
           </div>
+
         </div>
       </div>
     </footer>
