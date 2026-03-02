@@ -5,7 +5,6 @@ import verifyicon from "../../assets/omonimgs/verifyicon-removebg.png";
 import callicon from "../../assets/omonimgs/callicon-removebg.png";
 import listbusinessbgnew3 from "../../assets/omonvideos/listbusinessbgnew3.mp4"
 
-/* --- SHARED DECORATIVE COMPONENT --- */
 const GoldLineWithDotLeft = ({ width = "w-40", hasDot = true }) => (
   <div className="flex items-center justify-center gap-2">
     {/* Left Side Line */}
@@ -45,7 +44,6 @@ const GoldLineWithDotRight = ({ width = "w-40", hasDot = true }) => (
 export const WhyChooseSection = () => {
   return (
     <section className="relative py-16 overflow-hidden font-sans">
-      {/* --- VIDEO BACKGROUND LAYER --- */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -57,12 +55,11 @@ export const WhyChooseSection = () => {
           <source src={listbusinessbgnew3} type="video/mp4" />
           {/* Your browser does not support the video tag. */}
         </video>
-        {/* --- PREMIUM BACKGROUND LAYER --- */}
         <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* --- MAIN HEADER --- */}
+        {/*MAIN HEADER */}
         <div className="text-center mb-10">
           <div className="text-center mb-6">
             <h1 className="text-4xl font-bold text-[#1c2b4d] mb-2">
@@ -86,7 +83,7 @@ export const WhyChooseSection = () => {
           </div>
         </div>
 
-        {/* --- STATS ROW --- */}
+        {/*  STATS ROW */}
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14 mb-12">
           <StatBox value="10,000+" label="Businesses Listed" />
           <GoldDot />
@@ -97,7 +94,7 @@ export const WhyChooseSection = () => {
           <StatBox value="100%" label="Verified Listings" />
         </div>
 
-        {/* --- WHY CHOOSE HEADER WITH DOT-LINES --- */}
+        {/*WHY CHOOSE HEADER WITH DOT-LINES*/}
         <div className="flex items-center justify-center gap-4 mb-10">
           <GoldLineWithDotLeft width="w-16 md:w-32" hasDot={true} />
           <h2 className="text-2xl md:text-3xl font-bold text-[#1c2b4d] whitespace-nowrap">
@@ -106,7 +103,7 @@ export const WhyChooseSection = () => {
           <GoldLineWithDotRight width="w-16 md:w-32" hasDot={true} />
         </div>
 
-        {/* --- FEATURE CARDS --- */}
+        {/*FEATURE CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
           <FeatureCard
             title="Smart Search"
@@ -144,7 +141,7 @@ export const WhyChooseSection = () => {
   );
 };
 
-/* --- SUB-COMPONENTS --- */
+/* SUB-COMPONENTS */
 
 const StatBox = ({ value, label }: { value: string; label: string }) => (
   <div className="text-center">
@@ -167,7 +164,7 @@ const FeatureCard = ({ title, desc, iconType }: { title: string; desc: string; i
 
     return (
       <div className="relative flex items-center justify-center w-25 h-24">
-        {/* Background Glow - Expanded for the larger icon */}
+        {/* Background Glow  */}
         <div className="absolute inset-0 bg-[#c5a059]/20 blur-3xl rounded-full"></div>
         <img
           src={iconSrc}
@@ -189,7 +186,7 @@ const FeatureCard = ({ title, desc, iconType }: { title: string; desc: string; i
         {desc}
       </p>
 
-      {/* --- ADDED BOTTOM GRADIENT LINE --- */}
+      {/*ADDED BOTTOM GRADIENT LINE */}
       <div className="flex justify-center w-full mt-6">
         <div
           className="w-24 h-[4px] rounded-full"

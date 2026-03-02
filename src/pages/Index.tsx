@@ -1,13 +1,13 @@
 // import { useState, useEffect } from 'react'
 import { HeroSection } from '../components/Index/HeroSection'
 // import { MottoSection } from '../components/Index/MottoSection'
-import { FeaturedServices } from '../components/Index/FeaturedServices'
-import {  WhyChooseSection } from '../components/Index/RecommendedBest'
-import { SuccessStoriesSection } from '../components/Index/BookingFlow'
+import { OmanCategories } from '../components/Index/OmanCategories'
+import {  WhyChooseSection } from '../components/Index/WhyChooseSection'
+import { SuccessStoriesSection } from '../components/Index/SuccessStoriesSection'
 // import { FeedBack } from '../components/Index/FeedBack'
 // import { Faq } from '../components/Index/Faq'
 // import { RegAsAProfessional } from '../components/Index/RegAsAProfessional'
-import { FeaturedBusinesses } from '../components/Index/ExclusiveBridalPackages'
+import { FeaturedBusinesses } from '../components/Index/FeaturedBusinesses'
 import { Helmet } from 'react-helmet-async'
 // import { FlowCard } from '../components/Index/BookingFlow/FlowCard'
 
@@ -53,7 +53,7 @@ export const Index = () => {
       </Helmet>
       <HeroSection />
       {/* <MottoSection /> */}
-      <FeaturedServices />
+      <OmanCategories />
       {/* <FeaturedBusinesses category_name={''} status={''} image={''} /> */}
       <FeaturedBusinesses />
       {/* <RecommendedBest /> */}

@@ -12,7 +12,7 @@ import { NotifyError } from '../common/Toast/ToastMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setLocation } from "../../redux/locationSlice";
-import homebg from "../../assets/omonimgs/herobgnew3.png";
+//import homebg from "../../assets/omonimgs/herobgnew3.png";
 import { IoChevronDownOutline } from "react-icons/io5";
 import transparentbg from "../../assets/omonvideos/herobgnew3.mp4"
 // import { useSelector } from 'react-redux';

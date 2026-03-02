@@ -1,6 +1,4 @@
 import React, { ReactNode } from "react";
-import { HiArrowNarrowRight } from "react-icons/hi";
-
 import muscatlogo from "../../assets/omonimgs/muscatlogo.png";
 import zenithlogo from "../../assets/omonimgs/zenithlogo.png";
 import oasislogo from "../../assets/omonimgs/oasislogo.png";
@@ -28,7 +26,6 @@ interface TestimonialCardProps {
   isMain?: boolean;
 }
 
-/* ---------------- Metric Item ---------------- */
 const MetricItem: React.FC<MetricItemProps> = ({ label, value, iconType }) => (
   <div className="flex items-center gap-3 flex-1 justify-center px-4 border-r last:border-r-0 border-slate-100">
     <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-xl">
@@ -44,7 +41,6 @@ const MetricItem: React.FC<MetricItemProps> = ({ label, value, iconType }) => (
   </div>
 );
 
-/* ---------------- Testimonial Card ---------------- */
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
   quote,
   author,
@@ -53,11 +49,9 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   isMain,
 }) => (
   <div
-    className={`bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between w-full h-full ${
-      isMain ? "p-7" : "p-5"
-    }`}
+    className={`bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between w-full h-full ${isMain ? "p-7" : "p-5"
+      }`}
   >
-    {/* Gold quotation mark — only ONE, top-left, for main card */}
     {isMain && (
       <div
         style={{
@@ -75,12 +69,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 
     <div className="flex-1">
       <p
-        className={`text-[#1c2b4d] font-semibold leading-snug ${
-          isMain ? "text-[20px]" : "text-[14px]"
-        }`}
+        className={`text-[#1c2b4d] font-semibold leading-snug ${isMain ? "text-[20px]" : "text-[14px]"
+          }`}
       >
         {quote}
-        {/* closing gold mark inline for main */}
         {isMain && (
           <span
             style={{
@@ -98,15 +90,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     </div>
 
     <div
-      className={`flex items-center justify-between ${
-        isMain ? "mt-6 pt-4 border-t border-slate-100" : "mt-4"
-      }`}
+      className={`flex items-center justify-between ${isMain ? "mt-6 pt-4 border-t border-slate-100" : "mt-4"
+        }`}
     >
       <div>
         <h4
-          className={`font-bold text-[#1c2b4d] ${
-            isMain ? "text-[15px]" : "text-[13px]"
-          }`}
+          className={`font-bold text-[#1c2b4d] ${isMain ? "text-[15px]" : "text-[13px]"
+            }`}
         >
           {author}
         </h4>
@@ -121,7 +111,6 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   </div>
 );
 
-/* ================= MAIN COMPONENT ================= */
 export const SuccessStoriesSection = () => {
   const companies = [
     banklogo,
@@ -136,7 +125,6 @@ export const SuccessStoriesSection = () => {
 
   return (
     <section className="relative py-12 font-sans text-[#1c2b4d] overflow-hidden">
-      {/* Background Video - Full width */}
       <video
         autoPlay
         loop
@@ -147,12 +135,11 @@ export const SuccessStoriesSection = () => {
         <source src={testimonialbgnew3} type="video/mp4" />
       </video>
 
-      {/* Optional: Overlay to ensure text readability */}
       <div className="absolute inset-0 z-0 bg-white/20 backdrop-blur-[2px]" />
 
-      {/* Container - Matches FeaturedServices exactly */}
+      {/* Container */}
       <div className="relative z-10 container mx-auto px-4 max-w-7xl">
-        {/* Header Section - Reduced vertical gaps */}
+        {/* Header Section */}
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a2b49] mb-3">
             Trusted by Businesses <span className="text-[#c18d4d]">Across Oman</span>
@@ -167,7 +154,7 @@ export const SuccessStoriesSection = () => {
           </div>
         </div>
 
-        {/* Metrics Bar - Reduced bottom margin */}
+        {/* Metrics Bar */}
         <div className="bg-white rounded-2xl shadow-md border border-slate-100 py-5 mb-8 flex items-center w-full">
           <MetricItem iconType="biz" value="10,000+" label="Active Businesses" />
           <MetricItem iconType="visit" value="25,000+" label="Monthly Visitors" />
@@ -175,12 +162,12 @@ export const SuccessStoriesSection = () => {
           <MetricItem iconType="conn" value="3x" label="Faster Connections" />
         </div>
 
-        {/* Success Stories Title - Reduced margin */}
+        {/* Success Stories Title */}
         <div className="text-center mb-5">
           <h3 className="text-2xl md:text-3xl font-extrabold text-[#1c2b4d]">Success Stories</h3>
         </div>
 
-        {/* Testimonials Grid - Reduced gap */}
+        {/* Testimonials Grid*/}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-5 w-full mb-6">
           {/* LEFT big card */}
           <div className="md:col-span-3" style={{ minHeight: 240 }}>
@@ -189,7 +176,7 @@ export const SuccessStoriesSection = () => {
               quote={
                 <>
                   UniteOman transformed our{" "}
-                  <span className="font-bold">business growth</span>{" "}<br/>
+                  <span className="font-bold">business growth</span>{" "}<br />
                   — we found trusted partners within days.
                 </>
               }
@@ -199,7 +186,7 @@ export const SuccessStoriesSection = () => {
             />
           </div>
 
-          {/* RIGHT stacked - Reduced gap */}
+          {/* RIGHT stacked */}
           <div className="md:col-span-2 flex flex-col gap-3">
             <div className="flex-1">
               <TestimonialCard
@@ -230,14 +217,14 @@ export const SuccessStoriesSection = () => {
           </div>
         </div>
 
-        {/* Dots - Reduced margin */}
+        {/* Dots*/}
         <div className="flex justify-center items-center gap-2 mb-8">
           <div className="w-3 h-3 rounded-full bg-[#c5a059]" />
           <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
           <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
         </div>
 
-        {/* Trusted Companies - Reduced padding */}
+        {/* Trusted Companies */}
         <div className="border-t border-slate-200/70 pt-6 text-center w-full">
           <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-4">
             Trusted by Leading Companies
@@ -259,7 +246,7 @@ export const SuccessStoriesSection = () => {
           </div>
         </div>
 
-        {/* View More - Reduced margin */}
+        {/* View More  */}
         <div className="mt-8 flex flex-col items-center">
           <a
             href="#"
@@ -270,8 +257,6 @@ export const SuccessStoriesSection = () => {
               →
             </span>
           </a>
-
-          {/* Clean Gold Line */}
           <div
             className="w-40 h-[4px] -mt-[1px] rounded-full"
             style={{

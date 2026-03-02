@@ -136,7 +136,7 @@ export const FeaturedBusinesses: React.FC = () => {
           </div>
         </div>
 
-        {/* Explore All Button - Styled to match the bottom button in image */}
+        {/* Explore All Button */}
         <div className="flex justify-center mt-12">
           <button className="bg-[#212b50] hover:bg-[#151b33] text-white px-10 py-3.5 rounded-xl font-semibold flex items-center transition-all group">
             Explore All Businesses

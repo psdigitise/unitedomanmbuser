@@ -1,7 +1,7 @@
 //import React from "react";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import footrbg from "../assets/omonimgs/footerbg.png"
+//import footrbg from "../assets/omonimgs/footerbg.png"
 import footerbgnew3 from "../assets/omonvideos/bgfooternew3.mp4"
 
 export const Footer = () => {

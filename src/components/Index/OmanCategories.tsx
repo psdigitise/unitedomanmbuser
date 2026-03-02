@@ -22,15 +22,12 @@ const CATEGORIES = [
     count: "248+",
     subtext: "Verified Businesses",
     image: constructionImg,
-    // We'll apply the yellow color directly to the icon component
-    // icon: <GiBilledCap className="text-[#ba8316] text-3xl" />,
     icon: <img src={constructorslogo} alt="Constructor Logo" className="w-8 h-8 object-contain" />,
     type: "large-dark",
-    // Specific styles to match your uploaded image
     customStyle: {
-      bg: "rgba(255, 215, 0, 0.1)", // Light yellow transparent background
-      border: "rgba(255, 215, 0, 0.4)", // Golden border
-      shadow: "0 0 15px rgba(255, 215, 0, 0.3)" // Outer glow
+      bg: "rgba(255, 215, 0, 0.1)",
+      border: "rgba(255, 215, 0, 0.4)",
+      shadow: "0 0 15px rgba(255, 215, 0, 0.3)"
     }
   },
   {
@@ -38,13 +35,12 @@ const CATEGORIES = [
     count: "132+",
     subtext: "Verified Businesses",
     image: healthcareImg,
-    // If you have a custom logo for healthcare, import and use it here like constructorslogo
     icon: <PiStethoscopeBold className="w-8 h-8 object-contain" />,
     type: "large-blue",
     customStyle: {
-      bg: "rgba(186, 230, 253, 0.15)", // Light icy blue background
-      border: "rgba(125, 211, 252, 0.5)", // Bright blue border
-      shadow: "0 0 20px rgba(56, 189, 248, 0.4)", // Soft blue outer glow
+      bg: "rgba(186, 230, 253, 0.15)",
+      border: "rgba(125, 211, 252, 0.5)",
+      shadow: "0 0 20px rgba(56, 189, 248, 0.4)",
 
     }
   },
@@ -67,9 +63,9 @@ const CATEGORIES = [
     icon: <HiOutlineBuildingOffice2 className="w-5 h-5 object-contain" />,
     type: "small-blue",
     glowStyle: {
-      bg: "rgba(67, 85, 230, 0.25)", // Indigo-Blue background
-      border: "rgba(67, 85, 230, 0.6)", // Stronger blue border
-      shadow: "0 0 20px rgba(67, 85, 230, 0.4)", // Blue glow
+      bg: "rgba(67, 85, 230, 0.25)",
+      border: "rgba(67, 85, 230, 0.6)",
+      shadow: "0 0 20px rgba(67, 85, 230, 0.4)",
       iconColor: "#ffffff"
     }
   },
@@ -81,9 +77,9 @@ const CATEGORIES = [
     icon: <RiComputerLine className="w-5 h-5 object-contain" />,
     type: "small-dark-blue",
     glowStyle: {
-      bg: "rgba(30, 64, 175, 0.35)", // Deep Navy-Blue background
-      border: "rgba(59, 130, 246, 0.7)", // Bright Electric Blue border
-      shadow: "0 0 25px rgba(30, 64, 175, 0.5)", // Stronger tech glow
+      bg: "rgba(30, 64, 175, 0.35)", 
+      border: "rgba(59, 130, 246, 0.7)", 
+      shadow: "0 0 25px rgba(30, 64, 175, 0.5)",
       iconColor: "#60a5fa"
     }
   },
@@ -95,15 +91,15 @@ const CATEGORIES = [
     icon: <GiGraduateCap className="w-5 h-5 text-white object-contain" />,
     type: "small-light",
     glowStyle: {
-      bg: "rgba(37, 99, 235, 0.2)", // Pure Blue background
-      border: "rgba(37, 99, 235, 0.5)", // Academic Blue border
-      shadow: "0 0 20px rgba(37, 99, 235, 0.3)", // Soft blue glow
+      bg: "rgba(37, 99, 235, 0.2)", 
+      border: "rgba(37, 99, 235, 0.5)",
+      shadow: "0 0 20px rgba(37, 99, 235, 0.3)", 
       iconColor: "#2563eb"
     }
   },
 ];
 
-export const FeaturedServices: React.FC = () => {
+export const OmanCategories: React.FC = () => {
   return (
     <section
       className="py-20 bg-cover bg-center font-sans"
@@ -182,9 +178,9 @@ export const FeaturedServices: React.FC = () => {
     ${isLightText ? 'bg-white/20 border-white/30 text-white' : 'bg-white border-gray-100 text-[#c18d4d]'}`}
                     style={{
                       ...(cat.name === "Construction & Contractors" ? {
-                        backgroundColor: "rgba(255, 215, 0, 0.15)", // Subtle yellow glow bg
-                        borderColor: "rgba(255, 215, 0, 0.5)",      // Golden border
-                        boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)", // The "Glow" effect
+                        backgroundColor: "rgba(255, 215, 0, 0.15)",
+                        borderColor: "rgba(255, 215, 0, 0.5)",
+                        boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
                       } : {}),
                       ...(cat.name === "Healthcare & Clinics" ? {
                         backgroundColor: "rgba(173, 216, 230, 0.15)",
@@ -192,32 +188,32 @@ export const FeaturedServices: React.FC = () => {
                         boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
                       } : {}),
                       ...(cat.name === "Legal & Consultancy" ? {
-                        background: "linear-gradient(135deg, #4d2b12 0%, #2b180a 100%)", // Deep bronze/chocolate gradient
-                        borderColor: "rgba(193, 141, 77, 0.4)", // Muted gold border
+                        background: "linear-gradient(135deg, #4d2b12 0%, #2b180a 100%)",
+                        borderColor: "rgba(193, 141, 77, 0.4)",
                         boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(193, 141, 77, 0.2)",
                       } : {}),
                       ...(cat.name === "Restaurants & Cafes" ? {
-                        backgroundColor: "#814512",                  // Your navy blue
+                        backgroundColor: "#814512",
                         borderColor: "transparent",
                       } : {}),
                       ...(cat.name === "Real Estate" ? {
-                        background: "linear-gradient(135deg, #4355e6 0%, #2a36b3 100%)", // Vibrant Royal Blue
+                        background: "linear-gradient(135deg, #4355e6 0%, #2a36b3 100%)",
                         borderColor: "rgba(255, 255, 255, 0.3)",
                         boxShadow: "0 8px 20px rgba(67, 85, 230, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1)",
                       } : {}),
                       ...(cat.name === "IT & Software" ? {
-                        background: "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)", // Deep Tech Blue
-                        borderColor: "rgba(96, 165, 250, 0.5)", // Bright Electric Blue border
+                        background: "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)",
+                        borderColor: "rgba(96, 165, 250, 0.5)",
                         boxShadow: "0 0 25px rgba(30, 64, 175, 0.6), inset 0 0 15px rgba(96, 165, 250, 0.2)",
                       } : {}),
                       ...(cat.name === "Education & Training" ? {
-                        background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)", // Academic Blue
+                        background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
                         borderColor: "rgba(191, 219, 254, 0.4)",
                         boxShadow: "0 6px 15px rgba(37, 99, 235, 0.3), inset 0 0 8px rgba(255, 255, 255, 0.15)",
                       } : {})
                     }}
                   >
-                    {/* Apply yellow color and larger size specifically to the Construction icon */}
+
                     {cat.name === "Construction & Contractors"
                       ? React.cloneElement(cat.icon as React.ReactElement, {
                         className: "text-[#ba8316] text-3xl"
@@ -255,9 +251,6 @@ export const FeaturedServices: React.FC = () => {
         </div>
 
         {/* Footer Button */}
-        {/* View All Button Section */}
-
-
         <div className="mt-20 flex flex-col items-center">
           {/* The Button */}
           <button className="flex items-center gap-4 bg-white text-[#1a2b49] font-bold px-12 py-4 rounded-xl border border-gray-100 transition-all group relative z-10">
@@ -266,7 +259,6 @@ export const FeaturedServices: React.FC = () => {
               →
             </span>
           </button>
-
           {/* The Clean Gold Line (No Blur/Shadow) */}
           <div
             className="w-40 h-[4px] -mt-[1px] rounded-full"
@@ -275,8 +267,6 @@ export const FeaturedServices: React.FC = () => {
             }}
           />
         </div>
-
-
       </div>
     </section >
   );
