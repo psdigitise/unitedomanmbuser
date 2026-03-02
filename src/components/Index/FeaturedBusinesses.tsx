@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import pluslogo from "../../assets/omonimgs/pluslogo.jpg";
@@ -10,12 +10,136 @@ import featuredbg from "../../assets/omonvideos/featuredbgnew3.mp4"
 // import { setLocation } from "../../redux/locationSlice";
 import { Star, Check, ArrowRight } from "lucide-react";
 
+interface Business {
+  id: string;
+  name: string;
+  verified: boolean;
+  category: string;
+  location: string;
+  rating: string;
+  reviews: string;
+  logo: string;
+}
+
+const AnimatedBusinessCard: React.FC<{
+  biz: Business;
+  index: number;
+  handleAction: (name: string) => void;
+  loadingCard: string | null;
+}> = ({ biz, index, handleAction, loadingCard }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`bg-white rounded-[20px] p-8 border border-gray-100 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow transform-gpu ${
+        isVisible ? "animate-card-fade-in" : "opacity-0 translate-y-10"
+      }`}
+      style={{ animationDelay: `${index * 200}ms` }}
+    >
+      {/* Header Row: Logo and Text */}
+      <div className="flex gap-4 items-start mb-6">
+        <div className="w-14 h-14 flex-shrink-0">
+          <img src={biz.logo} alt={biz.name} className="w-full h-full object-contain" />
+        </div>
+        <div>
+          <h3 className="text-[19px] font-bold text-[#1e293b] leading-tight mb-1">{biz.name}</h3>
+          <div className="flex items-center text-[#22c55e] text-[13px] font-medium">
+            <Check className="w-3.5 h-3.5 mr-1 stroke-[3px]" /> Verified
+          </div>
+        </div>
+      </div>
+
+      {/* Info Block */}
+      <div className="text-[#64748b] text-[15px] mb-4 space-y-1">
+        <p>{biz.category}</p>
+        <p>• {biz.location}</p>
+      </div>
+
+      {/* Thin Dotted/Solid Line Divider */}
+      <div className="w-full border-t border-gray-100 mb-5"></div>
+
+      {/* Rating Block */}
+      <div className="mb-8 mt-auto">
+        <div className="flex items-center gap-1 mb-2">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} size={15} className="fill-[#eab308] text-[#eab308]" />
+          ))}
+          <span className="ml-2 font-semibold text-[#1e293b] text-[15px]">{biz.rating}</span>
+        </div>
+        <p className="text-[#94a3b8] text-[14px]">{biz.reviews}</p>
+      </div>
+
+      {/* Button: Matching Gradient and Arrow */}
+      <button
+        onClick={() => handleAction(biz.name)}
+        className="w-full bg-gradient-to-r from-[#2d3a6d] to-[#3b4b8a] hover:from-[#1e293b] hover:to-[#2d3a6d] text-white py-3.5 rounded-xl flex items-center justify-center transition-all text-[15px] font-semibold group shadow-lg shadow-blue-900/10"
+      >
+        {loadingCard === biz.name ? "Loading..." : "View Profile"}
+        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </div>
+  );
+};
+
 export const FeaturedBusinesses: React.FC = () => {
   //const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loadingCard, setLoadingCard] = React.useState<string | null>(null);
 
-  const businesses = [
+  // --- ADDED: States and Refs for header and footer animations ---
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHeaderVisible(true);
+          headerObserver.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setFooterVisible(true);
+          footerObserver.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (headerRef.current) headerObserver.observe(headerRef.current);
+    if (footerRef.current) footerObserver.observe(footerRef.current);
+
+    return () => {
+      headerObserver.disconnect();
+      footerObserver.disconnect();
+    };
+  }, []);
+
+  const businesses: Business[] = [
     {
       id: "1",
       name: "Muscat Clinic",
@@ -58,6 +182,35 @@ export const FeaturedBusinesses: React.FC = () => {
 
   return (
     <section className="relative py-20 bg-[#aebde5] overflow-hidden">
+      {/*  Animation Keyframes */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes headingSlideUp {
+          0% { opacity: 0; transform: translateY(50px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cardFadeIn {
+          0% { opacity: 0; transform: translateY(40px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes buttonSlideUp {
+          0% { opacity: 0; transform: translateY(30px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-heading-slide {
+          opacity: 0;
+          animation: headingSlideUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-card-fade-in {
+          opacity: 0;
+          animation: cardFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-button-slide {
+          opacity: 0;
+          animation: buttonSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      ` }} />
+
       {/* Background Video Implementation */}
       <video
         autoPlay
@@ -73,7 +226,10 @@ export const FeaturedBusinesses: React.FC = () => {
 
       <div className="container relative z-10 mx-auto px-4 max-w-7xl">
         {/* Header Section */}
-        <div className="text-center mb-12">
+        <div 
+          ref={headerRef} 
+          className={`text-center mb-12 transform-gpu ${headerVisible ? 'animate-heading-slide' : 'opacity-0'}`}
+        >
           <h2 className="text-[32px] md:text-[40px] font-bold text-[#2d3a6d] font-Montserrat">
             Featured Businesses <br />
             Across <span className="text-[#c08c4c]">Oman</span>
@@ -85,59 +241,24 @@ export const FeaturedBusinesses: React.FC = () => {
         {/* Outer Frosted Container */}
         <div className="bg-white/40 backdrop-blur-[15px] p-6 md:p-10 rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] border border-white/60 max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {businesses.map((biz) => (
-              <div
+            {/* Now rendering the animated card sub-component */}
+            {businesses.map((biz, index) => (
+              <AnimatedBusinessCard
                 key={biz.id}
-                className="bg-white rounded-[20px] p-8 border border-gray-100 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow"
-              >
-                {/* Header Row: Logo and Text */}
-                <div className="flex gap-4 items-start mb-6">
-                  <div className="w-14 h-14 flex-shrink-0">
-                    <img src={biz.logo} alt={biz.name} className="w-full h-full object-contain" />
-                  </div>
-                  <div>
-                    <h3 className="text-[19px] font-bold text-[#1e293b] leading-tight mb-1">{biz.name}</h3>
-                    <div className="flex items-center text-[#22c55e] text-[13px] font-medium">
-                      <Check className="w-3.5 h-3.5 mr-1 stroke-[3px]" /> Verified
-                    </div>
-                  </div>
-                </div>
-
-                {/* Info Block */}
-                <div className="text-[#64748b] text-[15px] mb-4 space-y-1">
-                  <p>{biz.category}</p>
-                  <p>• {biz.location}</p>
-                </div>
-
-                {/* Thin Dotted/Solid Line Divider */}
-                <div className="w-full border-t border-gray-100 mb-5"></div>
-
-                {/* Rating Block */}
-                <div className="mb-8 mt-auto">
-                  <div className="flex items-center gap-1 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={15} className="fill-[#eab308] text-[#eab308]" />
-                    ))}
-                    <span className="ml-2 font-semibold text-[#1e293b] text-[15px]">{biz.rating}</span>
-                  </div>
-                  <p className="text-[#94a3b8] text-[14px]">{biz.reviews}</p>
-                </div>
-
-                {/* Button: Matching Gradient and Arrow */}
-                <button
-                  onClick={() => handleAction(biz.name)}
-                  className="w-full bg-gradient-to-r from-[#2d3a6d] to-[#3b4b8a] hover:from-[#1e293b] hover:to-[#2d3a6d] text-white py-3.5 rounded-xl flex items-center justify-center transition-all text-[15px] font-semibold group shadow-lg shadow-blue-900/10"
-                >
-                  {loadingCard === biz.name ? "Loading..." : "View Profile"}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
+                biz={biz}
+                index={index}
+                handleAction={handleAction}
+                loadingCard={loadingCard}
+              />
             ))}
           </div>
         </div>
 
         {/* Explore All Button */}
-        <div className="flex justify-center mt-12">
+        <div 
+          ref={footerRef} 
+          className={`flex justify-center mt-12 transform-gpu ${footerVisible ? 'animate-button-slide' : 'opacity-0'}`}
+        >
           <button className="bg-[#212b50] hover:bg-[#151b33] text-white px-10 py-3.5 rounded-xl font-semibold flex items-center transition-all group">
             Explore All Businesses
             <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform" />

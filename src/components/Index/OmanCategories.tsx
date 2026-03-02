@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import acrossOmanBg from "../../assets/omonimgs/acrossomanbg.png";
 import constructionImg from "../../assets/omonimgs/construction.png";
 import healthcareImg from "../../assets/omonimgs/healthcare.png";
@@ -9,8 +9,6 @@ import itImg from "../../assets/omonimgs/IT.png";
 import educationImg from "../../assets/omonimgs/education.png";
 import restaurantslogo from "../../assets/omonimgs/restaurantslogo.png";
 import constructorslogo from "../../assets/omonimgs/constructorslogo.png";
-// import healthlogo from "../../assets/omonimgs/healthlogo.png";
-// import { HiScale } from "react-icons/hi";
 import { GiGraduateCap, GiScales } from "react-icons/gi";
 import { PiStethoscopeBold } from "react-icons/pi";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
@@ -77,8 +75,8 @@ const CATEGORIES = [
     icon: <RiComputerLine className="w-5 h-5 object-contain" />,
     type: "small-dark-blue",
     glowStyle: {
-      bg: "rgba(30, 64, 175, 0.35)", 
-      border: "rgba(59, 130, 246, 0.7)", 
+      bg: "rgba(30, 64, 175, 0.35)",
+      border: "rgba(59, 130, 246, 0.7)",
       shadow: "0 0 25px rgba(30, 64, 175, 0.5)",
       iconColor: "#60a5fa"
     }
@@ -91,20 +89,226 @@ const CATEGORIES = [
     icon: <GiGraduateCap className="w-5 h-5 text-white object-contain" />,
     type: "small-light",
     glowStyle: {
-      bg: "rgba(37, 99, 235, 0.2)", 
+      bg: "rgba(37, 99, 235, 0.2)",
       border: "rgba(37, 99, 235, 0.5)",
-      shadow: "0 0 20px rgba(37, 99, 235, 0.3)", 
+      shadow: "0 0 20px rgba(37, 99, 235, 0.3)",
       iconColor: "#2563eb"
     }
   },
 ];
 
+const CategoryCard: React.FC<{
+  cat: typeof CATEGORIES[0],
+  index: number
+}> = ({ cat, index }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const getOverlay = (type: string) => {
+    switch (type) {
+      case 'large-dark': return "bg-black/40";
+      case 'large-blue': return "bg-blue-900/40";
+      case 'small-light': return "bg-gradient-to-t from-white via-white/20 to-transparent";
+      case 'small-dark': return "bg-gradient-to-t from-black via-black/40 to-transparent";
+      case 'small-blue': return "bg-gradient-to-t from-[#0a192f] via-transparent to-transparent";
+      case 'small-dark-blue': return "bg-gradient-to-t from-[#001f3f] via-[#001f3f]/60 to-transparent";
+      default: return "bg-black/20";
+    }
+  };
+
+  const isLightText = cat.type.includes('dark') || cat.type.includes('blue');
+  const isHalfImage = cat.name === "Legal & Consultancy" || cat.name === "Education & Training";
+
+  let layoutClasses = "";
+  let inlineStyle: React.CSSProperties = {};
+
+  if (index < 2) {
+    layoutClasses = "md:col-span-5 h-[290px] mb-6";
+  } else {
+    layoutClasses = "md:col-span-2";
+    if (index === 2) inlineStyle = { height: "200px" };
+    if (index === 3) inlineStyle = { height: "300px" };
+    if (index === 4) inlineStyle = { height: "260px" };
+    if (index === 5) inlineStyle = { height: "220px" };
+    if (index === 6) inlineStyle = { height: "250px" };
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      style={{ ...inlineStyle, animationDelay: isVisible ? `${index * 250}ms` : '0ms' }}
+      className={`relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:-translate-y-2 transform-gpu ${isVisible ? 'animate-premium-popup' : 'opacity-0'} ${layoutClasses} ${!isLightText ? 'bg-white' : ''}`}
+    >
+      {/* Background Image Container */}
+      <div className={`absolute inset-0 w-full transition-transform duration-700 group-hover:scale-110 ${isHalfImage ? 'h-1/2' : 'h-full'}`}>
+        <div
+          className="w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${cat.image})` }}
+        />
+        <div className={`absolute inset-0 transition-opacity duration-300 ${getOverlay(cat.type)}`} />
+      </div>
+
+      {/* Content */}
+      <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
+        <div
+          className={`rounded-full flex items-center justify-center transition-all duration-300 border backdrop-blur-md shadow-lg 
+            ${cat.name === "Construction & Contractors" || cat.name === "Healthcare & Clinics" ? "w-14 h-14" : "w-10 h-10"} 
+            ${isLightText ? 'bg-white/20 border-white/30 text-white' : 'bg-white border-gray-100 text-[#c18d4d]'}`}
+          style={{
+            ...(cat.name === "Construction & Contractors" ? {
+              backgroundColor: "rgba(255, 215, 0, 0.15)",
+              borderColor: "rgba(255, 215, 0, 0.5)",
+              boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
+            } : {}),
+            ...(cat.name === "Healthcare & Clinics" ? {
+              backgroundColor: "rgba(173, 216, 230, 0.15)",
+              borderColor: "rgba(173, 216, 230, 0.5)",
+              boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
+            } : {}),
+            ...(cat.name === "Legal & Consultancy" ? {
+              background: "linear-gradient(135deg, #4d2b12 0%, #2b180a 100%)",
+              borderColor: "rgba(193, 141, 77, 0.4)",
+              boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(193, 141, 77, 0.2)",
+            } : {}),
+            ...(cat.name === "Restaurants & Cafes" ? {
+              backgroundColor: "#814512",
+              borderColor: "transparent",
+            } : {}),
+            ...(cat.name === "Real Estate" ? {
+              background: "linear-gradient(135deg, #4355e6 0%, #2a36b3 100%)",
+              borderColor: "rgba(255, 255, 255, 0.3)",
+              boxShadow: "0 8px 20px rgba(67, 85, 230, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1)",
+            } : {}),
+            ...(cat.name === "IT & Software" ? {
+              background: "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)",
+              borderColor: "rgba(96, 165, 250, 0.5)",
+              boxShadow: "0 0 25px rgba(30, 64, 175, 0.6), inset 0 0 15px rgba(96, 165, 250, 0.2)",
+            } : {}),
+            ...(cat.name === "Education & Training" ? {
+              background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
+              borderColor: "rgba(191, 219, 254, 0.4)",
+              boxShadow: "0 6px 15px rgba(37, 99, 235, 0.3), inset 0 0 8px rgba(255, 255, 255, 0.15)",
+            } : {})
+          }}
+        >
+          {cat.name === "Construction & Contractors"
+            ? React.cloneElement(cat.icon as React.ReactElement, {
+              className: "text-[#ba8316] text-3xl"
+            })
+            : cat.icon}
+        </div>
+
+        <div className="mb-5 space-y-4">
+          <h3 className={`font-bold leading-tight mb-1 ${isLightText ? "text-white" : "text-[#1a2b49]"} ${index < 2 ? 'text-2xl' : 'text-base'}`}>
+            {cat.name}
+          </h3>
+          <p className={`
+            ${index < 2 ? "text-sm md:text-base" : "text-xs"}
+            mb-4
+            ${isLightText ? "text-gray-200" : "text-gray-500"}
+          `}>
+            <span className="text-[#c18d4d] font-bold">{cat.count}</span> {cat.subtext}
+          </p>
+        </div>
+        <div>
+          <button className={`flex items-center gap-2 px-4 py-1.5 rounded-lg font-bold text-xs transition-all ${isLightText
+            ? "bg-white text-[#1a2b49] hover:bg-gray-100"
+            : "text-[#1a2b49] border border-gray-200 bg-white hover:bg-gray-50"
+            }`}>
+            Explore <span>→</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className={`absolute bottom-0 left-1/4 right-1/4 h-1 rounded-t-full ${index % 2 === 0 ? "bg-[#c18d4d]" : "bg-blue-500"}`} />
+    </div>
+  );
+};
+
 export const OmanCategories: React.FC = () => {
+  const [footerVisible, setFooterVisible] = useState(false);
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setFooterVisible(true);
+          footerObserver.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (footerRef.current) {
+      footerObserver.observe(footerRef.current);
+    }
+
+    return () => footerObserver.disconnect();
+  }, []);
+
   return (
     <section
       className="py-20 bg-cover bg-center font-sans"
       style={{ backgroundImage: `url(${acrossOmanBg})` }}
     >
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes premiumPopup {
+          0% {
+            opacity: 0;
+            translate: 0 30px;
+            scale: 0.85;
+          }
+          100% {
+            opacity: 1;
+            translate: 0 0;
+            scale: 1;
+          }
+        }
+
+        @keyframes moveUp {
+          0% {
+            opacity: 0;
+            translate: 0 40px;
+            scale: 0.95;
+          }
+          100% {
+            opacity: 1;
+            translate: 0 0;
+            scale: 1;
+          }
+        }
+
+        .animate-premium-popup {
+          opacity: 0;
+          animation: premiumPopup 1.5s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+        }
+
+        .animate-move-up {
+          opacity: 0;
+          animation: moveUp 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+      ` }} />
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -123,137 +327,15 @@ export const OmanCategories: React.FC = () => {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-10 gap-6 items-start">
-          {CATEGORIES.map((cat, index) => {
-            const getOverlay = (type: string) => {
-              switch (type) {
-                case 'large-dark': return "bg-black/40";
-                case 'large-blue': return "bg-blue-900/40";
-                case 'small-light': return "bg-gradient-to-t from-white via-white/20 to-transparent";
-                case 'small-dark': return "bg-gradient-to-t from-black via-black/40 to-transparent";
-                case 'small-blue': return "bg-gradient-to-t from-[#0a192f] via-transparent to-transparent";
-                case 'small-dark-blue': return "bg-gradient-to-t from-[#001f3f] via-[#001f3f]/60 to-transparent";
-                default: return "bg-black/20";
-              }
-            };
-
-            const isLightText = cat.type.includes('dark') || cat.type.includes('blue');
-
-            const isHalfImage = cat.name === "Legal & Consultancy" || cat.name === "Education & Training";
-
-            let layoutClasses = "";
-            let inlineStyle: React.CSSProperties = {};
-
-            if (index < 2) {
-              layoutClasses = "md:col-span-5 h-[290px] mb-6";
-            } else {
-              layoutClasses = "md:col-span-2";
-              if (index === 2) inlineStyle = { height: "200px" };
-              if (index === 3) inlineStyle = { height: "300px" };
-              if (index === 4) inlineStyle = { height: "260px" };
-              if (index === 5) inlineStyle = { height: "220px" };
-              if (index === 6) inlineStyle = { height: "250px" };
-            }
-
-            return (
-              <div
-                key={index}
-                style={inlineStyle}
-                className={`relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:-translate-y-2 transform-gpu ${layoutClasses} ${!isLightText ? 'bg-white' : ''}`}
-              >
-                {/* Background Image Container */}
-                <div className={`absolute inset-0 w-full transition-transform duration-700 group-hover:scale-110 ${isHalfImage ? 'h-1/2' : 'h-full'}`}>
-                  <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{ backgroundImage: `url(${cat.image})` }}
-                  />
-                  <div className={`absolute inset-0 transition-opacity duration-300 ${getOverlay(cat.type)}`} />
-                </div>
-
-                {/* Content */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
-                  {/* Icon Container */}
-                  <div
-                    className={`rounded-full flex items-center justify-center transition-all duration-300 border backdrop-blur-md shadow-lg 
-    ${cat.name === "Construction & Contractors" && "Healthcare & Clinics" ? "w-14 h-14" : "w-10 h-10"} 
-    ${isLightText ? 'bg-white/20 border-white/30 text-white' : 'bg-white border-gray-100 text-[#c18d4d]'}`}
-                    style={{
-                      ...(cat.name === "Construction & Contractors" ? {
-                        backgroundColor: "rgba(255, 215, 0, 0.15)",
-                        borderColor: "rgba(255, 215, 0, 0.5)",
-                        boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
-                      } : {}),
-                      ...(cat.name === "Healthcare & Clinics" ? {
-                        backgroundColor: "rgba(173, 216, 230, 0.15)",
-                        borderColor: "rgba(173, 216, 230, 0.5)",
-                        boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
-                      } : {}),
-                      ...(cat.name === "Legal & Consultancy" ? {
-                        background: "linear-gradient(135deg, #4d2b12 0%, #2b180a 100%)",
-                        borderColor: "rgba(193, 141, 77, 0.4)",
-                        boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(193, 141, 77, 0.2)",
-                      } : {}),
-                      ...(cat.name === "Restaurants & Cafes" ? {
-                        backgroundColor: "#814512",
-                        borderColor: "transparent",
-                      } : {}),
-                      ...(cat.name === "Real Estate" ? {
-                        background: "linear-gradient(135deg, #4355e6 0%, #2a36b3 100%)",
-                        borderColor: "rgba(255, 255, 255, 0.3)",
-                        boxShadow: "0 8px 20px rgba(67, 85, 230, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1)",
-                      } : {}),
-                      ...(cat.name === "IT & Software" ? {
-                        background: "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)",
-                        borderColor: "rgba(96, 165, 250, 0.5)",
-                        boxShadow: "0 0 25px rgba(30, 64, 175, 0.6), inset 0 0 15px rgba(96, 165, 250, 0.2)",
-                      } : {}),
-                      ...(cat.name === "Education & Training" ? {
-                        background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
-                        borderColor: "rgba(191, 219, 254, 0.4)",
-                        boxShadow: "0 6px 15px rgba(37, 99, 235, 0.3), inset 0 0 8px rgba(255, 255, 255, 0.15)",
-                      } : {})
-                    }}
-                  >
-
-                    {cat.name === "Construction & Contractors"
-                      ? React.cloneElement(cat.icon as React.ReactElement, {
-                        className: "text-[#ba8316] text-3xl"
-                      })
-                      : cat.icon}
-                  </div>
-
-                  <div className="mb-5 space-y-4">
-                    <h3 className={`font-bold leading-tight mb-1 ${isLightText ? "text-white" : "text-[#1a2b49]"} ${index < 2 ? 'text-2xl' : 'text-base'}`}>
-                      {cat.name}
-                    </h3>
-                    <p className={`
-    ${index < 2 ? "text-sm md:text-base" : "text-xs"}
-    mb-4
-    ${isLightText ? "text-gray-200" : "text-gray-500"}
-  `}>
-                      <span className="text-[#c18d4d] font-bold">{cat.count}</span> {cat.subtext}
-                    </p>
-                  </div >
-                  <div >
-                    <button className={`flex items-center gap-2 px-4 py-1.5 rounded-lg font-bold text-xs transition-all ${isLightText
-                      ? "bg-white text-[#1a2b49] hover:bg-gray-100"
-                      : "text-[#1a2b49] border border-gray-200 bg-white hover:bg-gray-50"
-                      }`}>
-                      Explore <span>→</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className={`absolute bottom-0 left-1/4 right-1/4 h-1 rounded-t-full ${index % 2 === 0 ? "bg-[#c18d4d]" : "bg-blue-500"}`} />
-              </div>
-            );
-          })}
+          {CATEGORIES.map((cat, index) => (
+            <CategoryCard key={index} cat={cat} index={index} />
+          ))}
         </div>
 
         {/* Footer Button */}
-        <div className="mt-20 flex flex-col items-center">
+        <div ref={footerRef} className="mt-20 flex flex-col items-center">
           {/* The Button */}
-          <button className="flex items-center gap-4 bg-white text-[#1a2b49] font-bold px-12 py-4 rounded-xl border border-gray-100 transition-all group relative z-10">
+          <button className={`flex items-center gap-4 bg-white text-[#1a2b49] font-bold px-12 py-4 rounded-xl border border-gray-100 transition-all group relative z-10 ${footerVisible ? 'animate-move-up' : 'opacity-0'}`}>
             View All Categories
             <span className="text-[#c18d4d] text-xl transition-transform group-hover:translate-x-1">
               →
@@ -268,6 +350,6 @@ export const OmanCategories: React.FC = () => {
           />
         </div>
       </div>
-    </section >
+    </section>
   );
 };
