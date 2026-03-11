@@ -13,6 +13,7 @@ import { GiGraduateCap, GiScales } from "react-icons/gi";
 import { PiStethoscopeBold } from "react-icons/pi";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { RiComputerLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const CATEGORIES = [
   {
@@ -247,6 +248,7 @@ const CategoryCard: React.FC<{
 export const OmanCategories: React.FC = () => {
   const [footerVisible, setFooterVisible] = useState(false);
   const footerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const footerObserver = new IntersectionObserver(
@@ -335,7 +337,9 @@ export const OmanCategories: React.FC = () => {
         {/* Footer Button */}
         <div ref={footerRef} className="mt-20 flex flex-col items-center">
           {/* The Button */}
-          <button className={`flex items-center gap-4 bg-white text-[#1a2b49] font-bold px-12 py-4 rounded-xl border border-gray-100 transition-all group relative z-10 ${footerVisible ? 'animate-move-up' : 'opacity-0'}`}>
+          <button
+            onClick={() => navigate("/SearchResults")}
+            className={`flex items-center gap-4 bg-white text-[#1a2b49] font-bold px-12 py-4 rounded-xl border border-gray-100 transition-all group relative z-10 ${footerVisible ? 'animate-move-up' : 'opacity-0'}`}>
             View All Categories
             <span className="text-[#c18d4d] text-xl transition-transform group-hover:translate-x-1">
               →

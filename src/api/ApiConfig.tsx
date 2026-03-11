@@ -140,11 +140,11 @@ export const fetchServiceProviders = async (
     try {
         const response = await apiAxios.get("/api/serviceprovidertypes/", {
             params: {
-                service_id: service_id,
-                address: address,
-                radius: radius,
+                service_id: 629,
+                address: "Trivandrum,Kerala,India",
+                radius: 20,
                 category_id: catID,
-                service_type_id: ServiceTypeID
+                service_type_id: 1
             }, // Use 'params' for query parameters in GET request
         });
 

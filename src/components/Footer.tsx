@@ -65,11 +65,11 @@ export const Footer = () => {
               <div className="absolute -bottom-1 left-0 w-1/2 h-[1px] bg-[#c5a059]" />
             </h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/categories" className="hover:text-[#c5a059] transition-colors">Categories</Link></li>
-              <li><Link to="/featured" className="hover:text-[#c5a059] transition-colors">Featured Businesses</Link></li>
-              <li><Link to="/how-it-works" className="hover:text-[#c5a059] transition-colors">How It Works</Link></li>
-              <li><Link to="/testimonials" className="hover:text-[#c5a059] transition-colors">Testimonials</Link></li>
-              <li><Link to="/pricing" className="hover:text-[#c5a059] transition-colors">Pricing</Link></li>
+              <li><Link to="/SearchResults" className="hover:text-[#c5a059] transition-colors">Categories</Link></li>
+              <li><Link to="/" className="hover:text-[#c5a059] transition-colors">Featured Businesses</Link></li>
+              <li><Link to="/" className="hover:text-[#c5a059] transition-colors">How It Works</Link></li>
+              <li><Link to="/" className="hover:text-[#c5a059] transition-colors">Testimonials</Link></li>
+              <li><Link to="/Overview?provider_id=420&branch_id=165" className="hover:text-[#c5a059] transition-colors">Pricing</Link></li>
             </ul>
           </div>
 
@@ -80,11 +80,11 @@ export const Footer = () => {
               <div className="absolute -bottom-1 left-0 w-1/2 h-[1px] bg-[#c5a059]" />
             </h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/about" className="hover:text-[#c5a059] transition-colors">About Us</Link></li>
+              <li><Link to="/" className="hover:text-[#c5a059] transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-[#c5a059] transition-colors">Contact</Link></li>
-              <li><Link to="/add-listing" className="hover:text-[#c5a059] transition-colors">Add Listing</Link></li>
+              <li><Link to="/" className="hover:text-[#c5a059] transition-colors">Add Listing</Link></li>
               <li><Link to="/login" className="hover:text-[#c5a059] transition-colors">Login</Link></li>
-              <li><Link to="/privacy" className="hover:text-[#c5a059] transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/" className="hover:text-[#c5a059] transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
 
@@ -129,15 +129,15 @@ export const Footer = () => {
 
           {/* Right Side Links */}
           <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:flex gap-4 items-center">
-            <Link to="/terms" className="hover:text-[#c5a059] transition-colors">
+            <Link to="/" className="hover:text-[#c5a059] transition-colors">
               Terms
             </Link>
             <span className="opacity-30">•</span>
-            <Link to="/privacy" className="hover:text-[#c5a059] transition-colors">
+            <Link to="/" className="hover:text-[#c5a059] transition-colors">
               Privacy
             </Link>
             <span className="opacity-30">•</span>
-            <Link to="/cookies" className="hover:text-[#c5a059] transition-colors">
+            <Link to="/" className="hover:text-[#c5a059] transition-colors">
               Cookies
             </Link>
           </div>

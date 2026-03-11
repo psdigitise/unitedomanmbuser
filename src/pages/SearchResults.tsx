@@ -250,17 +250,14 @@ export const SearchResults = () => {
 
   const onSubmit = async (data: RequestaCallbackFormData) => {
 
-    setLoading(true); // Start loading state
-    setError(null);   // Clear any previous errors
-    setButtonState({ ...buttonState, isSubmitted: false }); // Reset submission state
+    setLoading(true);
+    setError(null); 
+    setButtonState({ ...buttonState, isSubmitted: false });
     try {
       const response = await requestaCallback(data.fullName, data.phoneNumber, String(userID));
       console.log("Callback request submitted successfully:", response);
-      // Update button text and color on success
       setButtonState({ buttonText: "Request Submitted Successfully", isSubmitted: true });
-      // Reset the form after successful submission
-      reset(); // Clears all form fields including rating and comment
-      // Reset button text and color after 3 seconds
+      reset();
       setTimeout(() => {
         setButtonState({ buttonText: "Call Me", isSubmitted: false });
       }, 3000);
@@ -271,22 +268,15 @@ export const SearchResults = () => {
     }
   };
 
-
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>{error}</div>;
-
   if (notFound)
     return (
-      // <div className="flex justify-center items-center h-screen text-lg">
-      //   {notFound}
-      // </div>
       <div className="flex justify-center items-center h-screen">
         <NotFoundContent />
       </div>
     );
 
   return (
-    <section className="mt-[15px]">
+    <section className="mt-[28px]">
       {/* {/ Banner Content /} */}
       <div>
         <BannerContent bannerTitle="Home & Salon Service" />
@@ -311,22 +301,6 @@ export const SearchResults = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-8 border-b-2 max-sm:flex-wrap max-sm:gap-3 max-sm:items-start max-md:py-4">
           <div className="flex items-center space-x-5 max-sm:flex-wrap max-sm:gap-4 max-sm:space-x-0 max-sm:items-start ">
-            {/* {/ Sort By /} */}
-            {/* <div>
-              <select
-                name=""
-                id=""
-                className="w-32 bg-mindfulMildGrey text-sm text-mindfulBlack font-semibold border-[1px] border-mindfulGreySecondary px-3 py-2 cursor-pointer"
-              >
-                <option value="" selected disabled>
-                  Sort By
-                </option>
-                <option value="">Option 1</option>
-                <option value="">Option 2</option>
-              </select>
-            </div> */}
-
-            {/* {/ Type /} */}
             <div>
               <select
                 onChange={handleServiceProviderTypeChange}
@@ -405,9 +379,7 @@ export const SearchResults = () => {
         <div className="grid xl:grid-cols-[70%_30%] grid-cols-[100%] py-5">
           <div className="">
             {loading ? (
-              // Show shimmer effect while loading
               <div>
-                {/* {/ <ShimmerCategoryItems mode="light" / > /} */}
                 <ShimmerContentBlock
                   mode="light"
                   rounded={1}
@@ -421,7 +393,6 @@ export const SearchResults = () => {
                 />
               </div>
             ) : (
-              // Show the service provider cards once loading is done
               <div>
                 {serviceProvider.map((provider) => (
                   <ServiceBookingCard
@@ -448,45 +419,6 @@ export const SearchResults = () => {
                 ))}
               </div>
             )}
-
-            {/* {serviceProvider.map((provider) => (
-              <ServiceBookingCard
-                key={provider.provider_id} // You can use a better unique identifier if available (like provider ID)
-                serviceProviderID={provider.provider_id}
-                serviceProviderName={provider.provider_name}
-                serviceProviderRating={parseFloat(provider.rating)}
-                city={provider.provider_city}
-                state={provider.provider_state}
-                distance={parseFloat(provider.distance_km)}
-                verifiedCheckmark={provider.verified}
-                serviceName={provider.service_name}
-                allServices={provider.all_services}
-                reviewCount={provider.review_count}
-                serviceType={provider.service_type}
-              />
-            ))} */}
-
-            {/* 
-            <ServiceBookingCard
-              serviceProviderName="Nezeera Ansu"
-              serviceProviderRating={4.82}
-              location="Edapally, Ernakulam"
-              distance={1.5}
-            />
-
-            <ServiceBookingCard
-              serviceProviderName="Head And Face Unisex"
-              serviceProviderRating={4.82}
-              location="Edapally, Ernakulam"
-              distance={1.5}
-            />
-
-            <ServiceBookingCard
-              serviceProviderName="Neha Beauty Saloon"
-              serviceProviderRating={4.82}
-              location="Edapally, Ernakulam"
-              distance={1.5}
-            /> */}
 
             {/* Request a CallBack */}
             <div className="bg-RequestaCallBack bg-no-repeat bg-cover bg-center rounded-[8px] mb-8 hidden lg:block">

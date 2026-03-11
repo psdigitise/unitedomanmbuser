@@ -198,7 +198,7 @@ export const Overview = () => {
   // }
 
   return (
-    <section ref={cartItemAreaRef} className="mt-[15px]">
+    <section ref={cartItemAreaRef} className="mt-[28px]">
       {/* {/ Banner Content /} */}
       <div>
         {/* <BannerContent bannerTitle="Salon Service" /> */}

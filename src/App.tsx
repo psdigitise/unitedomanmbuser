@@ -99,6 +99,8 @@ function App() {
           </Route>
 
           {/* Login Layout Routes */}
+          {/* <Route path="/" element={<LoginLayout />}> */}
+
           <Route path="/" element={<LoginLayout />}>
             {/* Protected Route */}
             {/* <Route path='/' element={<ProtectedRoute><LoginLayout /></ProtectedRoute>}> */}

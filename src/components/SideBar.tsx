@@ -1,14 +1,14 @@
 import React from "react";
 import { TiPower } from "react-icons/ti";
 import { FiLock } from "react-icons/fi";
-import { FaRegUser } from "react-icons/fa6";
+// import { FaRegUser } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { persistor, RootState } from "../redux/store";
 import { clearCart, logout } from "../redux/cartSlice";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toggleLoginPopup } from "../redux/loginSlice";
-import { toggleRegisterPopup } from "../redux/registerSlice";
+// import { toggleRegisterPopup } from "../redux/registerSlice";
 
 interface SideBarProps {
   closeSidebar: () => void;
@@ -34,10 +34,10 @@ export const SideBar: React.FC<SideBarProps> = ({ closeSidebar }) => {
     closeSidebar();
   };
 
-  const handleRegisterClick = () => {
-    dispatch(toggleRegisterPopup());
-    closeSidebar();
-  };
+  // const handleRegisterClick = () => {
+  //   dispatch(toggleRegisterPopup());
+  //   closeSidebar();
+  // };
 
   // Reusable style for menu items
   const menuLiStyle =
@@ -75,12 +75,12 @@ export const SideBar: React.FC<SideBarProps> = ({ closeSidebar }) => {
               >
                 <FiLock className="mr-2" /> Login
               </button>
-              <button
+              {/* <button
                 onClick={handleRegisterClick}
                 className="w-full py-3 bg-[#1a233a] text-white rounded-lg font-semibold flex items-center justify-center hover:bg-[#2a3654] transition-all shadow-md"
               >
                 <FaRegUser className="mr-2" /> Register
-              </button>
+              </button> */}
             </div>
           ) : (
             <button
@@ -112,15 +112,15 @@ export const SideBar: React.FC<SideBarProps> = ({ closeSidebar }) => {
                 Contact
               </li>
             </NavLink> */}
-            <NavLink to="/" onClick={closeSidebar}>
+            <NavLink to="/SearchResults" onClick={closeSidebar}>
               <li className={menuLiStyle}>Categories</li>
             </NavLink>
 
-            <NavLink to="/" onClick={closeSidebar}>
+            <NavLink to="/Overview?provider_id=420&branch_id=165" onClick={closeSidebar}>
               <li className={menuLiStyle}>Pricing</li>
             </NavLink>
 
-            <NavLink to="/" onClick={closeSidebar}>
+            <NavLink to="/contact" onClick={closeSidebar}>
               <li className={menuLiStyle}>
                 Contact
               </li>
